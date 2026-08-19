@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "procurement-intelligence-supplier-risk-peru"
+version = "0.1.0"
+description = "Reproducible procurement intelligence pipeline for official Peruvian open contracting data."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [
+  { name = "Edelson Anghuelo Orihuela Jara" }
+]
+
+[project.scripts]
+download-oece-ocds = "procurement_intelligence.extraction.download_ocds:main"
+profile-oece-ocds = "procurement_intelligence.profiling.profile_ocds_csv:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-ra"

@@ -1,0 +1,1176 @@
+{
+  "schema_version": "1.0",
+  "generated_at_utc": "2026-08-19T20:50:05.069368+00:00",
+  "source": {
+    "publisher": "OECE",
+    "archive_filename": "2026-07_seace_v3_csv.zip",
+    "archive_size_bytes": 8052765,
+    "archive_sha256": "024ef9eb7a282de74559ea78ba149ff87aa041d7c92947795ac354d49f0ba4e8"
+  },
+  "summary": {
+    "table_count": 22,
+    "total_rows_across_tables": 231123,
+    "total_cells": 2359020,
+    "total_null_cells": 304801,
+    "overall_null_pct": 12.9207,
+    "total_duplicate_rows_within_tables": 10,
+    "total_uncompressed_size_bytes": 65839313,
+    "estimated_dataframe_memory_bytes": 79694079,
+    "profiling_duration_seconds": 45.7273
+  },
+  "referential_integrity": {
+    "root_table": "records.csv",
+    "all_checks_passed": true,
+    "checks": [
+      {
+        "child_table": "com_awa_ite_additionalClassific.csv",
+        "child_column": "ocid",
+        "parent_table": "records.csv",
+        "parent_column": "ocid",
+        "child_non_null_rows": 2942,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_awa_ite_additionalClassific.csv",
+        "child_column": "compiledRelease/id",
+        "parent_table": "records.csv",
+        "parent_column": "compiledRelease/id",
+        "child_non_null_rows": 2942,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_awa_ite_tot_exchangeRates.csv",
+        "child_column": "ocid",
+        "parent_table": "records.csv",
+        "parent_column": "ocid",
+        "child_non_null_rows": 86,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_awa_ite_tot_exchangeRates.csv",
+        "child_column": "compiledRelease/id",
+        "parent_table": "records.csv",
+        "parent_column": "compiledRelease/id",
+        "child_non_null_rows": 86,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_awa_items.csv",
+        "child_column": "ocid",
+        "parent_table": "records.csv",
+        "parent_column": "ocid",
+        "child_non_null_rows": 3590,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_awa_items.csv",
+        "child_column": "compiledRelease/id",
+        "parent_table": "records.csv",
+        "parent_column": "compiledRelease/id",
+        "child_non_null_rows": 3590,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_awa_suppliers.csv",
+        "child_column": "ocid",
+        "parent_table": "records.csv",
+        "parent_column": "ocid",
+        "child_non_null_rows": 3396,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_awa_suppliers.csv",
+        "child_column": "compiledRelease/id",
+        "parent_table": "records.csv",
+        "parent_column": "compiledRelease/id",
+        "child_non_null_rows": 3396,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_awa_val_exchangeRates.csv",
+        "child_column": "ocid",
+        "parent_table": "records.csv",
+        "parent_column": "ocid",
+        "child_non_null_rows": 86,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_awa_val_exchangeRates.csv",
+        "child_column": "compiledRelease/id",
+        "parent_table": "records.csv",
+        "parent_column": "compiledRelease/id",
+        "child_non_null_rows": 86,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_awards.csv",
+        "child_column": "ocid",
+        "parent_table": "records.csv",
+        "parent_column": "ocid",
+        "child_non_null_rows": 3397,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_awards.csv",
+        "child_column": "compiledRelease/id",
+        "parent_table": "records.csv",
+        "parent_column": "compiledRelease/id",
+        "child_non_null_rows": 3397,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_con_documents.csv",
+        "child_column": "ocid",
+        "parent_table": "records.csv",
+        "parent_column": "ocid",
+        "child_non_null_rows": 1414,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_con_documents.csv",
+        "child_column": "compiledRelease/id",
+        "parent_table": "records.csv",
+        "parent_column": "compiledRelease/id",
+        "child_non_null_rows": 1414,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_con_ite_additionalClassific.csv",
+        "child_column": "ocid",
+        "parent_table": "records.csv",
+        "parent_column": "ocid",
+        "child_non_null_rows": 934,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_con_ite_additionalClassific.csv",
+        "child_column": "compiledRelease/id",
+        "parent_table": "records.csv",
+        "parent_column": "compiledRelease/id",
+        "child_non_null_rows": 934,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_con_ite_tot_exchangeRates.csv",
+        "child_column": "ocid",
+        "parent_table": "records.csv",
+        "parent_column": "ocid",
+        "child_non_null_rows": 60,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_con_ite_tot_exchangeRates.csv",
+        "child_column": "compiledRelease/id",
+        "parent_table": "records.csv",
+        "parent_column": "compiledRelease/id",
+        "child_non_null_rows": 60,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_con_items.csv",
+        "child_column": "ocid",
+        "parent_table": "records.csv",
+        "parent_column": "ocid",
+        "child_non_null_rows": 1139,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_con_items.csv",
+        "child_column": "compiledRelease/id",
+        "parent_table": "records.csv",
+        "parent_column": "compiledRelease/id",
+        "child_non_null_rows": 1139,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_con_val_exchangeRates.csv",
+        "child_column": "ocid",
+        "parent_table": "records.csv",
+        "parent_column": "ocid",
+        "child_non_null_rows": 60,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_con_val_exchangeRates.csv",
+        "child_column": "compiledRelease/id",
+        "parent_table": "records.csv",
+        "parent_column": "compiledRelease/id",
+        "child_non_null_rows": 60,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_contracts.csv",
+        "child_column": "ocid",
+        "parent_table": "records.csv",
+        "parent_column": "ocid",
+        "child_non_null_rows": 1119,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_contracts.csv",
+        "child_column": "compiledRelease/id",
+        "parent_table": "records.csv",
+        "parent_column": "compiledRelease/id",
+        "child_non_null_rows": 1119,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_par_additionalIdentifiers.csv",
+        "child_column": "ocid",
+        "parent_table": "records.csv",
+        "parent_column": "ocid",
+        "child_non_null_rows": 6452,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_par_additionalIdentifiers.csv",
+        "child_column": "compiledRelease/id",
+        "parent_table": "records.csv",
+        "parent_column": "compiledRelease/id",
+        "child_non_null_rows": 6452,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_parties.csv",
+        "child_column": "ocid",
+        "parent_table": "records.csv",
+        "parent_column": "ocid",
+        "child_non_null_rows": 40567,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_parties.csv",
+        "child_column": "compiledRelease/id",
+        "parent_table": "records.csv",
+        "parent_column": "compiledRelease/id",
+        "child_non_null_rows": 40567,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_sources.csv",
+        "child_column": "ocid",
+        "parent_table": "records.csv",
+        "parent_column": "ocid",
+        "child_non_null_rows": 6452,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_sources.csv",
+        "child_column": "compiledRelease/id",
+        "parent_table": "records.csv",
+        "parent_column": "compiledRelease/id",
+        "child_non_null_rows": 6452,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_ten_documents.csv",
+        "child_column": "ocid",
+        "parent_table": "records.csv",
+        "parent_column": "ocid",
+        "child_non_null_rows": 24516,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_ten_documents.csv",
+        "child_column": "compiledRelease/id",
+        "parent_table": "records.csv",
+        "parent_column": "compiledRelease/id",
+        "child_non_null_rows": 24516,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_ten_ite_additionalClassific.csv",
+        "child_column": "ocid",
+        "parent_table": "records.csv",
+        "parent_column": "ocid",
+        "child_non_null_rows": 6078,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_ten_ite_additionalClassific.csv",
+        "child_column": "compiledRelease/id",
+        "parent_table": "records.csv",
+        "parent_column": "compiledRelease/id",
+        "child_non_null_rows": 6078,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_ten_ite_tot_exchangeRates.csv",
+        "child_column": "ocid",
+        "parent_table": "records.csv",
+        "parent_column": "ocid",
+        "child_non_null_rows": 120,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_ten_ite_tot_exchangeRates.csv",
+        "child_column": "compiledRelease/id",
+        "parent_table": "records.csv",
+        "parent_column": "compiledRelease/id",
+        "child_non_null_rows": 120,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_ten_items.csv",
+        "child_column": "ocid",
+        "parent_table": "records.csv",
+        "parent_column": "ocid",
+        "child_non_null_rows": 7359,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_ten_items.csv",
+        "child_column": "compiledRelease/id",
+        "parent_table": "records.csv",
+        "parent_column": "compiledRelease/id",
+        "child_non_null_rows": 7359,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_ten_tenderers.csv",
+        "child_column": "ocid",
+        "parent_table": "records.csv",
+        "parent_column": "ocid",
+        "child_non_null_rows": 34115,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "com_ten_tenderers.csv",
+        "child_column": "compiledRelease/id",
+        "parent_table": "records.csv",
+        "parent_column": "compiledRelease/id",
+        "child_non_null_rows": 34115,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      },
+      {
+        "child_table": "releases.csv",
+        "child_column": "ocid",
+        "parent_table": "records.csv",
+        "parent_column": "ocid",
+        "child_non_null_rows": 80789,
+        "missing_parent_rows": 0,
+        "missing_parent_distinct_values": 0,
+        "passed": true
+      }
+    ]
+  },
+  "tables": [
+    {
+      "table": "com_awa_ite_additionalClassific.csv",
+      "row_count": 2942,
+      "column_count": 7,
+      "null_cells": 0,
+      "null_pct": 0.0,
+      "duplicate_rows": 0,
+      "duplicate_row_pct": 0.0,
+      "key_profiles": {
+        "ocid": {
+          "null_count": 0,
+          "distinct_count": 2727,
+          "duplicate_non_null_count": 215,
+          "is_unique_and_complete": false
+        },
+        "compiledRelease/id": {
+          "null_count": 0,
+          "distinct_count": 2727,
+          "duplicate_non_null_count": 215,
+          "is_unique_and_complete": false
+        }
+      },
+      "candidate_grain": {
+        "columns": [
+          "ocid",
+          "compiledRelease/awards/0/id",
+          "compiledRelease/awards/0/items/0/id",
+          "compiledRelease/awards/0/items/0/additionalClassifications/0/id"
+        ],
+        "missing_columns": [],
+        "null_key_rows": 0,
+        "duplicate_key_rows": 0,
+        "is_unique_and_complete": true
+      }
+    },
+    {
+      "table": "com_awa_ite_tot_exchangeRates.csv",
+      "row_count": 86,
+      "column_count": 6,
+      "null_cells": 0,
+      "null_pct": 0.0,
+      "duplicate_rows": 0,
+      "duplicate_row_pct": 0.0,
+      "key_profiles": {
+        "ocid": {
+          "null_count": 0,
+          "distinct_count": 86,
+          "duplicate_non_null_count": 0,
+          "is_unique_and_complete": true
+        },
+        "compiledRelease/id": {
+          "null_count": 0,
+          "distinct_count": 86,
+          "duplicate_non_null_count": 0,
+          "is_unique_and_complete": true
+        }
+      },
+      "candidate_grain": {
+        "columns": [
+          "ocid",
+          "compiledRelease/awards/0/id",
+          "compiledRelease/awards/0/items/0/id",
+          "compiledRelease/awards/0/items/0/totalValue/exchangeRates/0/currency"
+        ],
+        "missing_columns": [],
+        "null_key_rows": 0,
+        "duplicate_key_rows": 0,
+        "is_unique_and_complete": true
+      }
+    },
+    {
+      "table": "com_awa_items.csv",
+      "row_count": 3590,
+      "column_count": 18,
+      "null_cells": 1944,
+      "null_pct": 3.0084,
+      "duplicate_rows": 0,
+      "duplicate_row_pct": 0.0,
+      "key_profiles": {
+        "ocid": {
+          "null_count": 0,
+          "distinct_count": 3343,
+          "duplicate_non_null_count": 247,
+          "is_unique_and_complete": false
+        },
+        "compiledRelease/id": {
+          "null_count": 0,
+          "distinct_count": 3343,
+          "duplicate_non_null_count": 247,
+          "is_unique_and_complete": false
+        }
+      },
+      "candidate_grain": {
+        "columns": [
+          "ocid",
+          "compiledRelease/awards/0/id",
+          "compiledRelease/awards/0/items/0/id"
+        ],
+        "missing_columns": [],
+        "null_key_rows": 0,
+        "duplicate_key_rows": 0,
+        "is_unique_and_complete": true
+      }
+    },
+    {
+      "table": "com_awa_suppliers.csv",
+      "row_count": 3396,
+      "column_count": 5,
+      "null_cells": 0,
+      "null_pct": 0.0,
+      "duplicate_rows": 0,
+      "duplicate_row_pct": 0.0,
+      "key_profiles": {
+        "ocid": {
+          "null_count": 0,
+          "distinct_count": 3343,
+          "duplicate_non_null_count": 53,
+          "is_unique_and_complete": false
+        },
+        "compiledRelease/id": {
+          "null_count": 0,
+          "distinct_count": 3343,
+          "duplicate_non_null_count": 53,
+          "is_unique_and_complete": false
+        }
+      },
+      "candidate_grain": {
+        "columns": [
+          "ocid",
+          "compiledRelease/awards/0/id",
+          "compiledRelease/awards/0/suppliers/0/id"
+        ],
+        "missing_columns": [],
+        "null_key_rows": 0,
+        "duplicate_key_rows": 0,
+        "is_unique_and_complete": true
+      }
+    },
+    {
+      "table": "com_awa_val_exchangeRates.csv",
+      "row_count": 86,
+      "column_count": 5,
+      "null_cells": 0,
+      "null_pct": 0.0,
+      "duplicate_rows": 0,
+      "duplicate_row_pct": 0.0,
+      "key_profiles": {
+        "ocid": {
+          "null_count": 0,
+          "distinct_count": 86,
+          "duplicate_non_null_count": 0,
+          "is_unique_and_complete": true
+        },
+        "compiledRelease/id": {
+          "null_count": 0,
+          "distinct_count": 86,
+          "duplicate_non_null_count": 0,
+          "is_unique_and_complete": true
+        }
+      },
+      "candidate_grain": {
+        "columns": [
+          "ocid",
+          "compiledRelease/awards/0/id",
+          "compiledRelease/awards/0/value/exchangeRates/0/currency"
+        ],
+        "missing_columns": [],
+        "null_key_rows": 0,
+        "duplicate_key_rows": 0,
+        "is_unique_and_complete": true
+      }
+    },
+    {
+      "table": "com_awards.csv",
+      "row_count": 3397,
+      "column_count": 7,
+      "null_cells": 0,
+      "null_pct": 0.0,
+      "duplicate_rows": 0,
+      "duplicate_row_pct": 0.0,
+      "key_profiles": {
+        "ocid": {
+          "null_count": 0,
+          "distinct_count": 3343,
+          "duplicate_non_null_count": 54,
+          "is_unique_and_complete": false
+        },
+        "compiledRelease/id": {
+          "null_count": 0,
+          "distinct_count": 3343,
+          "duplicate_non_null_count": 54,
+          "is_unique_and_complete": false
+        }
+      },
+      "candidate_grain": {
+        "columns": [
+          "ocid",
+          "compiledRelease/awards/0/id"
+        ],
+        "missing_columns": [],
+        "null_key_rows": 0,
+        "duplicate_key_rows": 0,
+        "is_unique_and_complete": true
+      }
+    },
+    {
+      "table": "com_con_documents.csv",
+      "row_count": 1414,
+      "column_count": 10,
+      "null_cells": 12,
+      "null_pct": 0.0849,
+      "duplicate_rows": 0,
+      "duplicate_row_pct": 0.0,
+      "key_profiles": {
+        "ocid": {
+          "null_count": 0,
+          "distinct_count": 1102,
+          "duplicate_non_null_count": 312,
+          "is_unique_and_complete": false
+        },
+        "compiledRelease/id": {
+          "null_count": 0,
+          "distinct_count": 1102,
+          "duplicate_non_null_count": 312,
+          "is_unique_and_complete": false
+        }
+      },
+      "candidate_grain": {
+        "columns": [
+          "ocid",
+          "compiledRelease/contracts/0/id",
+          "compiledRelease/contracts/0/documents/0/id"
+        ],
+        "missing_columns": [],
+        "null_key_rows": 0,
+        "duplicate_key_rows": 0,
+        "is_unique_and_complete": true
+      }
+    },
+    {
+      "table": "com_con_ite_additionalClassific.csv",
+      "row_count": 934,
+      "column_count": 7,
+      "null_cells": 0,
+      "null_pct": 0.0,
+      "duplicate_rows": 0,
+      "duplicate_row_pct": 0.0,
+      "key_profiles": {
+        "ocid": {
+          "null_count": 0,
+          "distinct_count": 904,
+          "duplicate_non_null_count": 30,
+          "is_unique_and_complete": false
+        },
+        "compiledRelease/id": {
+          "null_count": 0,
+          "distinct_count": 904,
+          "duplicate_non_null_count": 30,
+          "is_unique_and_complete": false
+        }
+      },
+      "candidate_grain": {
+        "columns": [
+          "ocid",
+          "compiledRelease/contracts/0/id",
+          "compiledRelease/contracts/0/items/0/id",
+          "compiledRelease/contracts/0/items/0/additionalClassifications/0/id"
+        ],
+        "missing_columns": [],
+        "null_key_rows": 0,
+        "duplicate_key_rows": 0,
+        "is_unique_and_complete": true
+      }
+    },
+    {
+      "table": "com_con_ite_tot_exchangeRates.csv",
+      "row_count": 60,
+      "column_count": 6,
+      "null_cells": 0,
+      "null_pct": 0.0,
+      "duplicate_rows": 0,
+      "duplicate_row_pct": 0.0,
+      "key_profiles": {
+        "ocid": {
+          "null_count": 0,
+          "distinct_count": 60,
+          "duplicate_non_null_count": 0,
+          "is_unique_and_complete": true
+        },
+        "compiledRelease/id": {
+          "null_count": 0,
+          "distinct_count": 60,
+          "duplicate_non_null_count": 0,
+          "is_unique_and_complete": true
+        }
+      },
+      "candidate_grain": {
+        "columns": [
+          "ocid",
+          "compiledRelease/contracts/0/id",
+          "compiledRelease/contracts/0/items/0/id",
+          "compiledRelease/contracts/0/items/0/totalValue/exchangeRates/0/currency"
+        ],
+        "missing_columns": [],
+        "null_key_rows": 0,
+        "duplicate_key_rows": 0,
+        "is_unique_and_complete": true
+      }
+    },
+    {
+      "table": "com_con_items.csv",
+      "row_count": 1139,
+      "column_count": 18,
+      "null_cells": 615,
+      "null_pct": 2.9997,
+      "duplicate_rows": 0,
+      "duplicate_row_pct": 0.0,
+      "key_profiles": {
+        "ocid": {
+          "null_count": 0,
+          "distinct_count": 1102,
+          "duplicate_non_null_count": 37,
+          "is_unique_and_complete": false
+        },
+        "compiledRelease/id": {
+          "null_count": 0,
+          "distinct_count": 1102,
+          "duplicate_non_null_count": 37,
+          "is_unique_and_complete": false
+        }
+      },
+      "candidate_grain": {
+        "columns": [
+          "ocid",
+          "compiledRelease/contracts/0/id",
+          "compiledRelease/contracts/0/items/0/id"
+        ],
+        "missing_columns": [],
+        "null_key_rows": 0,
+        "duplicate_key_rows": 0,
+        "is_unique_and_complete": true
+      }
+    },
+    {
+      "table": "com_con_val_exchangeRates.csv",
+      "row_count": 60,
+      "column_count": 5,
+      "null_cells": 0,
+      "null_pct": 0.0,
+      "duplicate_rows": 0,
+      "duplicate_row_pct": 0.0,
+      "key_profiles": {
+        "ocid": {
+          "null_count": 0,
+          "distinct_count": 60,
+          "duplicate_non_null_count": 0,
+          "is_unique_and_complete": true
+        },
+        "compiledRelease/id": {
+          "null_count": 0,
+          "distinct_count": 60,
+          "duplicate_non_null_count": 0,
+          "is_unique_and_complete": true
+        }
+      },
+      "candidate_grain": {
+        "columns": [
+          "ocid",
+          "compiledRelease/contracts/0/id",
+          "compiledRelease/contracts/0/value/exchangeRates/0/currency"
+        ],
+        "missing_columns": [],
+        "null_key_rows": 0,
+        "duplicate_key_rows": 0,
+        "is_unique_and_complete": true
+      }
+    },
+    {
+      "table": "com_contracts.csv",
+      "row_count": 1119,
+      "column_count": 17,
+      "null_cells": 4475,
+      "null_pct": 23.5242,
+      "duplicate_rows": 0,
+      "duplicate_row_pct": 0.0,
+      "key_profiles": {
+        "ocid": {
+          "null_count": 0,
+          "distinct_count": 1102,
+          "duplicate_non_null_count": 17,
+          "is_unique_and_complete": false
+        },
+        "compiledRelease/id": {
+          "null_count": 0,
+          "distinct_count": 1102,
+          "duplicate_non_null_count": 17,
+          "is_unique_and_complete": false
+        }
+      },
+      "candidate_grain": {
+        "columns": [
+          "ocid",
+          "compiledRelease/contracts/0/id"
+        ],
+        "missing_columns": [],
+        "null_key_rows": 0,
+        "duplicate_key_rows": 0,
+        "is_unique_and_complete": true
+      }
+    },
+    {
+      "table": "com_par_additionalIdentifiers.csv",
+      "row_count": 6452,
+      "column_count": 6,
+      "null_cells": 0,
+      "null_pct": 0.0,
+      "duplicate_rows": 0,
+      "duplicate_row_pct": 0.0,
+      "key_profiles": {
+        "ocid": {
+          "null_count": 0,
+          "distinct_count": 6452,
+          "duplicate_non_null_count": 0,
+          "is_unique_and_complete": true
+        },
+        "compiledRelease/id": {
+          "null_count": 0,
+          "distinct_count": 6452,
+          "duplicate_non_null_count": 0,
+          "is_unique_and_complete": true
+        }
+      },
+      "candidate_grain": {
+        "columns": [
+          "ocid",
+          "compiledRelease/parties/0/id",
+          "compiledRelease/parties/0/additionalIdentifiers/0/id",
+          "compiledRelease/parties/0/additionalIdentifiers/0/scheme"
+        ],
+        "missing_columns": [],
+        "null_key_rows": 0,
+        "duplicate_key_rows": 0,
+        "is_unique_and_complete": true
+      }
+    },
+    {
+      "table": "com_parties.csv",
+      "row_count": 40567,
+      "column_count": 16,
+      "null_cells": 216334,
+      "null_pct": 33.3297,
+      "duplicate_rows": 0,
+      "duplicate_row_pct": 0.0,
+      "key_profiles": {
+        "ocid": {
+          "null_count": 0,
+          "distinct_count": 6452,
+          "duplicate_non_null_count": 34115,
+          "is_unique_and_complete": false
+        },
+        "compiledRelease/id": {
+          "null_count": 0,
+          "distinct_count": 6452,
+          "duplicate_non_null_count": 34115,
+          "is_unique_and_complete": false
+        }
+      },
+      "candidate_grain": {
+        "columns": [
+          "ocid",
+          "compiledRelease/parties/0/id"
+        ],
+        "missing_columns": [],
+        "null_key_rows": 0,
+        "duplicate_key_rows": 0,
+        "is_unique_and_complete": true
+      }
+    },
+    {
+      "table": "com_sources.csv",
+      "row_count": 6452,
+      "column_count": 5,
+      "null_cells": 0,
+      "null_pct": 0.0,
+      "duplicate_rows": 0,
+      "duplicate_row_pct": 0.0,
+      "key_profiles": {
+        "ocid": {
+          "null_count": 0,
+          "distinct_count": 6452,
+          "duplicate_non_null_count": 0,
+          "is_unique_and_complete": true
+        },
+        "compiledRelease/id": {
+          "null_count": 0,
+          "distinct_count": 6452,
+          "duplicate_non_null_count": 0,
+          "is_unique_and_complete": true
+        }
+      },
+      "candidate_grain": {
+        "columns": [
+          "ocid",
+          "compiledRelease/sources/0/id"
+        ],
+        "missing_columns": [],
+        "null_key_rows": 0,
+        "duplicate_key_rows": 0,
+        "is_unique_and_complete": true
+      }
+    },
+    {
+      "table": "com_ten_documents.csv",
+      "row_count": 24516,
+      "column_count": 12,
+      "null_cells": 41328,
+      "null_pct": 14.048,
+      "duplicate_rows": 0,
+      "duplicate_row_pct": 0.0,
+      "key_profiles": {
+        "ocid": {
+          "null_count": 0,
+          "distinct_count": 6452,
+          "duplicate_non_null_count": 18064,
+          "is_unique_and_complete": false
+        },
+        "compiledRelease/id": {
+          "null_count": 0,
+          "distinct_count": 6452,
+          "duplicate_non_null_count": 18064,
+          "is_unique_and_complete": false
+        }
+      },
+      "candidate_grain": {
+        "columns": [
+          "ocid",
+          "compiledRelease/tender/documents/0/id"
+        ],
+        "missing_columns": [],
+        "null_key_rows": 0,
+        "duplicate_key_rows": 0,
+        "is_unique_and_complete": true
+      }
+    },
+    {
+      "table": "com_ten_ite_additionalClassific.csv",
+      "row_count": 6078,
+      "column_count": 7,
+      "null_cells": 2,
+      "null_pct": 0.0047,
+      "duplicate_rows": 0,
+      "duplicate_row_pct": 0.0,
+      "key_profiles": {
+        "ocid": {
+          "null_count": 0,
+          "distinct_count": 5281,
+          "duplicate_non_null_count": 797,
+          "is_unique_and_complete": false
+        },
+        "compiledRelease/id": {
+          "null_count": 0,
+          "distinct_count": 5281,
+          "duplicate_non_null_count": 797,
+          "is_unique_and_complete": false
+        }
+      },
+      "candidate_grain": {
+        "columns": [
+          "ocid",
+          "compiledRelease/tender/items/0/id",
+          "compiledRelease/tender/items/0/additionalClassifications/0/id"
+        ],
+        "missing_columns": [],
+        "null_key_rows": 1,
+        "duplicate_key_rows": 0,
+        "is_unique_and_complete": false
+      }
+    },
+    {
+      "table": "com_ten_ite_tot_exchangeRates.csv",
+      "row_count": 120,
+      "column_count": 6,
+      "null_cells": 0,
+      "null_pct": 0.0,
+      "duplicate_rows": 10,
+      "duplicate_row_pct": 8.3333,
+      "key_profiles": {
+        "ocid": {
+          "null_count": 0,
+          "distinct_count": 108,
+          "duplicate_non_null_count": 12,
+          "is_unique_and_complete": false
+        },
+        "compiledRelease/id": {
+          "null_count": 0,
+          "distinct_count": 108,
+          "duplicate_non_null_count": 12,
+          "is_unique_and_complete": false
+        }
+      },
+      "candidate_grain": {
+        "columns": [
+          "ocid",
+          "compiledRelease/tender/items/0/id",
+          "compiledRelease/tender/items/0/totalValue/exchangeRates/0/currency"
+        ],
+        "missing_columns": [],
+        "null_key_rows": 0,
+        "duplicate_key_rows": 10,
+        "is_unique_and_complete": false
+      }
+    },
+    {
+      "table": "com_ten_items.csv",
+      "row_count": 7359,
+      "column_count": 18,
+      "null_cells": 3843,
+      "null_pct": 2.9012,
+      "duplicate_rows": 0,
+      "duplicate_row_pct": 0.0,
+      "key_profiles": {
+        "ocid": {
+          "null_count": 0,
+          "distinct_count": 6452,
+          "duplicate_non_null_count": 907,
+          "is_unique_and_complete": false
+        },
+        "compiledRelease/id": {
+          "null_count": 0,
+          "distinct_count": 6452,
+          "duplicate_non_null_count": 907,
+          "is_unique_and_complete": false
+        }
+      },
+      "candidate_grain": {
+        "columns": [
+          "ocid",
+          "compiledRelease/tender/items/0/id"
+        ],
+        "missing_columns": [],
+        "null_key_rows": 0,
+        "duplicate_key_rows": 0,
+        "is_unique_and_complete": true
+      }
+    },
+    {
+      "table": "com_ten_tenderers.csv",
+      "row_count": 34115,
+      "column_count": 5,
+      "null_cells": 0,
+      "null_pct": 0.0,
+      "duplicate_rows": 0,
+      "duplicate_row_pct": 0.0,
+      "key_profiles": {
+        "ocid": {
+          "null_count": 0,
+          "distinct_count": 4243,
+          "duplicate_non_null_count": 29872,
+          "is_unique_and_complete": false
+        },
+        "compiledRelease/id": {
+          "null_count": 0,
+          "distinct_count": 4243,
+          "duplicate_non_null_count": 29872,
+          "is_unique_and_complete": false
+        }
+      },
+      "candidate_grain": {
+        "columns": [
+          "ocid",
+          "compiledRelease/tender/tenderers/0/id"
+        ],
+        "missing_columns": [],
+        "null_key_rows": 0,
+        "duplicate_key_rows": 0,
+        "is_unique_and_complete": true
+      }
+    },
+    {
+      "table": "records.csv",
+      "row_count": 6452,
+      "column_count": 38,
+      "null_cells": 36248,
+      "null_pct": 14.7845,
+      "duplicate_rows": 0,
+      "duplicate_row_pct": 0.0,
+      "key_profiles": {
+        "ocid": {
+          "null_count": 0,
+          "distinct_count": 6452,
+          "duplicate_non_null_count": 0,
+          "is_unique_and_complete": true
+        },
+        "compiledRelease/id": {
+          "null_count": 0,
+          "distinct_count": 6452,
+          "duplicate_non_null_count": 0,
+          "is_unique_and_complete": true
+        }
+      },
+      "candidate_grain": {
+        "columns": [
+          "ocid"
+        ],
+        "missing_columns": [],
+        "null_key_rows": 0,
+        "duplicate_key_rows": 0,
+        "is_unique_and_complete": true
+      }
+    },
+    {
+      "table": "releases.csv",
+      "row_count": 80789,
+      "column_count": 7,
+      "null_cells": 0,
+      "null_pct": 0.0,
+      "duplicate_rows": 0,
+      "duplicate_row_pct": 0.0,
+      "key_profiles": {
+        "ocid": {
+          "null_count": 0,
+          "distinct_count": 6452,
+          "duplicate_non_null_count": 74337,
+          "is_unique_and_complete": false
+        }
+      },
+      "candidate_grain": {
+        "columns": [
+          "ocid",
+          "releases/0/details/id"
+        ],
+        "missing_columns": [],
+        "null_key_rows": 0,
+        "duplicate_key_rows": 0,
+        "is_unique_and_complete": true
+      }
+    }
+  ]
+}

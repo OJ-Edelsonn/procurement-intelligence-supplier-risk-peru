@@ -1,3 +1,4 @@
 -r requirements.txt
+-e .
 jupyterlab==4.6.3
 pytest==9.1.1

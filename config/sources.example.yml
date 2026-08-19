@@ -21,11 +21,16 @@ sources:
     landing_page: https://contratacionesabiertas.oece.gob.pe/
     downloads_page: https://contratacionesabiertas.oece.gob.pe/descargas
     api_page: https://contratacionesabiertas.oece.gob.pe/api
+    endpoint_templates:
+      csv: https://contratacionesabiertas.oece.gob.pe/api/v1/file/seace_v3/csv/{year}/{month}
+      json: https://contratacionesabiertas.oece.gob.pe/api/v1/file/seace_v3/json/{year}/{month}
+      sha: https://contratacionesabiertas.oece.gob.pe/api/v1/file/seace_v3/sha/{year}/{month}
     expected_formats:
       - csv
       - json
       - xlsx
     refresh_expectation: daily
+    checksum_scope: uncompressed_json_payload
   oece_complementary_xlsx:
     role: validation_and_separate_modules
     landing_page: https://contratacionesabiertas.oece.gob.pe/descargas
@@ -35,3 +40,12 @@ storage:
   raw_data_in_git: false
   local_root_env_var: DATA_ROOT
   preserve_source_files: true
+
+pilot:
+  source: seace_v3
+  source_period: 2026-07
+  snapshot_date: 2026-08-19
+  formats:
+    - csv
+    - json
+    - sha
