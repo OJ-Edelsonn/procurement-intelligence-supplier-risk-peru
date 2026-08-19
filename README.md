@@ -2,7 +2,7 @@
 
 Solución end-to-end de Data/BI para analizar contratación pública peruana, inteligencia comercial y exposición a proveedores usando datos abiertos oficiales de OECE/SEACE.
 
-> Estado: inicialización técnica y definición del MVP. Todavía no se publican resultados analíticos ni métricas de negocio.
+> Estado: Fase 2 completada con una ingesta y perfilado piloto de julio de 2026. Todavía no se publican KPIs de negocio.
 
 ## Problema de negocio
 
@@ -51,12 +51,35 @@ La activación es opcional si se invoca directamente `.\.venv\Scripts\python.exe
 ```text
 config/                     Configuración versionable sin secretos
 docs/                       Caso de negocio, fuentes, decisiones y límites
+reports/profiling/          Resúmenes de calidad sin datos crudos
+src/                        Extracción y perfilado reproducibles
+tests/                      Pruebas automatizadas
 .env.example                Variables locales de ejemplo
 requirements.txt            Dependencias de ejecución
 requirements-dev.txt        Herramientas de desarrollo y análisis
 ```
 
-Las carpetas de código, SQL, pruebas y Power BI se incorporarán cuando contengan artefactos reales. Los datos crudos y archivos `.pbix` no se versionarán en Git.
+Las carpetas SQL y Power BI se incorporarán cuando contengan artefactos reales. Los datos crudos y archivos `.pbix` no se versionarán en Git.
+
+## Reproducir la ingesta piloto
+
+1. Copiar `.env.example` como `.env` y confirmar que `DATA_ROOT` apunta fuera de OneDrive.
+2. Descargar primero el JSON canónico y después las tablas CSV:
+
+```powershell
+.\.venv\Scripts\python.exe -m procurement_intelligence.extraction.download_ocds --format json --year 2026 --month 7 --snapshot-date 2026-08-19 --env-file .env
+.\.venv\Scripts\python.exe -m procurement_intelligence.extraction.download_ocds --format csv --year 2026 --month 7 --snapshot-date 2026-08-19 --env-file .env
+```
+
+3. Generar el perfil estructural:
+
+```powershell
+$archive = "C:\Data\procurement-intelligence-supplier-risk-peru\raw\oece\ocds\seace_v3\2026\07\snapshot_date=2026-08-19\2026-07_seace_v3_csv.zip"
+$profile = "C:\Data\procurement-intelligence-supplier-risk-peru\metadata\oece\ocds\seace_v3\2026\07\snapshot_date=2026-08-19\profile_csv_full.json"
+.\.venv\Scripts\python.exe -m procurement_intelligence.profiling.profile_ocds_csv $archive --output $profile --summary-output reports\profiling\oece_ocds_seace_v3_2026_07_summary.json
+```
+
+El detalle metodológico está en [docs/methodology/data_download_and_profiling.md](docs/methodology/data_download_and_profiling.md) y los resultados del piloto en [docs/results/phase2_data_profiling.md](docs/results/phase2_data_profiling.md).
 
 ## Fuentes oficiales
 
@@ -73,6 +96,8 @@ La evaluación de fuentes y sus limitaciones está en [docs/data_sources.md](doc
 - Configuración local y secretos fuera de Git.
 - Comparaciones YTD con igual corte temporal.
 - Pruebas de esquema, unicidad, completitud y reconciliación antes de publicar KPIs.
+- RAW particionado por periodo fuente y fecha de snapshot, sin sobrescritura.
+- Hash local para cada archivo y validación del checksum oficial sobre el JSON descomprimido.
 
 ## Licencias
 
