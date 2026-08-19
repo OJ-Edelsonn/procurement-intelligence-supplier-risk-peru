@@ -1,6 +1,7 @@
 project:
   timezone: America/Lima
   reporting_currency: PEN
+  governed_source_registry: config/source_registry.yml
 
 scope:
   start_date: 2023-01-01
@@ -17,23 +18,15 @@ scope:
 
 sources:
   oece_ocds:
+    source_id: oece_ocds_seace_v3_bulk
     role: primary
-    landing_page: https://contratacionesabiertas.oece.gob.pe/
-    downloads_page: https://contratacionesabiertas.oece.gob.pe/descargas
-    api_page: https://contratacionesabiertas.oece.gob.pe/api
-    endpoint_templates:
-      csv: https://contratacionesabiertas.oece.gob.pe/api/v1/file/seace_v3/csv/{year}/{month}
-      json: https://contratacionesabiertas.oece.gob.pe/api/v1/file/seace_v3/json/{year}/{month}
-      sha: https://contratacionesabiertas.oece.gob.pe/api/v1/file/seace_v3/sha/{year}/{month}
-    expected_formats:
-      - csv
-      - json
-      - xlsx
-    refresh_expectation: daily
+    enabled: true
+    source_system: seace_v3
     checksum_scope: uncompressed_json_payload
   oece_complementary_xlsx:
+    source_id: oece_complementary_open_data
     role: validation_and_separate_modules
-    landing_page: https://contratacionesabiertas.oece.gob.pe/descargas
+    enabled: false
     note: No combinar granularidades sin una llave y reconciliación documentadas.
 
 storage:
