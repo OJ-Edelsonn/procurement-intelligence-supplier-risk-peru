@@ -1,0 +1,37 @@
+project:
+  timezone: America/Lima
+  reporting_currency: PEN
+
+scope:
+  start_date: 2023-01-01
+  end_date: 2026-07-31
+  full_years:
+    - 2023
+    - 2024
+    - 2025
+  ytd_year: 2026
+  ytd_cutoff_month: 7
+  comparison_periods:
+    - 2025-01-01/2025-07-31
+    - 2026-01-01/2026-07-31
+
+sources:
+  oece_ocds:
+    role: primary
+    landing_page: https://contratacionesabiertas.oece.gob.pe/
+    downloads_page: https://contratacionesabiertas.oece.gob.pe/descargas
+    api_page: https://contratacionesabiertas.oece.gob.pe/api
+    expected_formats:
+      - csv
+      - json
+      - xlsx
+    refresh_expectation: daily
+  oece_complementary_xlsx:
+    role: validation_and_separate_modules
+    landing_page: https://contratacionesabiertas.oece.gob.pe/descargas
+    note: No combinar granularidades sin una llave y reconciliación documentadas.
+
+storage:
+  raw_data_in_git: false
+  local_root_env_var: DATA_ROOT
+  preserve_source_files: true
