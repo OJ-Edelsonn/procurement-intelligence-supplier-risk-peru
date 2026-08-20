@@ -1,5 +1,7 @@
 # Fuentes de datos
 
+> El inventario vigente, con enlaces, estado de uso, cobertura, limitaciones, hashes y evidencia de adquisiciones, está en el [registro maestro de fuentes](data_sources/source_registry.md). Su fuente estructurada es `config/source_registry.yml`.
+
 ## Fuente principal: OECE OCDS
 
 El Portal de Contrataciones Abiertas de OECE publica información de contratación estatal en el estándar Open Contracting Data Standard (OCDS). Para el MVP será la fuente analítica principal porque ofrece relaciones explícitas entre partes, planificación, licitación, adjudicaciones y contratos.
@@ -42,3 +44,5 @@ Los XLSX de convocatorias, adjudicaciones, contratos, órdenes, PAC, ofertas, pr
 ## Política temporal
 
 El corte aprobado es 31 de julio de 2026. Los años 2023–2025 se analizarán completos; 2026 se tratará como YTD. Toda comparación con 2026 deberá usar el mismo intervalo de meses del año comparado.
+
+Este documento conserva la evaluación conceptual inicial. En caso de discrepancia factual sobre una URL o adquisición, prevalece el registro maestro validado.

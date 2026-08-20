@@ -1,0 +1,240 @@
+registry:
+  schema_version: "1.0"
+  title: Registro maestro de fuentes y evidencia de adquisición
+  last_reviewed: 2026-08-19
+  owner: Procurement Intelligence & Supplier Risk - Perú
+  repository: https://github.com/OJ-Edelsonn/procurement-intelligence-supplier-risk-peru
+  policy:
+    - No presentar una fuente candidata como utilizada.
+    - Registrar una evidencia de adquisición por cada snapshot efectivamente descargado.
+    - Conservar URL, periodo, fecha de snapshot, tamaño y SHA-256 de cada archivo RAW.
+    - Mantener los términos y la atribución del publicador; el código MIT no relicencia los datos.
+    - Validar granularidad y cobertura antes de combinar fuentes.
+
+sources:
+  - source_id: oece_ocds_seace_v3_bulk
+    name: Descargas masivas OCDS de SEACE V3
+    publisher: Organismo Especializado para las Contrataciones Públicas Eficientes (OECE)
+    authority: official_publisher
+    category: primary_data
+    status: active_used
+    used_in_project: true
+    purpose: Fuente principal del MVP para procedimientos, partes, licitaciones, adjudicaciones y contratos.
+    scope_and_coverage:
+      - Archivos compilados por año y mes de convocatoria del procedimiento.
+      - Si no existe fecha de convocatoria, OECE segmenta por fecha de publicación del proceso.
+      - El alcance analítico aprobado comprende 2023-2025 completos y enero-julio de 2026.
+      - SEACE V2 y SEACE V3 son universos publicados por separado; el MVP usa SEACE V3.
+    limitations:
+      - La suma de filas entre tablas no equivale al número de procedimientos.
+      - Los releases conservan historia, pero no constituyen por sí solos un hecho de gasto.
+      - La cobertura de campos de ejecución contractual debe medirse antes de crear KPIs.
+    official_urls:
+      portal: https://contratacionesabiertas.oece.gob.pe/
+      downloads: https://contratacionesabiertas.oece.gob.pe/descargas
+      api_documentation: https://contratacionesabiertas.oece.gob.pe/api
+    endpoint_templates:
+      csv: https://contratacionesabiertas.oece.gob.pe/api/v1/file/seace_v3/csv/{year}/{month}
+      csv_spanish: https://contratacionesabiertas.oece.gob.pe/api/v1/file/seace_v3/csv/{year}/{month}/es
+      json: https://contratacionesabiertas.oece.gob.pe/api/v1/file/seace_v3/json/{year}/{month}
+      sha: https://contratacionesabiertas.oece.gob.pe/api/v1/file/seace_v3/sha/{year}/{month}
+      xlsx: https://contratacionesabiertas.oece.gob.pe/api/v1/file/seace_v3/xlsx/{year}/{month}
+      xlsx_spanish: https://contratacionesabiertas.oece.gob.pe/api/v1/file/seace_v3/xlsx/{year}/{month}/es
+    formats: [CSV_ZIP, JSON_ZIP, XLSX_ZIP, SHA256]
+    access_method: Descarga HTTPS mediante endpoints mensuales documentados por OECE.
+    update_frequency: Publicación por cortes mensuales; verificar la fecha de actualización mostrada por el portal en cada adquisición.
+    license_or_terms: No se identificó una licencia de datos explícita en las páginas verificadas; conservar atribución y revisar términos antes de redistribuir.
+    last_link_verification:
+      date: 2026-08-19
+      method: HTTP GET y revisión del portal/API oficial
+      result: PASS
+
+  - source_id: oece_ocds_data_dictionary
+    name: Diccionario de datos OCDS de OECE
+    publisher: Organismo Especializado para las Contrataciones Públicas Eficientes (OECE)
+    authority: official_publisher
+    category: reference_documentation
+    status: reference_only
+    used_in_project: true
+    purpose: Documentar el significado y la estructura de los campos publicados por OECE.
+    scope_and_coverage:
+      - Diccionario oficial disponible en XLSX y PDF desde la página de descargas OCDS.
+    limitations:
+      - La semántica documentada no sustituye el perfilado del archivo realmente descargado.
+    official_urls:
+      xlsx: https://contratacionesabiertas.oece.gob.pe/downloads/Diccionario%20de%20datos%20OCDS.xlsx
+      pdf: https://contratacionesabiertas.oece.gob.pe/downloads/Diccionario%20de%20datos%20OCDS.pdf
+    formats: [XLSX, PDF]
+    access_method: Descarga HTTPS desde el portal oficial.
+    update_frequency: No declarada en la página verificada.
+    license_or_terms: No confirmados; conservar atribución al OECE.
+    last_link_verification:
+      date: 2026-08-19
+      method: HTTP GET; tipo de contenido y tamaño verificados
+      result: PASS
+
+  - source_id: ocp_ocds_standard
+    name: Open Contracting Data Standard (OCDS)
+    publisher: Open Contracting Partnership (OCP)
+    authority: standards_publisher
+    category: reference_documentation
+    status: reference_only
+    used_in_project: true
+    purpose: Referencia normativa del esquema OCDS, OCID, releases y records usados por OECE.
+    scope_and_coverage:
+      - Documentación de la versión vigente publicada bajo la ruta latest en español.
+      - Guía conceptual sobre paquetes de releases y records.
+    limitations:
+      - La ruta latest puede cambiar de versión; cada ingesta debe conservar la versión declarada en el payload.
+    official_urls:
+      standard: https://standard.open-contracting.org/latest/es/
+      releases_and_records: https://standard.open-contracting.org/latest/es/primer/releases_and_records/
+      ocid: https://standard.open-contracting.org/1.1/es/schema/identifiers/#contracting-process-identifier-ocid
+      releases_reference: https://standard.open-contracting.org/latest/es/schema/reference/
+      records_reference: https://standard.open-contracting.org/latest/es/schema/records_reference/
+    formats: [HTML, JSON_SCHEMA]
+    access_method: Consulta web.
+    update_frequency: Gestionada por OCP; verificar la versión declarada al usarla.
+    license_or_terms: Consultar la licencia de la versión OCDS utilizada en el sitio oficial.
+    last_link_verification:
+      date: 2026-08-19
+      method: HTTP GET de la documentación principal y la guía
+      result: PASS
+
+  - source_id: oece_complementary_open_data
+    name: Portal de Datos Abiertos del OECE
+    publisher: Organismo Especializado para las Contrataciones Públicas Eficientes (OECE)
+    authority: official_publisher
+    category: complementary_data
+    status: candidate_not_ingested
+    used_in_project: false
+    purpose: Candidato para validaciones y módulos separados de PAC, proveedores, consorcios, órdenes, entidades y otros conjuntos.
+    scope_and_coverage:
+      - La ficha oficial declara información desde 2018.
+      - La actualización declarada es mensual, dentro de los primeros cinco días del mes.
+      - Incluye PAC, procedimientos, contratos, proveedores, consorcios, entidades, órdenes y otros conjuntos.
+    limitations:
+      - La ficha indica que no incluye procedimientos en curso ni información incompleta de adjudicación.
+      - No se combinará con OCDS hasta validar llaves, periodo y granularidad.
+      - La URL interna del servicio puede cambiar; se conserva la ficha estable de gob.pe.
+    official_urls:
+      service_landing: https://www.gob.pe/14272-acceder-al-portal-de-datos-abiertos-del-oece
+    formats: [XLSX, OTHER_TABULAR]
+    access_method: Acceso a través de la ficha oficial de servicio.
+    update_frequency: Mensual, dentro de los primeros cinco días, según la ficha oficial.
+    license_or_terms: No confirmados; revisar por dataset antes de usar.
+    last_link_verification:
+      date: 2026-08-19
+      method: HTTP GET y revisión de la ficha oficial
+      result: PASS
+
+  - source_id: peru_national_open_data_seace_catalog
+    name: Catálogo Nacional de Datos Abiertos - búsqueda SEACE
+    publisher: Plataforma Nacional de Datos Abiertos del Estado peruano
+    authority: official_government_catalog
+    category: discovery_catalog
+    status: candidate_not_ingested
+    used_in_project: false
+    purpose: Descubrir fichas oficiales complementarias y sus metadatos sin sustituir al publicador de cada dataset.
+    scope_and_coverage:
+      - Resultados catalogados relacionados con SEACE, OECE y contratación pública.
+    limitations:
+      - Es un catálogo; la autoridad, cobertura y licencia deben verificarse en cada ficha individual.
+    official_urls:
+      search: https://www.datosabiertos.gob.pe/?query=seace&sort_by=changed&sort_order=DESC
+    formats: [HTML, DATASET_METADATA]
+    access_method: Consulta web del catálogo nacional.
+    update_frequency: Variable por dataset.
+    license_or_terms: Variable por dataset; revisar la ficha específica.
+    last_link_verification:
+      date: 2026-08-19
+      method: HTTP GET y revisión de resultados
+      result: PASS
+
+  - source_id: inei_ubigeo_open_data
+    name: Código de ubicación geográfica en el Perú (UBIGEO)
+    publisher: Instituto Nacional de Estadística e Informática (INEI)
+    authority: official_publisher
+    category: reference_dimension
+    status: candidate_not_ingested
+    used_in_project: false
+    purpose: Candidato para normalizar departamento, provincia y distrito en una futura dimensión geográfica.
+    scope_and_coverage:
+      - Ficha de dataset y diccionario de códigos de ubicación geográfica del Perú.
+      - El portal IDE INEI ofrece capas geográficas descargables como referencia complementaria.
+    limitations:
+      - Aún no se ha descargado ni conciliado con las direcciones de OECE.
+      - Debe fijarse versión y vigencia antes de poblar la dimensión geográfica.
+    official_urls:
+      dataset: https://www.datosabiertos.gob.pe/dataset/c%C3%B3digo-de-ubicaci%C3%B3n-geogr%C3%A1fica-en-el-per%C3%BA-instituto-nacional-de-estad%C3%ADstica-e-inform%C3%A1tica
+      geospatial_portal: https://ide.inei.gob.pe/
+    formats: [TABULAR_DATASET, DATA_DICTIONARY, GEOSPATIAL]
+    access_method: Descarga desde portales oficiales.
+    update_frequency: Verificar vigencia en cada versión publicada.
+    license_or_terms: Revisar la ficha y los metadatos del recurso antes de usar.
+    last_link_verification:
+      date: 2026-08-19
+      method: Revisión de resultados oficiales; pendiente verificar los recursos descargables
+      result: PARTIAL
+
+  - source_id: project_github_repository
+    name: Repositorio del proyecto
+    publisher: Edelson Anghuelo Orihuela Jara
+    authority: project_owner
+    category: project_provenance
+    status: active_used
+    used_in_project: true
+    purpose: Conservar código, documentación, pruebas y decisiones que permiten reproducir el tratamiento de datos.
+    scope_and_coverage:
+      - No almacena datos RAW ni archivos PBIX.
+      - Versiona configuración no sensible, manifiestos resumidos, documentación y código.
+    limitations:
+      - El repositorio demuestra el procesamiento, pero no sustituye los archivos RAW conservados fuera de Git.
+    official_urls:
+      repository: https://github.com/OJ-Edelsonn/procurement-intelligence-supplier-risk-peru
+    formats: [GIT, MARKDOWN, PYTHON, YAML]
+    access_method: Git y HTTPS.
+    update_frequency: Por cambios versionados del proyecto.
+    license_or_terms: Código bajo MIT; datos sujetos a los términos de sus publicadores.
+    last_link_verification:
+      date: 2026-08-19
+      method: HTTP GET del repositorio
+      result: PASS
+
+acquisition_events:
+  - acquisition_id: oece_ocds_seace_v3_2026_07_2026_08_19
+    source_id: oece_ocds_seace_v3_bulk
+    source_period: 2026-07
+    snapshot_date: 2026-08-19
+    status: verified
+    raw_path_pattern: ${DATA_ROOT}/raw/oece/ocds/seace_v3/2026/07/snapshot_date=2026-08-19
+    metadata_path_pattern: ${DATA_ROOT}/metadata/oece/ocds/seace_v3/2026/07/snapshot_date=2026-08-19
+    evidence:
+      - artifact: 2026-07_seace_v3_csv.zip
+        format: CSV_ZIP
+        url: https://contratacionesabiertas.oece.gob.pe/api/v1/file/seace_v3/csv/2026/07
+        size_bytes: 8052765
+        sha256_local_file: 024ef9eb7a282de74559ea78ba149ff87aa041d7c92947795ac354d49f0ba4e8
+        publisher_checksum_applies: false
+      - artifact: 2026-07_seace_v3_json.zip
+        format: JSON_ZIP
+        url: https://contratacionesabiertas.oece.gob.pe/api/v1/file/seace_v3/json/2026/07
+        size_bytes: 7718087
+        sha256_local_file: d737e3670cb6ba7f30db7a3b0cc6adafae6ca052df24cc7927668dcfc6698e57
+        uncompressed_payload_size_bytes: 76209866
+        publisher_checksum_applies: true
+        publisher_sha256_uncompressed_payload: ef6c3b3bc5ace5b4a81b1e2efbac222f72b6bd958af3483ca1d03723426d6d95
+        publisher_checksum_verified: true
+      - artifact: 2026-07_seace_v3.sha
+        format: SHA256
+        url: https://contratacionesabiertas.oece.gob.pe/api/v1/file/seace_v3/sha/2026/07
+        size_bytes: 64
+        sha256_local_file: 9176f15ebb122c5238ac33a76650406a82b7ac0c30fc9b2ff1d32de236cda297
+        publisher_checksum_applies: false
+    profiling_evidence:
+      report: reports/profiling/oece_ocds_seace_v3_2026_07_summary.json
+      tables: 22
+      root_records: 6452
+      releases: 80789
+      rows_across_tables: 231123
+      referential_checks_passed: 41

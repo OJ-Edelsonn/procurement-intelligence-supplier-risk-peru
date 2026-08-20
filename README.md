@@ -2,7 +2,7 @@
 
 Solución end-to-end de Data/BI para analizar contratación pública peruana, inteligencia comercial y exposición a proveedores usando datos abiertos oficiales de OECE/SEACE.
 
-> Estado: Fase 2 completada con una ingesta y perfilado piloto de julio de 2026. Todavía no se publican KPIs de negocio.
+> Estado: Fase 3 completada: arquitectura objetivo y registro maestro de fuentes definidos. Todavía no se publican KPIs de negocio.
 
 ## Problema de negocio
 
@@ -28,10 +28,12 @@ Los detalles y las exclusiones están en [docs/scope_and_limitations.md](docs/sc
 ## Arquitectura objetivo
 
 ```text
-OECE/SEACE -> Python (ingesta y calidad) -> Parquet/CSV controlado
-           -> SQL Server (modelo analítico) -> Power BI (KPIs y narrativa)
+OECE/SEACE -> RAW inmutable -> Python (calidad) -> Parquet tipado
+           -> SQL Server stg/audit/dw -> Power BI (KPIs y narrativa)
            -> pruebas, documentación y trazabilidad en Git/GitHub
 ```
+
+La especificación de capas, granos, linaje, modelo dimensional y puertas de calidad está en [docs/architecture/phase3_target_architecture.md](docs/architecture/phase3_target_architecture.md).
 
 ## Preparación local
 
@@ -50,7 +52,7 @@ La activación es opcional si se invoca directamente `.\.venv\Scripts\python.exe
 
 ```text
 config/                     Configuración versionable sin secretos
-docs/                       Caso de negocio, fuentes, decisiones y límites
+docs/                       Arquitectura, fuentes, decisiones, resultados y límites
 reports/profiling/          Resúmenes de calidad sin datos crudos
 src/                        Extracción y perfilado reproducibles
 tests/                      Pruebas automatizadas
@@ -81,13 +83,25 @@ $profile = "C:\Data\procurement-intelligence-supplier-risk-peru\metadata\oece\oc
 
 El detalle metodológico está en [docs/methodology/data_download_and_profiling.md](docs/methodology/data_download_and_profiling.md) y los resultados del piloto en [docs/results/phase2_data_profiling.md](docs/results/phase2_data_profiling.md).
 
-## Fuentes oficiales
+## Fuentes oficiales y trazabilidad
 
 - [Portal de Contrataciones Abiertas de OECE](https://contratacionesabiertas.oece.gob.pe/)
 - [Descargas OCDS](https://contratacionesabiertas.oece.gob.pe/descargas)
 - [API OCDS](https://contratacionesabiertas.oece.gob.pe/api)
 
-La evaluación de fuentes y sus limitaciones está en [docs/data_sources.md](docs/data_sources.md).
+El [registro maestro de fuentes](docs/data_sources/source_registry.md) separa fuentes usadas, documentación de referencia y candidatas no ingeridas. Incluye publicador, enlaces, cobertura, limitaciones, método de acceso, revisión y evidencia del snapshot piloto. La fuente canónica estructurada es `config/source_registry.yml`.
+
+Validar que el documento y el registro siguen sincronizados:
+
+```powershell
+.\.venv\Scripts\python.exe -m procurement_intelligence.documentation.source_registry --check
+```
+
+Para volver a comprobar las URL concretas sin descargar el cuerpo de los archivos:
+
+```powershell
+.\.venv\Scripts\python.exe -m procurement_intelligence.documentation.source_registry --check-links
+```
 
 ## Reproducibilidad y calidad
 
