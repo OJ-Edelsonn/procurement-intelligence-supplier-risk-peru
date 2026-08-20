@@ -1,0 +1,428 @@
+framework:
+  schema_version: "1.0"
+  name: OECE OCDS initial data quality gates
+  source_id: oece_ocds_seace_v3_bulk
+  blocking_severities: [critical, error]
+  severity_definitions:
+    critical: El lote no es legible o perdió componentes indispensables.
+    error: La incidencia debe resolverse antes de promover el lote a Silver.
+    warning: La incidencia permite continuar únicamente con tratamiento o limitación documentada.
+    info: Métrica de aptitud o monitoreo que no bloquea el lote.
+  policy:
+    - Las filas RAW nunca se modifican ni se descartan durante la validación.
+    - Los conteos de reglas no se suman como registros únicos porque una fila puede incumplir varias reglas.
+    - Las métricas post-tratamiento permanecen pendientes hasta la Fase 5.
+    - Toda excepción debe conservar regla, motivo, corrida y evidencia.
+
+rules:
+  - rule_id: DQ-SCHEMA-001
+    name: Tablas oficiales esperadas
+    dimension: schema
+    type: required_tables
+    severity: critical
+    description: El ZIP debe contener las 22 tablas relacionales observadas y documentadas para SEACE V3.
+    threshold:
+      max_invalid_count: 0
+    parameters:
+      tables:
+        - records.csv
+        - releases.csv
+        - com_sources.csv
+        - com_parties.csv
+        - com_par_additionalIdentifiers.csv
+        - com_ten_tenderers.csv
+        - com_ten_documents.csv
+        - com_ten_items.csv
+        - com_ten_ite_additionalClassific.csv
+        - com_ten_ite_tot_exchangeRates.csv
+        - com_awards.csv
+        - com_awa_suppliers.csv
+        - com_awa_items.csv
+        - com_awa_ite_additionalClassific.csv
+        - com_awa_ite_tot_exchangeRates.csv
+        - com_awa_val_exchangeRates.csv
+        - com_contracts.csv
+        - com_con_documents.csv
+        - com_con_items.csv
+        - com_con_ite_additionalClassific.csv
+        - com_con_ite_tot_exchangeRates.csv
+        - com_con_val_exchangeRates.csv
+
+  - rule_id: DQ-SCHEMA-002
+    name: Columnas raíz necesarias para el MVP
+    dimension: schema
+    type: required_columns
+    severity: critical
+    description: Records debe conservar identificadores, compradores, licitación, montos y fechas necesarios para análisis.
+    threshold:
+      max_invalid_count: 0
+    parameters:
+      targets:
+        - table: records.csv
+          columns:
+            - ocid
+            - compiledRelease/id
+            - compiledRelease/ocid
+            - compiledRelease/date
+            - compiledRelease/publishedDate
+            - compiledRelease/buyer/id
+            - compiledRelease/buyer/name
+            - compiledRelease/tender/id
+            - compiledRelease/tender/procuringEntity/id
+            - compiledRelease/tender/procuringEntity/name
+            - compiledRelease/tender/procurementMethodDetails
+            - compiledRelease/tender/mainProcurementCategory
+            - compiledRelease/tender/value/amount
+            - compiledRelease/tender/value/currency
+            - compiledRelease/tender/value/amount_PEN
+            - compiledRelease/tender/tenderPeriod/startDate
+            - compiledRelease/tender/tenderPeriod/endDate
+            - compiledRelease/tender/numberOfTenderers
+
+  - rule_id: DQ-COMP-001
+    name: Campos obligatorios para análisis principal
+    dimension: completeness
+    type: not_null
+    severity: error
+    description: Identificadores y medidas centrales deben estar informados en su grano nativo.
+    threshold:
+      max_invalid_count: 0
+    parameters:
+      targets:
+        - table: records.csv
+          columns:
+            - ocid
+            - compiledRelease/id
+            - compiledRelease/buyer/id
+            - compiledRelease/buyer/name
+            - compiledRelease/tender/procuringEntity/id
+            - compiledRelease/tender/procuringEntity/name
+            - compiledRelease/tender/procurementMethodDetails
+            - compiledRelease/tender/mainProcurementCategory
+            - compiledRelease/tender/value/amount
+            - compiledRelease/tender/value/currency
+            - compiledRelease/tender/value/amount_PEN
+        - table: com_awards.csv
+          columns:
+            - ocid
+            - compiledRelease/awards/0/id
+            - compiledRelease/awards/0/value/amount
+            - compiledRelease/awards/0/value/currency
+            - compiledRelease/awards/0/date
+        - table: com_awa_suppliers.csv
+          columns:
+            - ocid
+            - compiledRelease/awards/0/id
+            - compiledRelease/awards/0/suppliers/0/id
+            - compiledRelease/awards/0/suppliers/0/name
+        - table: com_contracts.csv
+          columns:
+            - ocid
+            - compiledRelease/contracts/0/id
+            - compiledRelease/contracts/0/awardID
+            - compiledRelease/contracts/0/value/amount
+            - compiledRelease/contracts/0/value/currency
+
+  - rule_id: DQ-UNIQ-001
+    name: Granos candidatos completos y únicos
+    dimension: uniqueness
+    type: candidate_grains
+    severity: error
+    description: Cada tabla debe respetar el grano candidato perfilado para evitar doble contabilización.
+    threshold:
+      max_invalid_count: 0
+
+  - rule_id: DQ-DUP-001
+    name: Filas exactas duplicadas
+    dimension: uniqueness
+    type: exact_duplicates
+    severity: warning
+    description: Se cuentan filas adicionales idénticas; RAW se conserva y la deduplicación se implementará en Silver.
+    threshold:
+      max_invalid_count: 0
+    parameters:
+      tables: all
+
+  - rule_id: DQ-REF-001
+    name: Referencia de tablas hijas al record raíz
+    dimension: referential_integrity
+    type: root_references
+    severity: error
+    description: OCID y compiledRelease/id de cada tabla hija deben existir en records.csv.
+    threshold:
+      max_invalid_count: 0
+    parameters:
+      root_table: records.csv
+      keys: [ocid, compiledRelease/id]
+
+  - rule_id: DQ-REF-002
+    name: Relaciones profundas entre entidades OCDS
+    dimension: referential_integrity
+    type: foreign_keys
+    severity: error
+    description: Ítems, proveedores, documentos y tasas deben conservar su adjudicación, contrato, parte o ítem padre.
+    threshold:
+      max_invalid_count: 0
+    parameters:
+      relationships:
+        - name: party_additional_identifier_to_party
+          child_table: com_par_additionalIdentifiers.csv
+          child_columns: [ocid, compiledRelease/parties/0/id]
+          parent_table: com_parties.csv
+          parent_columns: [ocid, compiledRelease/parties/0/id]
+        - name: tenderer_to_party
+          child_table: com_ten_tenderers.csv
+          child_columns: [ocid, compiledRelease/tender/tenderers/0/id]
+          parent_table: com_parties.csv
+          parent_columns: [ocid, compiledRelease/parties/0/id]
+        - name: tender_classification_to_item
+          child_table: com_ten_ite_additionalClassific.csv
+          child_columns: [ocid, compiledRelease/tender/items/0/id]
+          parent_table: com_ten_items.csv
+          parent_columns: [ocid, compiledRelease/tender/items/0/id]
+        - name: tender_exchange_rate_to_item
+          child_table: com_ten_ite_tot_exchangeRates.csv
+          child_columns: [ocid, compiledRelease/tender/items/0/id]
+          parent_table: com_ten_items.csv
+          parent_columns: [ocid, compiledRelease/tender/items/0/id]
+        - name: award_supplier_to_award
+          child_table: com_awa_suppliers.csv
+          child_columns: [ocid, compiledRelease/awards/0/id]
+          parent_table: com_awards.csv
+          parent_columns: [ocid, compiledRelease/awards/0/id]
+        - name: award_supplier_to_party
+          child_table: com_awa_suppliers.csv
+          child_columns: [ocid, compiledRelease/awards/0/suppliers/0/id]
+          parent_table: com_parties.csv
+          parent_columns: [ocid, compiledRelease/parties/0/id]
+        - name: award_item_to_award
+          child_table: com_awa_items.csv
+          child_columns: [ocid, compiledRelease/awards/0/id]
+          parent_table: com_awards.csv
+          parent_columns: [ocid, compiledRelease/awards/0/id]
+        - name: award_classification_to_item
+          child_table: com_awa_ite_additionalClassific.csv
+          child_columns: [ocid, compiledRelease/awards/0/id, compiledRelease/awards/0/items/0/id]
+          parent_table: com_awa_items.csv
+          parent_columns: [ocid, compiledRelease/awards/0/id, compiledRelease/awards/0/items/0/id]
+        - name: award_item_exchange_rate_to_item
+          child_table: com_awa_ite_tot_exchangeRates.csv
+          child_columns: [ocid, compiledRelease/awards/0/id, compiledRelease/awards/0/items/0/id]
+          parent_table: com_awa_items.csv
+          parent_columns: [ocid, compiledRelease/awards/0/id, compiledRelease/awards/0/items/0/id]
+        - name: award_value_exchange_rate_to_award
+          child_table: com_awa_val_exchangeRates.csv
+          child_columns: [ocid, compiledRelease/awards/0/id]
+          parent_table: com_awards.csv
+          parent_columns: [ocid, compiledRelease/awards/0/id]
+        - name: contract_to_award
+          child_table: com_contracts.csv
+          child_columns: [ocid, compiledRelease/contracts/0/awardID]
+          parent_table: com_awards.csv
+          parent_columns: [ocid, compiledRelease/awards/0/id]
+        - name: contract_document_to_contract
+          child_table: com_con_documents.csv
+          child_columns: [ocid, compiledRelease/contracts/0/id]
+          parent_table: com_contracts.csv
+          parent_columns: [ocid, compiledRelease/contracts/0/id]
+        - name: contract_item_to_contract
+          child_table: com_con_items.csv
+          child_columns: [ocid, compiledRelease/contracts/0/id]
+          parent_table: com_contracts.csv
+          parent_columns: [ocid, compiledRelease/contracts/0/id]
+        - name: contract_classification_to_item
+          child_table: com_con_ite_additionalClassific.csv
+          child_columns: [ocid, compiledRelease/contracts/0/id, compiledRelease/contracts/0/items/0/id]
+          parent_table: com_con_items.csv
+          parent_columns: [ocid, compiledRelease/contracts/0/id, compiledRelease/contracts/0/items/0/id]
+        - name: contract_item_exchange_rate_to_item
+          child_table: com_con_ite_tot_exchangeRates.csv
+          child_columns: [ocid, compiledRelease/contracts/0/id, compiledRelease/contracts/0/items/0/id]
+          parent_table: com_con_items.csv
+          parent_columns: [ocid, compiledRelease/contracts/0/id, compiledRelease/contracts/0/items/0/id]
+        - name: contract_value_exchange_rate_to_contract
+          child_table: com_con_val_exchangeRates.csv
+          child_columns: [ocid, compiledRelease/contracts/0/id]
+          parent_table: com_contracts.csv
+          parent_columns: [ocid, compiledRelease/contracts/0/id]
+
+  - rule_id: DQ-VALID-001
+    name: Numéricos no negativos y convertibles
+    dimension: validity
+    type: numeric_min
+    severity: error
+    description: Montos, cantidades y conteos informados deben convertirse a número y no ser negativos.
+    threshold:
+      max_invalid_count: 0
+    parameters:
+      minimum: 0
+      inclusive: true
+      targets:
+        - {table: records.csv, column: compiledRelease/tender/value/amount}
+        - {table: records.csv, column: compiledRelease/tender/value/amount_PEN}
+        - {table: records.csv, column: compiledRelease/tender/numberOfTenderers}
+        - {table: com_ten_items.csv, column: compiledRelease/tender/items/0/quantity}
+        - {table: com_ten_items.csv, column: compiledRelease/tender/items/0/totalValue/amount}
+        - {table: com_awards.csv, column: compiledRelease/awards/0/value/amount}
+        - {table: com_awa_items.csv, column: compiledRelease/awards/0/items/0/quantity}
+        - {table: com_awa_items.csv, column: compiledRelease/awards/0/items/0/totalValue/amount}
+        - {table: com_contracts.csv, column: compiledRelease/contracts/0/period/durationInDays}
+        - {table: com_contracts.csv, column: compiledRelease/contracts/0/value/amount}
+        - {table: com_contracts.csv, column: compiledRelease/contracts/0/implementation/finalValue/amount}
+        - {table: com_con_items.csv, column: compiledRelease/contracts/0/items/0/quantity}
+        - {table: com_con_items.csv, column: compiledRelease/contracts/0/items/0/totalValue/amount}
+
+  - rule_id: DQ-VALID-002
+    name: Tasas de cambio positivas
+    dimension: validity
+    type: numeric_min
+    severity: error
+    description: Toda tasa informada debe convertirse a número y ser estrictamente mayor que cero.
+    threshold:
+      max_invalid_count: 0
+    parameters:
+      minimum: 0
+      inclusive: false
+      allow_null: false
+      targets:
+        - {table: com_ten_ite_tot_exchangeRates.csv, column: compiledRelease/tender/items/0/totalValue/exchangeRates/0/rate}
+        - {table: com_awa_ite_tot_exchangeRates.csv, column: compiledRelease/awards/0/items/0/totalValue/exchangeRates/0/rate}
+        - {table: com_awa_val_exchangeRates.csv, column: compiledRelease/awards/0/value/exchangeRates/0/rate}
+        - {table: com_con_ite_tot_exchangeRates.csv, column: compiledRelease/contracts/0/items/0/totalValue/exchangeRates/0/rate}
+        - {table: com_con_val_exchangeRates.csv, column: compiledRelease/contracts/0/value/exchangeRates/0/rate}
+
+  - rule_id: DQ-TEMP-001
+    name: Fechas de negocio interpretables
+    dimension: validity
+    type: parseable_datetime
+    severity: error
+    description: Las fechas no nulas deben convertirse a datetime con zona horaria normalizada.
+    threshold:
+      max_invalid_count: 0
+    parameters:
+      targets:
+        - {table: records.csv, column: compiledRelease/date}
+        - {table: records.csv, column: compiledRelease/publishedDate}
+        - {table: records.csv, column: compiledRelease/tender/datePublished}
+        - {table: records.csv, column: compiledRelease/tender/tenderPeriod/startDate}
+        - {table: records.csv, column: compiledRelease/tender/tenderPeriod/endDate}
+        - {table: records.csv, column: compiledRelease/tender/enquiryPeriod/startDate}
+        - {table: records.csv, column: compiledRelease/tender/enquiryPeriod/endDate}
+        - {table: com_awards.csv, column: compiledRelease/awards/0/date}
+        - {table: com_contracts.csv, column: compiledRelease/contracts/0/period/startDate}
+        - {table: com_contracts.csv, column: compiledRelease/contracts/0/period/endDate}
+        - {table: com_contracts.csv, column: compiledRelease/contracts/0/dateSigned}
+        - {table: com_contracts.csv, column: compiledRelease/contracts/0/implementation/endDate}
+
+  - rule_id: DQ-TEMP-002
+    name: Secuencia temporal coherente
+    dimension: consistency
+    type: ordered_datetimes
+    severity: error
+    description: Cuando ambas fechas existen, el inicio no puede ser posterior al fin.
+    threshold:
+      max_invalid_count: 0
+    parameters:
+      pairs:
+        - table: records.csv
+          start_column: compiledRelease/tender/tenderPeriod/startDate
+          end_column: compiledRelease/tender/tenderPeriod/endDate
+        - table: records.csv
+          start_column: compiledRelease/tender/enquiryPeriod/startDate
+          end_column: compiledRelease/tender/enquiryPeriod/endDate
+        - table: com_contracts.csv
+          start_column: compiledRelease/contracts/0/period/startDate
+          end_column: compiledRelease/contracts/0/period/endDate
+
+  - rule_id: DQ-CONS-001
+    name: Moneda presente cuando existe monto
+    dimension: consistency
+    type: conditional_not_null
+    severity: error
+    description: Un monto informado debe conservar su moneda en el mismo grano.
+    threshold:
+      max_invalid_count: 0
+    parameters:
+      targets:
+        - {table: records.csv, condition_column: compiledRelease/tender/value/amount, required_column: compiledRelease/tender/value/currency}
+        - {table: com_ten_items.csv, condition_column: compiledRelease/tender/items/0/totalValue/amount, required_column: compiledRelease/tender/items/0/totalValue/currency}
+        - {table: com_awards.csv, condition_column: compiledRelease/awards/0/value/amount, required_column: compiledRelease/awards/0/value/currency}
+        - {table: com_awa_items.csv, condition_column: compiledRelease/awards/0/items/0/totalValue/amount, required_column: compiledRelease/awards/0/items/0/totalValue/currency}
+        - {table: com_contracts.csv, condition_column: compiledRelease/contracts/0/value/amount, required_column: compiledRelease/contracts/0/value/currency}
+        - {table: com_contracts.csv, condition_column: compiledRelease/contracts/0/implementation/finalValue/amount, required_column: compiledRelease/contracts/0/implementation/finalValue/currency}
+        - {table: com_con_items.csv, condition_column: compiledRelease/contracts/0/items/0/totalValue/amount, required_column: compiledRelease/contracts/0/items/0/totalValue/currency}
+
+  - rule_id: DQ-ID-001
+    name: Formato estructural de identificadores PE-RUC
+    dimension: validity
+    type: peru_ruc
+    severity: warning
+    description: Los identificadores PE-RUC deben contener exactamente 11 dígitos según la estructura publicada por SUNAT; se reportan sin corregir.
+    threshold:
+      max_invalid_count: 0
+    parameters:
+      table: com_parties.csv
+      scheme_column: compiledRelease/parties/0/identifier/scheme
+      scheme_value: PE-RUC
+      identifier_column: compiledRelease/parties/0/identifier/id
+
+  - rule_id: DQ-CAT-001
+    name: Clasificación de ítems completa
+    dimension: completeness
+    type: classification_completeness
+    severity: warning
+    description: Cada clasificación publicada debe conservar código, descripción y esquema; faltantes se tratarán como Sin clasificar.
+    threshold:
+      max_invalid_count: 0
+    parameters:
+      targets:
+        - table: com_ten_items.csv
+          columns: [compiledRelease/tender/items/0/classification/id, compiledRelease/tender/items/0/classification/description, compiledRelease/tender/items/0/classification/scheme]
+        - table: com_ten_ite_additionalClassific.csv
+          columns: [compiledRelease/tender/items/0/additionalClassifications/0/id, compiledRelease/tender/items/0/additionalClassifications/0/description, compiledRelease/tender/items/0/additionalClassifications/0/scheme]
+        - table: com_awa_items.csv
+          columns: [compiledRelease/awards/0/items/0/classification/id, compiledRelease/awards/0/items/0/classification/description, compiledRelease/awards/0/items/0/classification/scheme]
+        - table: com_awa_ite_additionalClassific.csv
+          columns: [compiledRelease/awards/0/items/0/additionalClassifications/0/id, compiledRelease/awards/0/items/0/additionalClassifications/0/description, compiledRelease/awards/0/items/0/additionalClassifications/0/scheme]
+        - table: com_con_items.csv
+          columns: [compiledRelease/contracts/0/items/0/classification/id, compiledRelease/contracts/0/items/0/classification/description, compiledRelease/contracts/0/items/0/classification/scheme]
+        - table: com_con_ite_additionalClassific.csv
+          columns: [compiledRelease/contracts/0/items/0/additionalClassifications/0/id, compiledRelease/contracts/0/items/0/additionalClassifications/0/description, compiledRelease/contracts/0/items/0/additionalClassifications/0/scheme]
+
+  - rule_id: DQ-FIT-001
+    name: Cobertura mínima de valor final de implementación
+    dimension: fitness_for_use
+    type: minimum_coverage
+    severity: warning
+    description: Mide si finalValue puede sostener KPIs de ejecución contractual; no imputa valores faltantes.
+    threshold:
+      min_coverage_pct: 5
+    parameters:
+      table: com_contracts.csv
+      column: compiledRelease/contracts/0/implementation/finalValue/amount
+
+  - rule_id: DQ-FIT-002
+    name: Cobertura mínima de número de ofertantes
+    dimension: fitness_for_use
+    type: minimum_coverage
+    severity: info
+    description: Evalúa aptitud preliminar para indicadores de competencia sin exigir cobertura total.
+    threshold:
+      min_coverage_pct: 60
+    parameters:
+      table: records.csv
+      column: compiledRelease/tender/numberOfTenderers
+
+  - rule_id: DQ-BIZ-001
+    name: Valor de licitación positivo
+    dimension: fitness_for_use
+    type: numeric_min
+    severity: warning
+    description: Los montos cero se conservan, pero no deben interpretarse automáticamente como gasto de mercado.
+    threshold:
+      max_invalid_count: 0
+    parameters:
+      minimum: 0
+      inclusive: false
+      targets:
+        - {table: records.csv, column: compiledRelease/tender/value/amount}
