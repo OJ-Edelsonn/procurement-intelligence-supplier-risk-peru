@@ -1,0 +1,113 @@
+etl:
+  schema_version: "1.0"
+  source_id: oece_ocds_seace_v3_bulk
+  source_system: seace_v3
+  output_format: parquet
+  compression: zstd
+  decimal_precision: 38
+  decimal_scale: 14
+  row_group_size: 50000
+  unknown_classification:
+    id: __UNCLASSIFIED__
+    description: Sin clasificar
+    scheme: UNKNOWN
+  duplicate_strategy: keep_first
+  blocking_after_metrics:
+    - additional_duplicate_rows
+    - null_candidate_grain_rows
+    - duplicate_candidate_grain_rows
+    - incomplete_classification_rows
+
+tables:
+  records.csv: procurement_process
+  releases.csv: release_history
+  com_sources.csv: process_source
+  com_parties.csv: party
+  com_par_additionalIdentifiers.csv: party_additional_identifier
+  com_ten_tenderers.csv: tenderer
+  com_ten_documents.csv: tender_document
+  com_ten_items.csv: tender_item
+  com_ten_ite_additionalClassific.csv: tender_item_classification
+  com_ten_ite_tot_exchangeRates.csv: tender_item_exchange_rate
+  com_awards.csv: award
+  com_awa_suppliers.csv: award_supplier
+  com_awa_items.csv: award_item
+  com_awa_ite_additionalClassific.csv: award_item_classification
+  com_awa_ite_tot_exchangeRates.csv: award_item_exchange_rate
+  com_awa_val_exchangeRates.csv: award_value_exchange_rate
+  com_contracts.csv: contract
+  com_con_documents.csv: contract_document
+  com_con_items.csv: contract_item
+  com_con_ite_additionalClassific.csv: contract_item_classification
+  com_con_ite_tot_exchangeRates.csv: contract_item_exchange_rate
+  com_con_val_exchangeRates.csv: contract_value_exchange_rate
+
+typing:
+  integer_columns:
+    - compiledRelease/tender/numberOfTenderers
+    - compiledRelease/tender/enquiryPeriod/durationInDays
+    - compiledRelease/tender/items/0/position
+    - compiledRelease/awards/0/items/0/position
+    - compiledRelease/contracts/0/period/durationInDays
+    - compiledRelease/contracts/0/items/0/position
+  boolean_columns:
+    - compiledRelease/tender/hasTenderInformationProtectedByLaw
+  decimal_suffixes:
+    - /amount
+    - /amount_PEN
+    - /quantity
+    - /rate
+  datetime_suffixes:
+    - /date
+    - /datePublished
+    - /dateModified
+    - /dateSigned
+    - /startDate
+    - /endDate
+  exact_datetime_columns:
+    - compiledRelease/date
+    - compiledRelease/publishedDate
+    - releases/0/date
+
+treatments:
+  exact_duplicate_tables:
+    - com_ten_ite_tot_exchangeRates.csv
+  classification_targets:
+    - table: com_ten_items.csv
+      id_column: compiledRelease/tender/items/0/classification/id
+      description_column: compiledRelease/tender/items/0/classification/description
+      scheme_column: compiledRelease/tender/items/0/classification/scheme
+    - table: com_ten_ite_additionalClassific.csv
+      id_column: compiledRelease/tender/items/0/additionalClassifications/0/id
+      description_column: compiledRelease/tender/items/0/additionalClassifications/0/description
+      scheme_column: compiledRelease/tender/items/0/additionalClassifications/0/scheme
+    - table: com_awa_items.csv
+      id_column: compiledRelease/awards/0/items/0/classification/id
+      description_column: compiledRelease/awards/0/items/0/classification/description
+      scheme_column: compiledRelease/awards/0/items/0/classification/scheme
+    - table: com_awa_ite_additionalClassific.csv
+      id_column: compiledRelease/awards/0/items/0/additionalClassifications/0/id
+      description_column: compiledRelease/awards/0/items/0/additionalClassifications/0/description
+      scheme_column: compiledRelease/awards/0/items/0/additionalClassifications/0/scheme
+    - table: com_con_items.csv
+      id_column: compiledRelease/contracts/0/items/0/classification/id
+      description_column: compiledRelease/contracts/0/items/0/classification/description
+      scheme_column: compiledRelease/contracts/0/items/0/classification/scheme
+    - table: com_con_ite_additionalClassific.csv
+      id_column: compiledRelease/contracts/0/items/0/additionalClassifications/0/id
+      description_column: compiledRelease/contracts/0/items/0/additionalClassifications/0/description
+      scheme_column: compiledRelease/contracts/0/items/0/additionalClassifications/0/scheme
+  ruc_flag:
+    table: com_parties.csv
+    scheme_column: compiledRelease/parties/0/identifier/scheme
+    scheme_value: PE-RUC
+    identifier_column: compiledRelease/parties/0/identifier/id
+    output_column: dq_ruc_format_valid
+  zero_amount_flag:
+    table: records.csv
+    amount_column: compiledRelease/tender/value/amount
+    output_column: dq_tender_value_is_zero
+  final_value_flag:
+    table: com_contracts.csv
+    amount_column: compiledRelease/contracts/0/implementation/finalValue/amount
+    output_column: dq_final_value_available

@@ -10,6 +10,7 @@ from procurement_intelligence.extraction.download_ocds import (
     download_file,
     sha256_file,
     sha256_single_zip_member,
+    sha256_text_file,
 )
 
 
@@ -29,6 +30,15 @@ def test_sha256_file(tmp_path) -> None:
     source = tmp_path / "sample.bin"
     source.write_bytes(b"official-source-sample")
     assert sha256_file(source) == hashlib.sha256(source.read_bytes()).hexdigest()
+
+
+def test_sha256_text_file_normalizes_platform_newlines(tmp_path) -> None:
+    windows_text = tmp_path / "windows.yml"
+    unix_text = tmp_path / "unix.yml"
+    windows_text.write_bytes(b"key: value\r\nnext: row\r\n")
+    unix_text.write_bytes(b"key: value\nnext: row\n")
+
+    assert sha256_text_file(windows_text) == sha256_text_file(unix_text)
 
 
 def test_download_file_reuses_existing_raw_file(tmp_path) -> None:

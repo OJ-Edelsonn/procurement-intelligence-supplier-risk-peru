@@ -108,6 +108,10 @@ La dimensión de categoría deberá incluir “Sin clasificar”. Este miembro h
 
 No se reporta una mejora ficticia. La comparación posterior se completará cuando exista Silver.
 
+### Cierre posterior en Fase 5
+
+La tabla anterior conserva el estado histórico de la puerta RAW. La Fase 5 ya ejecutada resolvió los 11 incumplimientos de grano, aisló 10 duplicados y representó 2,135 clasificaciones incompletas mediante un miembro desconocido trazable. El resultado medido está en `docs/results/phase5_python_etl.md`; no se alteró este baseline para simular que Silver existía durante la Fase 4.
+
 ## Conclusión
 
 La estructura, los campos críticos, las fechas, los montos y las relaciones presentan buena integridad en el piloto. El lote todavía no debe promoverse porque la unicidad exige una regla reproducible de deduplicación y tratamiento de clave nula. Las demás advertencias deben convertirse en atributos de calidad o limitaciones de KPI, no en eliminaciones silenciosas.

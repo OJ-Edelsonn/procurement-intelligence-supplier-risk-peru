@@ -53,6 +53,20 @@ def validate_registry(data: dict[str, Any]) -> None:
         raise ValueError("registry metadata must be a mapping")
     for field in ("schema_version", "title", "owner", "repository"):
         _require_text(metadata, field, "registry")
+    link_check = metadata.get("last_automated_link_check")
+    if not isinstance(link_check, dict):
+        raise ValueError("registry.last_automated_link_check must be a mapping")
+    for field in ("method", "result"):
+        _require_text(link_check, field, "registry.last_automated_link_check")
+    if link_check["result"] not in ALLOWED_LINK_RESULTS:
+        raise ValueError("registry.last_automated_link_check.result is invalid")
+    if not all(
+        isinstance(link_check.get(field), int) and link_check[field] >= 0
+        for field in ("passed", "total")
+    ):
+        raise ValueError("registry.last_automated_link_check counts are invalid")
+    if link_check["passed"] > link_check["total"]:
+        raise ValueError("registry.last_automated_link_check passed exceeds total")
     if not isinstance(sources, list) or not sources:
         raise ValueError("sources must be a non-empty list")
     if not isinstance(events, list):
@@ -124,6 +138,55 @@ def validate_registry(data: dict[str, Any]) -> None:
                 str(publisher_sha)
             ):
                 raise ValueError(f"{acquisition_id} has an invalid publisher SHA-256")
+        for block_name, integer_fields in (
+            (
+                "data_quality_evidence",
+                ("rules", "rules_passed", "rules_failed", "blocking_failures"),
+            ),
+            (
+                "silver_etl_evidence",
+                (
+                    "tables",
+                    "raw_rows",
+                    "silver_rows",
+                    "quarantine_rows",
+                    "classification_rows_normalized",
+                ),
+            ),
+        ):
+            block = event.get(block_name)
+            if block is None:
+                continue
+            if not isinstance(block, dict):
+                raise ValueError(f"{acquisition_id}.{block_name} must be a mapping")
+            for field in ("report", "status"):
+                _require_text(block, field, f"event[{acquisition_id}].{block_name}")
+            for field in integer_fields:
+                if not isinstance(block.get(field), int) or block[field] < 0:
+                    raise ValueError(
+                        f"{acquisition_id}.{block_name}.{field} must be non-negative"
+                    )
+        silver = event.get("silver_etl_evidence")
+        if silver is not None:
+            _require_text(
+                silver, "config", f"event[{acquisition_id}].silver_etl_evidence"
+            )
+            if not isinstance(silver.get("promotion_eligible"), bool):
+                raise ValueError(
+                    f"{acquisition_id}.silver_etl_evidence.promotion_eligible "
+                    "must be boolean"
+                )
+            if silver["raw_rows"] != silver["silver_rows"] + silver["quarantine_rows"]:
+                raise ValueError(
+                    f"{acquisition_id}.silver_etl_evidence row reconciliation failed"
+                )
+        quality = event.get("data_quality_evidence")
+        if quality is not None and quality["rules"] != (
+            quality["rules_passed"] + quality["rules_failed"]
+        ):
+            raise ValueError(
+                f"{acquisition_id}.data_quality_evidence rule reconciliation failed"
+            )
 
 
 def _label(value: str) -> str:
@@ -198,6 +261,7 @@ def render_registry(data: dict[str, Any]) -> str:
 
     validate_registry(data)
     metadata = data["registry"]
+    link_check = metadata["last_automated_link_check"]
     sources = data["sources"]
     events = data["acquisition_events"]
     lines = [
@@ -213,6 +277,9 @@ def render_registry(data: dict[str, Any]) -> str:
         f"| Última revisión | {metadata['last_reviewed']} |",
         f"| Responsable | {metadata['owner']} |",
         f"| Repositorio | <{metadata['repository']}> |",
+        f"| Último control automático de enlaces | {link_check['result']} el "
+        f"{link_check['date']}; {link_check['passed']}/{link_check['total']} "
+        f"mediante {link_check['method']} |",
         "",
         "## Política de uso",
         "",
@@ -332,6 +399,38 @@ def render_registry(data: dict[str, Any]) -> str:
                     f"{profile['releases']:,} releases; {profile['rows_across_tables']:,} filas "
                     f"acumuladas; {profile['referential_checks_passed']:,} controles "
                     "referenciales aprobados.",
+                ]
+            )
+        quality = event.get("data_quality_evidence")
+        if quality:
+            lines.extend(
+                [
+                    "",
+                    "**Evidencia de Data Quality RAW**",
+                    "",
+                    f"- Reporte: `{quality['report']}`",
+                    f"- Estado `{quality['status']}`; {quality['rules_passed']:,}/"
+                    f"{quality['rules']:,} reglas aprobadas; "
+                    f"{quality['rules_failed']:,} fallidas; "
+                    f"{quality['blocking_failures']:,} fallo bloqueante.",
+                ]
+            )
+        silver = event.get("silver_etl_evidence")
+        if silver:
+            eligible = "Sí" if silver["promotion_eligible"] else "No"
+            lines.extend(
+                [
+                    "",
+                    "**Evidencia de ETL Silver**",
+                    "",
+                    f"- Reporte: `{silver['report']}`",
+                    f"- Contrato: `{silver['config']}`",
+                    f"- Estado `{silver['status']}`; promoción elegible: {eligible}.",
+                    f"- {silver['tables']:,} tablas; {silver['raw_rows']:,} filas RAW; "
+                    f"{silver['silver_rows']:,} filas Silver; "
+                    f"{silver['quarantine_rows']:,} filas en cuarentena; "
+                    f"{silver['classification_rows_normalized']:,} clasificaciones "
+                    "normalizadas como desconocidas.",
                 ]
             )
 

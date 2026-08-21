@@ -2,7 +2,7 @@
 
 Solución end-to-end de Data/BI para analizar contratación pública peruana, inteligencia comercial y exposición a proveedores usando datos abiertos oficiales de OECE/SEACE.
 
-> Estado: Fase 4 completada en el snapshot piloto: marco inicial de Data Quality, 17 reglas ejecutables y baseline antes del ETL. Todavía no se publican KPIs de negocio.
+> Estado: Fase 5 completada en el snapshot piloto: ETL Python RAW a Silver, 22 Parquet tipados, cuarentena y comparación de calidad antes/después. Todavía no se publican KPIs de negocio.
 
 ## Problema de negocio
 
@@ -53,8 +53,8 @@ La activación es opcional si se invoca directamente `.\.venv\Scripts\python.exe
 ```text
 config/                     Configuración versionable sin secretos
 docs/                       Arquitectura, fuentes, decisiones, resultados y límites
-reports/profiling/          Resúmenes de calidad sin datos crudos
-src/                        Extracción y perfilado reproducibles
+reports/                    Resúmenes reproducibles sin datos crudos
+src/                        Extracción, calidad y transformación reproducibles
 tests/                      Pruebas automatizadas
 .env.example                Variables locales de ejemplo
 requirements.txt            Dependencias de ejecución
@@ -99,6 +99,22 @@ $quality = "C:\Data\procurement-intelligence-supplier-risk-peru\metadata\oece\oc
 ```
 
 El piloto queda deliberadamente `BLOCKED` para promoción a Silver por 10 duplicados adicionales y una clave de clasificación nula. Esto demuestra que la puerta de calidad funciona antes del ETL. La metodología y severidades están en [docs/methodology/data_quality_framework.md](docs/methodology/data_quality_framework.md), y los resultados en [docs/results/phase4_initial_data_quality.md](docs/results/phase4_initial_data_quality.md).
+
+## Ejecutar ETL Python a Silver
+
+```powershell
+$archive = "C:\Data\procurement-intelligence-supplier-risk-peru\raw\oece\ocds\seace_v3\2026\07\snapshot_date=2026-08-19\2026-07_seace_v3_csv.zip"
+
+.\.venv\Scripts\python.exe -m procurement_intelligence.transformation.transform_ocds_silver `
+  $archive `
+  --config config\etl_silver.yml `
+  --source-period 2026-07 `
+  --snapshot-date 2026-08-19 `
+  --env-file .env `
+  --summary-output reports\etl\oece_ocds_seace_v3_2026_07_etl_summary.json
+```
+
+El piloto reconcilia 231,123 filas RAW en 231,113 filas Silver y 10 filas en cuarentena. El estado posterior es `PASS_WITH_WARNINGS` y las cuatro métricas bloqueantes quedan en cero. La metodología está en [docs/methodology/python_etl_silver.md](docs/methodology/python_etl_silver.md) y el resultado en [docs/results/phase5_python_etl.md](docs/results/phase5_python_etl.md).
 
 ## Fuentes oficiales y trazabilidad
 

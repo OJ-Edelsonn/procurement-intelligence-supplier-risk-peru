@@ -4,6 +4,12 @@ registry:
   last_reviewed: 2026-08-20
   owner: Procurement Intelligence & Supplier Risk - Perú
   repository: https://github.com/OJ-Edelsonn/procurement-intelligence-supplier-risk-peru
+  last_automated_link_check:
+    date: 2026-08-20
+    method: HTTP GET con redirecciones habilitadas
+    result: PASS
+    passed: 20
+    total: 20
   policy:
     - No presentar una fuente candidata como utilizada.
     - Registrar una evidencia de adquisición por cada snapshot efectivamente descargado.
@@ -265,3 +271,20 @@ acquisition_events:
       releases: 80789
       rows_across_tables: 231123
       referential_checks_passed: 41
+    data_quality_evidence:
+      report: reports/data_quality/oece_ocds_seace_v3_2026_07_quality_summary.json
+      status: BLOCKED
+      rules: 17
+      rules_passed: 11
+      rules_failed: 6
+      blocking_failures: 1
+    silver_etl_evidence:
+      report: reports/etl/oece_ocds_seace_v3_2026_07_etl_summary.json
+      config: config/etl_silver.yml
+      status: PASS_WITH_WARNINGS
+      promotion_eligible: true
+      tables: 22
+      raw_rows: 231123
+      silver_rows: 231113
+      quarantine_rows: 10
+      classification_rows_normalized: 2135

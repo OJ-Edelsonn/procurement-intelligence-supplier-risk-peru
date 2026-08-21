@@ -14,7 +14,10 @@ from zipfile import ZipFile, ZipInfo
 import pandas as pd
 import yaml
 
-from procurement_intelligence.extraction.download_ocds import sha256_file
+from procurement_intelligence.extraction.download_ocds import (
+    sha256_file,
+    sha256_text_file,
+)
 from procurement_intelligence.profiling.profile_ocds_csv import CANDIDATE_GRAINS
 
 SUPPORTED_RULE_TYPES = {
@@ -610,7 +613,7 @@ def evaluate_archive(
             "archive_size_bytes": archive_path.stat().st_size,
             "archive_sha256": sha256_file(archive_path),
             "rule_config": str(config_path),
-            "rule_config_sha256": sha256_file(config_path),
+            "rule_config_sha256": sha256_text_file(config_path),
         },
         "summary": {
             "overall_status": overall_status,

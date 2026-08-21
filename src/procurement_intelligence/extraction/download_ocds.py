@@ -76,6 +76,15 @@ def sha256_file(path: Path, chunk_size: int = 1024 * 1024) -> str:
     return digest.hexdigest()
 
 
+def sha256_text_file(path: Path) -> str:
+    """Hash UTF-8 text with LF newlines for cross-platform reproducibility."""
+
+    normalized = path.read_text(encoding="utf-8").replace("\r\n", "\n").replace(
+        "\r", "\n"
+    )
+    return hashlib.sha256(normalized.encode("utf-8")).hexdigest()
+
+
 def sha256_single_zip_member(
     archive_path: Path,
     expected_suffix: str,
