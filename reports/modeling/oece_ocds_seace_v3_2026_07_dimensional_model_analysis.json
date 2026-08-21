@@ -1,0 +1,318 @@
+{
+  "schema_version": "1.0",
+  "generated_at_utc": "2026-08-21T02:30:51.036644+00:00",
+  "validation_scope": "logical_dimensional_model_against_silver_pilot",
+  "source": {
+    "model_config": "config/dimensional_model.yml",
+    "model_config_sha256": "36ab247df8dd2fe5cd0ef361d83a158f626653fe54a0b4b89f7d99b66ad00bfc",
+    "etl_summary": "reports/etl/oece_ocds_seace_v3_2026_07_etl_summary.json",
+    "etl_summary_sha256": "6cf7168462a3c2a6da1fa84d9c60b0f28c8d945962ac4bc79d5c27adc0b42a42",
+    "source_period": "2026-07",
+    "snapshot_date": "2026-08-19",
+    "archive_sha256": "024ef9eb7a282de74559ea78ba149ff87aa041d7c92947795ac354d49f0ba4e8"
+  },
+  "summary": {
+    "status": "PASS_WITH_WARNINGS",
+    "design_eligible_for_phase7": true,
+    "dimensions": 8,
+    "facts": 6,
+    "bridges": 2,
+    "modeled_objects": 16,
+    "fact_source_rows": 23056,
+    "bridge_source_rows": 37511,
+    "modeled_source_rows": 60567,
+    "quality_gates_passed": 6,
+    "quality_gates_failed": 0,
+    "warning_metrics": 6
+  },
+  "dimension_estimates": {
+    "dim_date": 2135,
+    "dim_process": 6452,
+    "dim_buyer": 1450,
+    "dim_supplier": 12820,
+    "dim_category": 3690,
+    "dim_procurement_method": 19,
+    "dim_currency": 4,
+    "dim_unit": 15
+  },
+  "dimension_quality": {
+    "date": {
+      "minimum_business_date": "2026-02-02",
+      "maximum_business_date": "2031-12-07",
+      "observed_distinct_dates": 333,
+      "calendar_rows_required": 2135
+    },
+    "buyer_name_conflicts": 0,
+    "buyer_alternate_ruc": {
+      "observations": 6452,
+      "unique_values": 1450,
+      "invalid_format_rows": 0
+    },
+    "supplier_name_conflicts": 4,
+    "supplier_invalid_ruc_observations": 1797,
+    "supplier_invalid_ruc_members": 1776,
+    "category": {
+      "observations": 22042,
+      "estimated_rows_including_unknown": 3690,
+      "scheme_observations": {
+        "CUBSO": 9954,
+        "UNSPSC": 9953,
+        "UNKNOWN": 2135
+      },
+      "keys_with_description_conflicts": 3,
+      "unknown_observations": 2135
+    }
+  },
+  "fact_and_bridge_grains": {
+    "fact_procurement_process": {
+      "rows": 6452,
+      "null_grain_rows": 0,
+      "duplicate_grain_rows": 0
+    },
+    "fact_tender_item": {
+      "rows": 7359,
+      "null_grain_rows": 0,
+      "duplicate_grain_rows": 0
+    },
+    "fact_award": {
+      "rows": 3397,
+      "null_grain_rows": 0,
+      "duplicate_grain_rows": 0
+    },
+    "fact_award_item": {
+      "rows": 3590,
+      "null_grain_rows": 0,
+      "duplicate_grain_rows": 0
+    },
+    "fact_contract": {
+      "rows": 1119,
+      "null_grain_rows": 0,
+      "duplicate_grain_rows": 0
+    },
+    "fact_contract_item": {
+      "rows": 1139,
+      "null_grain_rows": 0,
+      "duplicate_grain_rows": 0
+    },
+    "bridge_process_tenderer": {
+      "rows": 34115,
+      "null_grain_rows": 0,
+      "duplicate_grain_rows": 0
+    },
+    "bridge_award_supplier": {
+      "rows": 3396,
+      "null_grain_rows": 0,
+      "duplicate_grain_rows": 0
+    }
+  },
+  "lifecycle_cardinalities": {
+    "tenderers_per_process": {
+      "parents": 4243,
+      "rows": 34115,
+      "minimum": 1,
+      "median": 6.0,
+      "maximum": 80,
+      "parents_with_multiple_rows": 3611
+    },
+    "awards_per_process": {
+      "parents": 3343,
+      "rows": 3397,
+      "minimum": 1,
+      "median": 1.0,
+      "maximum": 5,
+      "parents_with_multiple_rows": 38
+    },
+    "contracts_per_process": {
+      "parents": 1102,
+      "rows": 1119,
+      "minimum": 1,
+      "median": 1.0,
+      "maximum": 4,
+      "parents_with_multiple_rows": 13
+    },
+    "award_items_per_award": {
+      "parents": 3397,
+      "rows": 3590,
+      "minimum": 1,
+      "median": 1.0,
+      "maximum": 32,
+      "parents_with_multiple_rows": 77
+    },
+    "contract_items_per_contract": {
+      "parents": 1119,
+      "rows": 1139,
+      "minimum": 1,
+      "median": 1.0,
+      "maximum": 5,
+      "parents_with_multiple_rows": 12
+    }
+  },
+  "referential_metrics": {
+    "buyer_to_party_orphans": 0,
+    "tenderer_to_party_orphans": 0,
+    "award_supplier_to_party_orphans": 0,
+    "contract_to_award_orphans": 0
+  },
+  "additional_classification_cardinalities": {
+    "tender_item_classification": {
+      "parents": 6078,
+      "rows": 6078,
+      "minimum": 1,
+      "median": 1.0,
+      "maximum": 1,
+      "parents_with_multiple_rows": 0
+    },
+    "award_item_classification": {
+      "parents": 2942,
+      "rows": 2942,
+      "minimum": 1,
+      "median": 1.0,
+      "maximum": 1,
+      "parents_with_multiple_rows": 0
+    },
+    "contract_item_classification": {
+      "parents": 934,
+      "rows": 934,
+      "minimum": 1,
+      "median": 1.0,
+      "maximum": 1,
+      "parents_with_multiple_rows": 0
+    }
+  },
+  "supplier_attribution": {
+    "awards_without_supplier": 1,
+    "awards_with_one_supplier": 3396,
+    "awards_with_multiple_suppliers": 0,
+    "maximum_suppliers_per_award": 1,
+    "award_rows_amount_attributable": 3396,
+    "contract_rows_amount_attributable": 1119,
+    "invented_allocations": 0
+  },
+  "tenderer_count_comparison": {
+    "comparable_processes": 4243,
+    "matching_processes": 4190,
+    "different_processes": 53
+  },
+  "amount_reconciliation": {
+    "tender": {
+      "parent_rows": 6452,
+      "parents_with_items": 6452,
+      "comparable_amount_rows": 6452,
+      "exact_matches": 6385,
+      "matches_within_0_01": 6385,
+      "mismatches_over_0_01": 67,
+      "maximum_absolute_difference": "17723529.41000000000000",
+      "currency_matches": 6452,
+      "currency_mismatches": 0
+    },
+    "award": {
+      "parent_rows": 3397,
+      "parents_with_items": 3397,
+      "comparable_amount_rows": 3397,
+      "exact_matches": 3394,
+      "matches_within_0_01": 3396,
+      "mismatches_over_0_01": 1,
+      "maximum_absolute_difference": "72000.00000000000000",
+      "currency_matches": 3397,
+      "currency_mismatches": 0
+    },
+    "contract": {
+      "parent_rows": 1119,
+      "parents_with_items": 1119,
+      "comparable_amount_rows": 1119,
+      "exact_matches": 1119,
+      "matches_within_0_01": 1119,
+      "mismatches_over_0_01": 0,
+      "maximum_absolute_difference": "0E-14",
+      "currency_matches": 1119,
+      "currency_mismatches": 0
+    }
+  },
+  "conversion_coverage": {
+    "tender_item": {
+      "foreign_rows": 112,
+      "rows_with_oece_pen_rate": 110,
+      "rows_without_oece_pen_rate": 2,
+      "unsupported_conversions_created": 0
+    },
+    "award": {
+      "foreign_rows": 86,
+      "rows_with_oece_pen_rate": 86,
+      "rows_without_oece_pen_rate": 0,
+      "unsupported_conversions_created": 0
+    },
+    "award_item": {
+      "foreign_rows": 86,
+      "rows_with_oece_pen_rate": 86,
+      "rows_without_oece_pen_rate": 0,
+      "unsupported_conversions_created": 0
+    },
+    "contract": {
+      "foreign_rows": 64,
+      "rows_with_oece_pen_rate": 60,
+      "rows_without_oece_pen_rate": 4,
+      "unsupported_conversions_created": 0
+    },
+    "contract_item": {
+      "foreign_rows": 64,
+      "rows_with_oece_pen_rate": 60,
+      "rows_without_oece_pen_rate": 4,
+      "unsupported_conversions_created": 0
+    }
+  },
+  "fitness_for_use": {
+    "contracts": 1119,
+    "contracts_with_final_value": 3,
+    "contracts_without_final_value": 1116,
+    "final_value_coverage_pct": 0.2681
+  },
+  "warning_metrics": {
+    "supplier_name_conflicts": 4,
+    "category_description_conflicts": 3,
+    "tenderer_count_differences": 53,
+    "header_item_amount_mismatches": 68,
+    "foreign_rows_without_rate": 10,
+    "contracts_without_final_value": 1116
+  },
+  "quality_gates": [
+    {
+      "gate_id": "DM-GRAIN-001",
+      "status": "PASS",
+      "violations": 0
+    },
+    {
+      "gate_id": "DM-REF-001",
+      "status": "PASS",
+      "violations": 0
+    },
+    {
+      "gate_id": "DM-CAT-001",
+      "status": "PASS",
+      "maximum_rows_per_item": 1
+    },
+    {
+      "gate_id": "DM-SUP-001",
+      "status": "PASS",
+      "invented_allocations": 0
+    },
+    {
+      "gate_id": "DM-AMT-001",
+      "status": "PASS",
+      "parent_rows_evaluated": 10968
+    },
+    {
+      "gate_id": "DM-RATE-001",
+      "status": "PASS",
+      "unsupported_conversions": 0
+    }
+  ],
+  "deferred_objects": [
+    "contract_document",
+    "dim_geography",
+    "exchange_rate_tables",
+    "final_value_kpi",
+    "process_source",
+    "release_history",
+    "tender_document"
+  ]
+}

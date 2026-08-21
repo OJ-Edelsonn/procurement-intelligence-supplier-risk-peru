@@ -2,7 +2,7 @@
 
 Solución end-to-end de Data/BI para analizar contratación pública peruana, inteligencia comercial y exposición a proveedores usando datos abiertos oficiales de OECE/SEACE.
 
-> Estado: Fase 5 completada en el snapshot piloto: ETL Python RAW a Silver, 22 Parquet tipados, cuarentena y comparación de calidad antes/después. Todavía no se publican KPIs de negocio.
+> Estado: Fase 6 completada lógicamente en el snapshot piloto: constelación dimensional de 8 dimensiones, 6 hechos y 2 puentes, validada contra Silver. Todavía no se ha cargado SQL Server ni se publican KPIs.
 
 ## Problema de negocio
 
@@ -115,6 +115,18 @@ $archive = "C:\Data\procurement-intelligence-supplier-risk-peru\raw\oece\ocds\se
 ```
 
 El piloto reconcilia 231,123 filas RAW en 231,113 filas Silver y 10 filas en cuarentena. El estado posterior es `PASS_WITH_WARNINGS` y las cuatro métricas bloqueantes quedan en cero. La metodología está en [docs/methodology/python_etl_silver.md](docs/methodology/python_etl_silver.md) y el resultado en [docs/results/phase5_python_etl.md](docs/results/phase5_python_etl.md).
+
+## Validar el modelo dimensional
+
+```powershell
+.\.venv\Scripts\python.exe -m procurement_intelligence.modeling.validate_dimensional_model `
+  --model config\dimensional_model.yml `
+  --etl-summary reports\etl\oece_ocds_seace_v3_2026_07_etl_summary.json `
+  --env-file .env `
+  --output reports\modeling\oece_ocds_seace_v3_2026_07_dimensional_model_analysis.json
+```
+
+El diseño aprobado usa una constelación de hechos para no mezclar procesos, ítems, adjudicaciones y contratos. Las seis puertas lógicas pasan y el diseño queda elegible para generar DDL en la Fase 7. Véanse la [arquitectura dimensional](docs/architecture/phase6_dimensional_model.md), el [diccionario](docs/data_dictionary/dimensional_model.md) y los [resultados de validación](docs/results/phase6_dimensional_model_analysis.md).
 
 ## Fuentes oficiales y trazabilidad
 
