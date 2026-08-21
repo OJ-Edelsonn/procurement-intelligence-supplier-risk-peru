@@ -22,6 +22,7 @@ transform-oece-silver = "procurement_intelligence.transformation.transform_ocds_
 validate-dimensional-model = "procurement_intelligence.modeling.validate_dimensional_model:main"
 load-sql-server = "procurement_intelligence.loading.load_sql_server:main"
 validate-sql-server = "procurement_intelligence.validation.validate_sql_server:main"
+run-procurement-eda = "procurement_intelligence.analytics.run_eda:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
