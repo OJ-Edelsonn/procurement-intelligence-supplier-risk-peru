@@ -267,6 +267,10 @@ El piloto de un mes produjo 8.05 MB de CSV comprimido, 65.84 MB descomprimido y 
 
 La Fase 6 aprobó la constelación de 8 dimensiones, 6 hechos y 2 puentes, claves sustitutas con miembro 0, SCD Tipo 1 para compradores/proveedores y atribución monetaria únicamente con proveedor único. El contrato vigente está en `config/dimensional_model.yml` y reemplaza el diseño dimensional preliminar de esta sección. Geografía, SCD Tipo 2 y fuentes complementarias continúan aplazadas.
 
+### Implementación física en Fase 7
+
+La Fase 7 materializó 22 tablas `stg`, 16 tablas `dw` y 2 tablas `audit` en SQL Server Express. La carga usa reemplazo de snapshot transaccional, bloqueo de aplicación, hashes del bundle DDL, auditoría persistente e idempotencia por contrato y conteos. La estrategia incremental histórica continúa aplazada hasta la Fase 15; el diseño físico vigente está en `config/sql_server.yml` y `sql/ddl/`.
+
 ## Criterios de aceptación para pasar a Fase 4
 
 - Registro maestro de fuentes estructuralmente válido y documento sincronizado.

@@ -2,7 +2,7 @@
 
 Solución end-to-end de Data/BI para analizar contratación pública peruana, inteligencia comercial y exposición a proveedores usando datos abiertos oficiales de OECE/SEACE.
 
-> Estado: Fase 6 completada lógicamente en el snapshot piloto: constelación dimensional de 8 dimensiones, 6 hechos y 2 puentes, validada contra Silver. Todavía no se ha cargado SQL Server ni se publican KPIs.
+> Estado: Fase 7 cargada en SQL Server Express: 22 tablas staging y una constelación `dw` de 8 dimensiones, 6 hechos y 2 puentes, con auditoría e idempotencia. Todavía no se publican KPIs.
 
 ## Problema de negocio
 
@@ -55,13 +55,14 @@ config/                     Configuración versionable sin secretos
 docs/                       Arquitectura, fuentes, decisiones, resultados y límites
 reports/                    Resúmenes reproducibles sin datos crudos
 src/                        Extracción, calidad y transformación reproducibles
+sql/                        DDL y reconciliaciones versionadas para SQL Server
 tests/                      Pruebas automatizadas
 .env.example                Variables locales de ejemplo
 requirements.txt            Dependencias de ejecución
 requirements-dev.txt        Herramientas de desarrollo y análisis
 ```
 
-Las carpetas SQL y Power BI se incorporarán cuando contengan artefactos reales. Los datos crudos y archivos `.pbix` no se versionarán en Git.
+La carpeta Power BI se incorporará cuando contenga artefactos reales. Los datos crudos, archivos locales de SQL Server y `.pbix` no se versionan en Git.
 
 ## Reproducir la ingesta piloto
 
@@ -127,6 +128,18 @@ El piloto reconcilia 231,123 filas RAW en 231,113 filas Silver y 10 filas en cua
 ```
 
 El diseño aprobado usa una constelación de hechos para no mezclar procesos, ítems, adjudicaciones y contratos. Las seis puertas lógicas pasan y el diseño queda elegible para generar DDL en la Fase 7. Véanse la [arquitectura dimensional](docs/architecture/phase6_dimensional_model.md), el [diccionario](docs/data_dictionary/dimensional_model.md) y los [resultados de validación](docs/results/phase6_dimensional_model_analysis.md).
+
+## Cargar SQL Server
+
+Confirmar que el servicio `SQL Server (SQLEXPRESS)` esté iniciado y que `.env` contenga la configuración local sin credenciales versionadas.
+
+```powershell
+.\.venv\Scripts\python.exe -m procurement_intelligence.loading.load_sql_server `
+  --create-database `
+  --output reports\sql\oece_ocds_seace_v3_2026_07_sql_server_load.json
+```
+
+Una repetición exacta valida hashes y conteos y termina `SKIPPED_IDEMPOTENT`. Para reemplazar conscientemente otro snapshot se requiere `--replace-snapshot`. El lote final cargó 231,113 filas staging y 87,159 filas `dw` en 233.9022 segundos, con 0 reconciliaciones fallidas y 0 constraints violados. Véanse la [metodología](docs/methodology/sql_server_load.md), el [diccionario físico](docs/data_dictionary/sql_server_physical_model.md) y los [resultados](docs/results/phase7_sql_server_load.md).
 
 ## Fuentes oficiales y trazabilidad
 

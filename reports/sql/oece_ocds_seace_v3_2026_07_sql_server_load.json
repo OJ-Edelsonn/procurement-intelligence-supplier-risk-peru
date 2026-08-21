@@ -1,0 +1,467 @@
+{
+  "schema_version": "1.0",
+  "generated_at_utc": "2026-08-21T03:52:04.726369+00:00",
+  "source": {
+    "source_id": "oece_ocds_seace_v3_bulk",
+    "source_period": "2026-07",
+    "snapshot_date": "2026-08-19",
+    "archive_sha256": "024ef9eb7a282de74559ea78ba149ff87aa041d7c92947795ac354d49f0ba4e8",
+    "etl_summary": "reports/etl/oece_ocds_seace_v3_2026_07_etl_summary.json",
+    "etl_summary_sha256": "6cf7168462a3c2a6da1fa84d9c60b0f28c8d945962ac4bc79d5c27adc0b42a42",
+    "model_config": "config/dimensional_model.yml",
+    "model_config_sha256": "36ab247df8dd2fe5cd0ef361d83a158f626653fe54a0b4b89f7d99b66ad00bfc",
+    "physical_config": "config/sql_server.yml",
+    "physical_config_sha256": "5a709fabad0ca4ba8def897a98728ba2542765f38f7bd4899609c89d268e0e13",
+    "ddl_bundle_sha256": "d4213dda3b67f30f2ed48cee1d566202b764f9955bf60e1ee6d3ed6457caa3d7",
+    "ddl_scripts": [
+      {
+        "path": "sql/ddl/001_schemas_and_audit.sql",
+        "sha256": "4bdc9d38122037c1874b66ce2ea32e1878c6b9ab7f66dd65af93667755352533"
+      },
+      {
+        "path": "sql/ddl/002_dimensions.sql",
+        "sha256": "f7a61f57136f88446ea40f7cb277af6130b150e83d2252c0681730df96731eb8"
+      },
+      {
+        "path": "sql/ddl/003_facts_and_bridges.sql",
+        "sha256": "6a663ad6bc251886eda97ef46f375efab57f4c244a67ba8aeea7dc826bfd25d1"
+      },
+      {
+        "path": "sql/ddl/004_indexes.sql",
+        "sha256": "5b8128fa93ff228ead63334dd588c522f571a5cbdb0ba9e0f5f14e306aa8486e"
+      }
+    ]
+  },
+  "build_validation": {
+    "dimensions": 8,
+    "facts": 6,
+    "bridges": 2,
+    "dimension_rows": 26592,
+    "fact_rows": 23056,
+    "bridge_rows": 37511,
+    "unresolved_bridge_keys": 0,
+    "bridge_monetary_columns": 0
+  },
+  "table_rows": {
+    "dim_date": 2136,
+    "dim_process": 6453,
+    "dim_buyer": 1451,
+    "dim_supplier": 12821,
+    "dim_category": 3690,
+    "dim_procurement_method": 20,
+    "dim_currency": 5,
+    "dim_unit": 16,
+    "fact_procurement_process": 6452,
+    "fact_tender_item": 7359,
+    "fact_award": 3397,
+    "fact_award_item": 3590,
+    "fact_contract": 1119,
+    "fact_contract_item": 1139,
+    "bridge_process_tenderer": 34115,
+    "bridge_award_supplier": 3396
+  },
+  "summary": {
+    "status": "PASS",
+    "database_loaded": true,
+    "database_created": false,
+    "database": "ProcurementIntelligence",
+    "load_batch_id": 4,
+    "load_mode": "replace_snapshot",
+    "staging_tables": 22,
+    "staging_rows": 231113,
+    "dimensions": 8,
+    "facts": 6,
+    "bridges": 2,
+    "dimension_rows": 26592,
+    "fact_rows": 23056,
+    "bridge_rows": 37511,
+    "unresolved_bridge_keys": 0,
+    "bridge_monetary_columns": 0,
+    "build_seconds": 50.3862,
+    "sql_load_seconds": 183.516,
+    "total_seconds": 233.9022,
+    "row_reconciliations_failed": 0
+  },
+  "table_load_metrics": [
+    {
+      "layer": "STG",
+      "schema": "stg",
+      "table": "procurement_process",
+      "expected_rows": 6452,
+      "loaded_rows": 6452,
+      "started_at_utc": "2026-08-21T03:53:05.949700",
+      "completed_at_utc": "2026-08-21T03:53:14.249680",
+      "duration_seconds": 8.2996
+    },
+    {
+      "layer": "STG",
+      "schema": "stg",
+      "table": "release_history",
+      "expected_rows": 80789,
+      "loaded_rows": 80789,
+      "started_at_utc": "2026-08-21T03:53:14.266012",
+      "completed_at_utc": "2026-08-21T03:53:55.037019",
+      "duration_seconds": 40.7705
+    },
+    {
+      "layer": "STG",
+      "schema": "stg",
+      "table": "process_source",
+      "expected_rows": 6452,
+      "loaded_rows": 6452,
+      "started_at_utc": "2026-08-21T03:53:55.057565",
+      "completed_at_utc": "2026-08-21T03:53:57.782118",
+      "duration_seconds": 2.7251
+    },
+    {
+      "layer": "STG",
+      "schema": "stg",
+      "table": "party",
+      "expected_rows": 40567,
+      "loaded_rows": 40567,
+      "started_at_utc": "2026-08-21T03:53:57.797786",
+      "completed_at_utc": "2026-08-21T03:54:23.515850",
+      "duration_seconds": 25.7187
+    },
+    {
+      "layer": "STG",
+      "schema": "stg",
+      "table": "party_additional_identifier",
+      "expected_rows": 6452,
+      "loaded_rows": 6452,
+      "started_at_utc": "2026-08-21T03:54:23.535115",
+      "completed_at_utc": "2026-08-21T03:54:26.580465",
+      "duration_seconds": 3.0458
+    },
+    {
+      "layer": "STG",
+      "schema": "stg",
+      "table": "tenderer",
+      "expected_rows": 34115,
+      "loaded_rows": 34115,
+      "started_at_utc": "2026-08-21T03:54:26.596258",
+      "completed_at_utc": "2026-08-21T03:54:42.299082",
+      "duration_seconds": 15.7029
+    },
+    {
+      "layer": "STG",
+      "schema": "stg",
+      "table": "tender_document",
+      "expected_rows": 24516,
+      "loaded_rows": 24516,
+      "started_at_utc": "2026-08-21T03:54:42.316079",
+      "completed_at_utc": "2026-08-21T03:54:56.754193",
+      "duration_seconds": 14.4374
+    },
+    {
+      "layer": "STG",
+      "schema": "stg",
+      "table": "tender_item",
+      "expected_rows": 7359,
+      "loaded_rows": 7359,
+      "started_at_utc": "2026-08-21T03:54:56.768915",
+      "completed_at_utc": "2026-08-21T03:55:01.710566",
+      "duration_seconds": 4.941
+    },
+    {
+      "layer": "STG",
+      "schema": "stg",
+      "table": "tender_item_classification",
+      "expected_rows": 6078,
+      "loaded_rows": 6078,
+      "started_at_utc": "2026-08-21T03:55:01.724903",
+      "completed_at_utc": "2026-08-21T03:55:04.549388",
+      "duration_seconds": 2.8246
+    },
+    {
+      "layer": "STG",
+      "schema": "stg",
+      "table": "tender_item_exchange_rate",
+      "expected_rows": 110,
+      "loaded_rows": 110,
+      "started_at_utc": "2026-08-21T03:55:04.563210",
+      "completed_at_utc": "2026-08-21T03:55:04.657860",
+      "duration_seconds": 0.0959
+    },
+    {
+      "layer": "STG",
+      "schema": "stg",
+      "table": "award",
+      "expected_rows": 3397,
+      "loaded_rows": 3397,
+      "started_at_utc": "2026-08-21T03:55:04.673192",
+      "completed_at_utc": "2026-08-21T03:55:06.284303",
+      "duration_seconds": 1.6109
+    },
+    {
+      "layer": "STG",
+      "schema": "stg",
+      "table": "award_supplier",
+      "expected_rows": 3396,
+      "loaded_rows": 3396,
+      "started_at_utc": "2026-08-21T03:55:06.298509",
+      "completed_at_utc": "2026-08-21T03:55:07.728798",
+      "duration_seconds": 1.4306
+    },
+    {
+      "layer": "STG",
+      "schema": "stg",
+      "table": "award_item",
+      "expected_rows": 3590,
+      "loaded_rows": 3590,
+      "started_at_utc": "2026-08-21T03:55:07.747399",
+      "completed_at_utc": "2026-08-21T03:55:10.170721",
+      "duration_seconds": 2.4234
+    },
+    {
+      "layer": "STG",
+      "schema": "stg",
+      "table": "award_item_classification",
+      "expected_rows": 2942,
+      "loaded_rows": 2942,
+      "started_at_utc": "2026-08-21T03:55:10.185558",
+      "completed_at_utc": "2026-08-21T03:55:11.560899",
+      "duration_seconds": 1.3758
+    },
+    {
+      "layer": "STG",
+      "schema": "stg",
+      "table": "award_item_exchange_rate",
+      "expected_rows": 86,
+      "loaded_rows": 86,
+      "started_at_utc": "2026-08-21T03:55:11.575393",
+      "completed_at_utc": "2026-08-21T03:55:11.664127",
+      "duration_seconds": 0.0888
+    },
+    {
+      "layer": "STG",
+      "schema": "stg",
+      "table": "award_value_exchange_rate",
+      "expected_rows": 86,
+      "loaded_rows": 86,
+      "started_at_utc": "2026-08-21T03:55:11.678663",
+      "completed_at_utc": "2026-08-21T03:55:11.765257",
+      "duration_seconds": 0.0867
+    },
+    {
+      "layer": "STG",
+      "schema": "stg",
+      "table": "contract",
+      "expected_rows": 1119,
+      "loaded_rows": 1119,
+      "started_at_utc": "2026-08-21T03:55:11.781822",
+      "completed_at_utc": "2026-08-21T03:55:12.665526",
+      "duration_seconds": 0.8832
+    },
+    {
+      "layer": "STG",
+      "schema": "stg",
+      "table": "contract_document",
+      "expected_rows": 1414,
+      "loaded_rows": 1414,
+      "started_at_utc": "2026-08-21T03:55:12.679304",
+      "completed_at_utc": "2026-08-21T03:55:13.510784",
+      "duration_seconds": 0.83
+    },
+    {
+      "layer": "STG",
+      "schema": "stg",
+      "table": "contract_item",
+      "expected_rows": 1139,
+      "loaded_rows": 1139,
+      "started_at_utc": "2026-08-21T03:55:13.537049",
+      "completed_at_utc": "2026-08-21T03:55:14.458733",
+      "duration_seconds": 0.9219
+    },
+    {
+      "layer": "STG",
+      "schema": "stg",
+      "table": "contract_item_classification",
+      "expected_rows": 934,
+      "loaded_rows": 934,
+      "started_at_utc": "2026-08-21T03:55:14.473159",
+      "completed_at_utc": "2026-08-21T03:55:14.922484",
+      "duration_seconds": 0.4492
+    },
+    {
+      "layer": "STG",
+      "schema": "stg",
+      "table": "contract_item_exchange_rate",
+      "expected_rows": 60,
+      "loaded_rows": 60,
+      "started_at_utc": "2026-08-21T03:55:14.935674",
+      "completed_at_utc": "2026-08-21T03:55:15.015640",
+      "duration_seconds": 0.0799
+    },
+    {
+      "layer": "STG",
+      "schema": "stg",
+      "table": "contract_value_exchange_rate",
+      "expected_rows": 60,
+      "loaded_rows": 60,
+      "started_at_utc": "2026-08-21T03:55:15.029396",
+      "completed_at_utc": "2026-08-21T03:55:15.104768",
+      "duration_seconds": 0.0756
+    },
+    {
+      "layer": "DW",
+      "schema": "dw",
+      "table": "dim_date",
+      "expected_rows": 2136,
+      "loaded_rows": 2136,
+      "started_at_utc": "2026-08-21T03:55:15.104768",
+      "completed_at_utc": "2026-08-21T03:55:16.073220",
+      "duration_seconds": 0.9689
+    },
+    {
+      "layer": "DW",
+      "schema": "dw",
+      "table": "dim_process",
+      "expected_rows": 6453,
+      "loaded_rows": 6453,
+      "started_at_utc": "2026-08-21T03:55:16.073220",
+      "completed_at_utc": "2026-08-21T03:55:18.614058",
+      "duration_seconds": 2.5412
+    },
+    {
+      "layer": "DW",
+      "schema": "dw",
+      "table": "dim_buyer",
+      "expected_rows": 1451,
+      "loaded_rows": 1451,
+      "started_at_utc": "2026-08-21T03:55:18.615506",
+      "completed_at_utc": "2026-08-21T03:55:19.162229",
+      "duration_seconds": 0.5476
+    },
+    {
+      "layer": "DW",
+      "schema": "dw",
+      "table": "dim_supplier",
+      "expected_rows": 12821,
+      "loaded_rows": 12821,
+      "started_at_utc": "2026-08-21T03:55:19.163237",
+      "completed_at_utc": "2026-08-21T03:55:22.589797",
+      "duration_seconds": 3.4268
+    },
+    {
+      "layer": "DW",
+      "schema": "dw",
+      "table": "dim_category",
+      "expected_rows": 3690,
+      "loaded_rows": 3690,
+      "started_at_utc": "2026-08-21T03:55:22.589797",
+      "completed_at_utc": "2026-08-21T03:55:23.637590",
+      "duration_seconds": 1.0483
+    },
+    {
+      "layer": "DW",
+      "schema": "dw",
+      "table": "dim_procurement_method",
+      "expected_rows": 20,
+      "loaded_rows": 20,
+      "started_at_utc": "2026-08-21T03:55:23.637590",
+      "completed_at_utc": "2026-08-21T03:55:23.666647",
+      "duration_seconds": 0.0288
+    },
+    {
+      "layer": "DW",
+      "schema": "dw",
+      "table": "dim_currency",
+      "expected_rows": 5,
+      "loaded_rows": 5,
+      "started_at_utc": "2026-08-21T03:55:23.666647",
+      "completed_at_utc": "2026-08-21T03:55:23.694047",
+      "duration_seconds": 0.0275
+    },
+    {
+      "layer": "DW",
+      "schema": "dw",
+      "table": "dim_unit",
+      "expected_rows": 16,
+      "loaded_rows": 16,
+      "started_at_utc": "2026-08-21T03:55:23.694047",
+      "completed_at_utc": "2026-08-21T03:55:23.727644",
+      "duration_seconds": 0.0333
+    },
+    {
+      "layer": "DW",
+      "schema": "dw",
+      "table": "fact_procurement_process",
+      "expected_rows": 6452,
+      "loaded_rows": 6452,
+      "started_at_utc": "2026-08-21T03:55:23.727644",
+      "completed_at_utc": "2026-08-21T03:55:29.143365",
+      "duration_seconds": 5.4159
+    },
+    {
+      "layer": "DW",
+      "schema": "dw",
+      "table": "fact_tender_item",
+      "expected_rows": 7359,
+      "loaded_rows": 7359,
+      "started_at_utc": "2026-08-21T03:55:29.143365",
+      "completed_at_utc": "2026-08-21T03:55:34.809818",
+      "duration_seconds": 5.6663
+    },
+    {
+      "layer": "DW",
+      "schema": "dw",
+      "table": "fact_award",
+      "expected_rows": 3397,
+      "loaded_rows": 3397,
+      "started_at_utc": "2026-08-21T03:55:34.809818",
+      "completed_at_utc": "2026-08-21T03:55:37.083020",
+      "duration_seconds": 2.2728
+    },
+    {
+      "layer": "DW",
+      "schema": "dw",
+      "table": "fact_award_item",
+      "expected_rows": 3590,
+      "loaded_rows": 3590,
+      "started_at_utc": "2026-08-21T03:55:37.083020",
+      "completed_at_utc": "2026-08-21T03:55:40.058142",
+      "duration_seconds": 2.9752
+    },
+    {
+      "layer": "DW",
+      "schema": "dw",
+      "table": "fact_contract",
+      "expected_rows": 1119,
+      "loaded_rows": 1119,
+      "started_at_utc": "2026-08-21T03:55:40.058142",
+      "completed_at_utc": "2026-08-21T03:55:41.111674",
+      "duration_seconds": 1.0531
+    },
+    {
+      "layer": "DW",
+      "schema": "dw",
+      "table": "fact_contract_item",
+      "expected_rows": 1139,
+      "loaded_rows": 1139,
+      "started_at_utc": "2026-08-21T03:55:41.111674",
+      "completed_at_utc": "2026-08-21T03:55:42.104551",
+      "duration_seconds": 0.993
+    },
+    {
+      "layer": "DW",
+      "schema": "dw",
+      "table": "bridge_process_tenderer",
+      "expected_rows": 34115,
+      "loaded_rows": 34115,
+      "started_at_utc": "2026-08-21T03:55:42.104551",
+      "completed_at_utc": "2026-08-21T03:55:55.994881",
+      "duration_seconds": 13.8908
+    },
+    {
+      "layer": "DW",
+      "schema": "dw",
+      "table": "bridge_award_supplier",
+      "expected_rows": 3396,
+      "loaded_rows": 3396,
+      "started_at_utc": "2026-08-21T03:55:55.994881",
+      "completed_at_utc": "2026-08-21T03:55:57.523024",
+      "duration_seconds": 1.5275
+    }
+  ]
+}
