@@ -20,6 +20,7 @@ validate-source-registry = "procurement_intelligence.documentation.source_regist
 validate-oece-quality = "procurement_intelligence.validation.validate_ocds_csv:main"
 transform-oece-silver = "procurement_intelligence.transformation.transform_ocds_silver:main"
 validate-dimensional-model = "procurement_intelligence.modeling.validate_dimensional_model:main"
+load-sql-server = "procurement_intelligence.loading.load_sql_server:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

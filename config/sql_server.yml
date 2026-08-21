@@ -1,0 +1,61 @@
+physical_model:
+  schema_version: "1.0"
+  logical_contract: config/dimensional_model.yml
+  source_summary: reports/etl/oece_ocds_seace_v3_2026_07_etl_summary.json
+  target_database_env: SQL_DATABASE
+  schemas:
+    staging: stg
+    warehouse: dw
+    audit: audit
+
+load:
+  strategy: replace_current_snapshot
+  idempotency_key:
+    - source_id
+    - source_period
+    - snapshot_date
+    - ingestion_run_id
+    - model_config_sha256
+    - physical_config_sha256
+    - ddl_bundle_sha256
+  staging_scope: all_22_silver_tables
+  transaction_scope: staging_and_warehouse
+  batch_rows: 1000
+  command_timeout_seconds: 120
+  existing_successful_batch: skip
+  populated_target_with_different_batch: require_replace_snapshot_flag
+
+staging_types:
+  string: nvarchar(max)
+  decimal128: decimal(38,14)
+  int64: bigint
+  boolean: bit
+  date32: date
+  timestamp_utc: datetime2(6)
+
+safety:
+  prohibited_databases:
+    - master
+    - model
+    - msdb
+    - tempdb
+  allowed_schemas:
+    - stg
+    - dw
+    - audit
+  raw_files_are_read_only: true
+  credentials_in_repository: false
+
+ddl_scripts:
+  - sql/ddl/001_schemas_and_audit.sql
+  - sql/ddl/002_dimensions.sql
+  - sql/ddl/003_facts_and_bridges.sql
+  - sql/ddl/004_indexes.sql
+
+reconciliation:
+  expected_dimensions: 8
+  expected_facts: 6
+  expected_bridges: 2
+  compare_staging_to_silver: true
+  compare_dw_to_dimensional_report: true
+  require_zero_foreign_key_orphans: true
