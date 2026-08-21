@@ -24,6 +24,10 @@ def test_source_registry_is_valid_and_has_pilot_evidence() -> None:
     assert "project_github_repository" in source_ids
     assert len(registry["acquisition_events"]) == 1
     assert registry["acquisition_events"][0]["status"] == "verified"
+    assert registry["acquisition_events"][0]["silver_etl_evidence"][
+        "promotion_eligible"
+    ] is True
+    assert registry["registry"]["last_automated_link_check"]["passed"] == 20
 
 
 def test_generated_document_matches_registry() -> None:

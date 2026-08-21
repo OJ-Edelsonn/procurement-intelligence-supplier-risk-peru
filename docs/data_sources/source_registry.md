@@ -10,6 +10,7 @@
 | Última revisión | 2026-08-20 |
 | Responsable | Procurement Intelligence & Supplier Risk - Perú |
 | Repositorio | <https://github.com/OJ-Edelsonn/procurement-intelligence-supplier-risk-peru> |
+| Último control automático de enlaces | PASS el 2026-08-20; 20/20 mediante HTTP GET con redirecciones habilitadas |
 
 ## Política de uso
 
@@ -309,6 +310,18 @@
 
 - Reporte: `reports/profiling/oece_ocds_seace_v3_2026_07_summary.json`
 - 22 tablas; 6,452 records raíz; 80,789 releases; 231,123 filas acumuladas; 41 controles referenciales aprobados.
+
+**Evidencia de Data Quality RAW**
+
+- Reporte: `reports/data_quality/oece_ocds_seace_v3_2026_07_quality_summary.json`
+- Estado `BLOCKED`; 11/17 reglas aprobadas; 6 fallidas; 1 fallo bloqueante.
+
+**Evidencia de ETL Silver**
+
+- Reporte: `reports/etl/oece_ocds_seace_v3_2026_07_etl_summary.json`
+- Contrato: `config/etl_silver.yml`
+- Estado `PASS_WITH_WARNINGS`; promoción elegible: Sí.
+- 22 tablas; 231,123 filas RAW; 231,113 filas Silver; 10 filas en cuarentena; 2,135 clasificaciones normalizadas como desconocidas.
 
 ## Procedimiento para incorporar una fuente
 

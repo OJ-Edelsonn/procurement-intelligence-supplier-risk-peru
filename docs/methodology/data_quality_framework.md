@@ -109,9 +109,9 @@ La Fase 4 establece el **antes** sobre RAW. No se inventa un “después” porq
 | Momento | Estado |
 |---|---|
 | Baseline RAW | Evaluado y versionado |
-| Post-tratamiento Silver | `NOT_EVALUATED` hasta la Fase 5 |
+| Post-tratamiento Silver | `NOT_EVALUATED` dentro del artefacto histórico de Fase 4; evaluado por el reporte de Fase 5 |
 
-Cada resultado JSON conserva explícitamente este estado. La Fase 5 deberá comparar, por regla, filas RAW, aceptadas, corregidas, deduplicadas, clasificadas como desconocidas y enviadas a cuarentena.
+El JSON de Fase 4 conserva explícitamente el estado que tenía antes de transformar. La comparación posterior está en `reports/etl/oece_ocds_seace_v3_2026_07_etl_summary.json`: registra filas RAW, aceptadas, deduplicadas, clasificadas como desconocidas y enviadas a cuarentena sin reescribir la línea base.
 
 ## Reproducibilidad
 
