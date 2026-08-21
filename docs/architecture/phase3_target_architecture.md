@@ -263,6 +263,10 @@ El piloto de un mes produjo 8.05 MB de CSV comprimido, 65.84 MB descomprimido y 
 - Incremental refresh en Power BI, después de medir tamaño y frecuencia.
 - Incorporación de órdenes, sanciones, PAC y otras fuentes complementarias.
 
+### Cierre de decisiones en Fase 6
+
+La Fase 6 aprobó la constelación de 8 dimensiones, 6 hechos y 2 puentes, claves sustitutas con miembro 0, SCD Tipo 1 para compradores/proveedores y atribución monetaria únicamente con proveedor único. El contrato vigente está en `config/dimensional_model.yml` y reemplaza el diseño dimensional preliminar de esta sección. Geografía, SCD Tipo 2 y fuentes complementarias continúan aplazadas.
+
 ## Criterios de aceptación para pasar a Fase 4
 
 - Registro maestro de fuentes estructuralmente válido y documento sincronizado.
