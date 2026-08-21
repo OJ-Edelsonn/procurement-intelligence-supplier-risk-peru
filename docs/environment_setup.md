@@ -67,3 +67,15 @@ No añadir usuario ni contraseña al repositorio. Verificación sin mostrar la c
 ```powershell
 .\.venv\Scripts\python.exe -c "from procurement_intelligence.settings import load_sql_server_settings; from procurement_intelligence.loading.sql_server import connect_sql_server; c=connect_sql_server(load_sql_server_settings(),'master'); print(c.cursor().execute('SELECT 1').fetchval()); c.close()"
 ```
+
+## Validación SQL de solo lectura
+
+Después de cargar el snapshot, la Fase 8 comprueba el lote sin modificar la base:
+
+```powershell
+.\.venv\Scripts\validate-sql-server.exe `
+  --env-file .env `
+  --output reports\sql\oece_ocds_seace_v3_2026_07_phase8_validation.json
+```
+
+Código de salida 0 significa `PASS` o `PASS_WITH_WARNINGS`; 1 indica un fallo bloqueante. Con `--strict-warnings`, las advertencias devuelven código 2 para escenarios de integración continua que requieran revisión manual.

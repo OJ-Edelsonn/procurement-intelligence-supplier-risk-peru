@@ -2,7 +2,7 @@
 
 Solución end-to-end de Data/BI para analizar contratación pública peruana, inteligencia comercial y exposición a proveedores usando datos abiertos oficiales de OECE/SEACE.
 
-> Estado: Fase 7 cargada en SQL Server Express: 22 tablas staging y una constelación `dw` de 8 dimensiones, 6 hechos y 2 puentes, con auditoría e idempotencia. Todavía no se publican KPIs.
+> Estado: Fase 8 validada en SQL Server Express: 45 reglas SQL y 113 reconciliaciones avanzadas sin fallos bloqueantes. El resultado es `PASS_WITH_WARNINGS`; todavía no se publican KPIs.
 
 ## Problema de negocio
 
@@ -140,6 +140,19 @@ Confirmar que el servicio `SQL Server (SQLEXPRESS)` esté iniciado y que `.env` 
 ```
 
 Una repetición exacta valida hashes y conteos y termina `SKIPPED_IDEMPOTENT`. Para reemplazar conscientemente otro snapshot se requiere `--replace-snapshot`. El lote final cargó 231,113 filas staging y 87,159 filas `dw` en 233.9022 segundos, con 0 reconciliaciones fallidas y 0 constraints violados. Véanse la [metodología](docs/methodology/sql_server_load.md), el [diccionario físico](docs/data_dictionary/sql_server_physical_model.md) y los [resultados](docs/results/phase7_sql_server_load.md).
+
+## Validar SQL Server y reconciliar capas
+
+La Fase 8 es de solo lectura y requiere el servicio `SQL Server (SQLEXPRESS)` iniciado:
+
+```powershell
+.\.venv\Scripts\python.exe -m procurement_intelligence.validation.validate_sql_server `
+  --config config\sql_validation.yml `
+  --env-file .env `
+  --output reports\sql\oece_ocds_seace_v3_2026_07_phase8_validation.json
+```
+
+El piloto ejecutó 45 reglas de estructura, grano, integridad, linaje, atribución y cálculo. Además aprobó 38 reconciliaciones de filas, 52 controles monetarios por moneda, 14 controles de artefactos y 9 comparaciones Python↔SQL. El resultado `PASS_WITH_WARNINGS` conserva nueve hallazgos reales sin bloquear el inicio de EDA. Véanse la [metodología](docs/methodology/sql_validation_quality_reconciliation.md), el [catálogo de reglas](docs/data_dictionary/sql_validation_catalog.md) y los [resultados](docs/results/phase8_sql_validation.md).
 
 ## Fuentes oficiales y trazabilidad
 
