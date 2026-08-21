@@ -19,6 +19,7 @@ profile-oece-ocds = "procurement_intelligence.profiling.profile_ocds_csv:main"
 validate-source-registry = "procurement_intelligence.documentation.source_registry:main"
 validate-oece-quality = "procurement_intelligence.validation.validate_ocds_csv:main"
 transform-oece-silver = "procurement_intelligence.transformation.transform_ocds_silver:main"
+validate-dimensional-model = "procurement_intelligence.modeling.validate_dimensional_model:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

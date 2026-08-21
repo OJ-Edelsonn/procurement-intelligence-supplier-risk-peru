@@ -1,0 +1,756 @@
+model:
+  schema_version: "1.0"
+  name: procurement_intelligence_peru_mvp
+  status: approved_for_logical_implementation
+  approved_decision: alternative_b_fact_constellation
+  approved_date: 2026-08-20
+  target_schema: dw
+  architecture: fact_constellation
+  source_system: oece_ocds_seace_v3
+  source_period_pilot: 2026-07
+  snapshot_date_pilot: 2026-08-19
+  unknown_surrogate_key: 0
+  source_summary: reports/etl/oece_ocds_seace_v3_2026_07_etl_summary.json
+  policies:
+    - Every fact declares one immutable row grain before measures.
+    - Header and item amounts remain in separate facts and are never forced to reconcile.
+    - Original-currency amounts are additive only inside one currency.
+    - PEN amounts are additive only when conversion availability is true.
+    - Supplier amounts are attributable only when exactly one official supplier exists.
+    - Dimensions use surrogate integer keys and retain natural identifiers.
+    - Key 0 is the governed unknown or unclassified member in every dimension.
+    - Buyer and supplier dimensions use SCD Type 1 until authoritative effective dates exist.
+    - Power BI relationships default to one-to-many with single-direction filtering.
+    - Business timestamps are converted to America/Lima calendar dates before date lookup.
+
+technical_columns:
+  silver_derived_dimensions:
+    - first_observed_period
+    - last_observed_period
+    - canonical_ingestion_run_id
+  facts_and_bridges:
+    - source_id
+    - source_period
+    - snapshot_date
+    - ingestion_run_id
+    - source_file_name
+    - source_file_sha256
+    - source_table_name
+    - source_row_number
+    - loaded_at_utc
+
+role_playing_dimensions:
+  date:
+    physical_dimension: dim_date
+    aliases:
+      - dim_tender_published_date
+      - dim_record_date
+      - dim_published_date
+      - dim_tender_period_start_date
+      - dim_tender_period_end_date
+      - dim_enquiry_period_start_date
+      - dim_enquiry_period_end_date
+      - dim_award_date
+      - dim_contract_signed_date
+      - dim_contract_period_start_date
+      - dim_contract_period_end_date
+      - dim_implementation_end_date
+  category:
+    physical_dimension: dim_category
+    aliases:
+      - dim_primary_category
+      - dim_standard_category
+  currency:
+    physical_dimension: dim_currency
+    aliases:
+      - dim_transaction_currency
+      - dim_budget_currency
+
+dimensions:
+  dim_date:
+    description: Complete calendar from the minimum to maximum approved business date.
+    source_tables: [derived_calendar]
+    grain: one calendar date
+    surrogate_key: date_key
+    natural_key: [full_date]
+    scd_type: 0
+    attributes:
+      - full_date
+      - year
+      - semester
+      - quarter
+      - month_number
+      - month_name_es
+      - year_month
+      - day_of_month
+      - day_of_week_number
+      - day_name_es
+      - is_weekend
+      - is_ytd_comparable_month
+
+  dim_process:
+    description: Stable process identity and descriptive OCDS tender context.
+    source_tables: [procurement_process]
+    grain: one OCID
+    surrogate_key: process_key
+    natural_key: [ocid]
+    scd_type: 1
+    mappings:
+      ocid:
+        source_ref: procurement_process.ocid
+      compiled_release_id:
+        source_ref: procurement_process.compiled_release_id
+      tender_id:
+        source_ref: procurement_process.compiled_release_tender_id
+      tender_title:
+        source_ref: procurement_process.compiled_release_tender_title
+      tender_description:
+        source_ref: procurement_process.compiled_release_tender_description
+      initiation_type:
+        source_ref: procurement_process.compiled_release_initiation_type
+      main_procurement_category:
+        source_ref: procurement_process.compiled_release_tender_main_procurement_category
+      additional_procurement_categories:
+        source_ref: procurement_process.compiled_release_tender_additional_procurement_categories
+      data_segmentation_id:
+        source_ref: procurement_process.compiled_release_data_segmentation_id
+      data_segmentation_criteria:
+        source_ref: procurement_process.compiled_release_data_segmentation_criteria
+
+  dim_buyer:
+    description: Buying entity, with CONSUCODE identity and validated alternate RUC.
+    source_tables: [party, party_additional_identifier]
+    grain: one source buyer party ID
+    surrogate_key: buyer_key
+    natural_key: [source_party_id]
+    scd_type: 1
+    row_filter: party.compiled_release_parties_roles contains buyer
+    mappings:
+      source_party_id:
+        source_ref: party.compiled_release_parties_id
+      identifier_scheme:
+        source_ref: party.compiled_release_parties_identifier_scheme
+      identifier_id:
+        source_ref: party.compiled_release_parties_identifier_id
+      alternate_ruc:
+        source_ref: party_additional_identifier.compiled_release_parties_additional_identifiers_id
+      display_name:
+        source_ref: party.compiled_release_parties_name
+      legal_name:
+        source_ref: party.compiled_release_parties_identifier_legal_name
+      department_name_raw:
+        source_ref: party.compiled_release_parties_address_department
+      province_name_raw:
+        source_ref: party.compiled_release_parties_address_region
+      locality_name_raw:
+        source_ref: party.compiled_release_parties_address_locality
+      country_name_raw:
+        source_ref: party.compiled_release_parties_address_country_name
+      name_variant_count:
+        derivation: Count distinct legal names per source_party_id.
+        source_refs:
+          - party.compiled_release_parties_identifier_legal_name
+      dq_name_conflict:
+        derivation: name_variant_count > 1
+        source_refs:
+          - party.compiled_release_parties_identifier_legal_name
+      first_observed_period:
+        derivation: Minimum source_period per source_party_id.
+        source_ref: party.source_period
+      last_observed_period:
+        derivation: Maximum source_period per source_party_id.
+        source_ref: party.source_period
+      canonical_ingestion_run_id:
+        derivation: Run that supplied the selected canonical attributes.
+        source_ref: party.ingestion_run_id
+    canonicalization: Modal non-null value, with normalized lexical tie-break; preserve conflict metrics.
+
+  dim_supplier:
+    description: Conformed tenderer and awarded supplier identity.
+    source_tables: [party]
+    grain: one source supplier or tenderer party ID
+    surrogate_key: supplier_key
+    natural_key: [source_party_id]
+    scd_type: 1
+    row_filter: party.compiled_release_parties_roles contains tenderer or supplier
+    mappings:
+      source_party_id:
+        source_ref: party.compiled_release_parties_id
+      identifier_scheme:
+        source_ref: party.compiled_release_parties_identifier_scheme
+      identifier_id:
+        source_ref: party.compiled_release_parties_identifier_id
+      display_name:
+        source_ref: party.compiled_release_parties_name
+      legal_name:
+        source_ref: party.compiled_release_parties_identifier_legal_name
+      country_name_raw:
+        source_ref: party.compiled_release_parties_address_country_name
+      dq_ruc_format_valid:
+        source_ref: party.dq_ruc_format_valid
+      name_variant_count:
+        derivation: Count distinct legal names per source_party_id.
+        source_refs:
+          - party.compiled_release_parties_identifier_legal_name
+      dq_name_conflict:
+        derivation: name_variant_count > 1
+        source_refs:
+          - party.compiled_release_parties_identifier_legal_name
+      first_observed_period:
+        derivation: Minimum source_period per source_party_id.
+        source_ref: party.source_period
+      last_observed_period:
+        derivation: Maximum source_period per source_party_id.
+        source_ref: party.source_period
+      canonical_ingestion_run_id:
+        derivation: Run that supplied the selected canonical attributes.
+        source_ref: party.ingestion_run_id
+    canonicalization: Modal non-null value, with normalized lexical tie-break; preserve conflict metrics.
+
+  dim_category:
+    description: Conformed CUBSO and UNSPSC classifications with one governed unknown member.
+    source_tables:
+      - tender_item
+      - tender_item_classification
+      - award_item
+      - award_item_classification
+      - contract_item
+      - contract_item_classification
+    grain: one classification scheme and code
+    surrogate_key: category_key
+    natural_key: [classification_scheme, classification_code]
+    scd_type: 1
+    source_refs:
+      - tender_item.compiled_release_tender_items_classification_scheme
+      - tender_item.compiled_release_tender_items_classification_id
+      - tender_item.compiled_release_tender_items_classification_description
+      - tender_item_classification.compiled_release_tender_items_additional_classifications_scheme
+      - tender_item_classification.compiled_release_tender_items_additional_classifications_id
+      - tender_item_classification.compiled_release_tender_items_additional_classifications_description
+      - award_item.compiled_release_awards_items_classification_scheme
+      - award_item.compiled_release_awards_items_classification_id
+      - award_item.compiled_release_awards_items_classification_description
+      - award_item_classification.compiled_release_awards_items_additional_classifications_scheme
+      - award_item_classification.compiled_release_awards_items_additional_classifications_id
+      - award_item_classification.compiled_release_awards_items_additional_classifications_description
+      - contract_item.compiled_release_contracts_items_classification_scheme
+      - contract_item.compiled_release_contracts_items_classification_id
+      - contract_item.compiled_release_contracts_items_classification_description
+      - contract_item_classification.compiled_release_contracts_items_additional_classifications_scheme
+      - contract_item_classification.compiled_release_contracts_items_additional_classifications_id
+      - contract_item_classification.compiled_release_contracts_items_additional_classifications_description
+    mappings:
+      classification_scheme:
+        derivation: Published scheme, or UNKNOWN when its DQ missing flag is true.
+      classification_code:
+        derivation: Published code, or __UNCLASSIFIED__ when its DQ missing flag is true.
+      classification_description:
+        derivation: Modal published description, or Sin clasificar for the unknown member.
+      description_variant_count:
+        derivation: Count distinct descriptions per scheme and code.
+      dq_description_conflict:
+        derivation: description_variant_count > 1
+      is_unknown:
+        derivation: category_key = 0
+    canonicalization: Fold every DQ-missing classification into key 0; modal description with lexical tie-break.
+
+  dim_procurement_method:
+    description: Published general procurement method and OECE detail.
+    source_tables: [procurement_process]
+    grain: one method and detail pair
+    surrogate_key: procurement_method_key
+    natural_key: [procurement_method, procurement_method_details]
+    scd_type: 1
+    mappings:
+      procurement_method:
+        source_ref: procurement_process.compiled_release_tender_procurement_method
+      procurement_method_details:
+        source_ref: procurement_process.compiled_release_tender_procurement_method_details
+
+  dim_currency:
+    description: Original or target currency used by header and item amounts.
+    source_tables:
+      - procurement_process
+      - tender_item
+      - award
+      - award_item
+      - contract
+      - contract_item
+    grain: one ISO-style published currency code
+    surrogate_key: currency_key
+    natural_key: [currency_code]
+    scd_type: 1
+    source_refs:
+      - procurement_process.compiled_release_tender_value_currency
+      - procurement_process.compiled_release_planning_budget_amount_currency
+      - tender_item.compiled_release_tender_items_total_value_currency
+      - award.compiled_release_awards_value_currency
+      - award_item.compiled_release_awards_items_total_value_currency
+      - contract.compiled_release_contracts_value_currency
+      - contract_item.compiled_release_contracts_items_total_value_currency
+
+  dim_unit:
+    description: Published measurement unit shared by tender, award and contract items.
+    source_tables: [tender_item, award_item, contract_item]
+    grain: one unit scheme and code
+    surrogate_key: unit_key
+    natural_key: [unit_scheme, unit_code]
+    scd_type: 1
+    source_refs:
+      - tender_item.compiled_release_tender_items_unit_scheme
+      - tender_item.compiled_release_tender_items_unit_id
+      - tender_item.compiled_release_tender_items_unit_name
+      - award_item.compiled_release_awards_items_unit_scheme
+      - award_item.compiled_release_awards_items_unit_id
+      - award_item.compiled_release_awards_items_unit_name
+      - contract_item.compiled_release_contracts_items_unit_scheme
+      - contract_item.compiled_release_contracts_items_unit_id
+      - contract_item.compiled_release_contracts_items_unit_name
+
+facts:
+  fact_procurement_process:
+    description: Demand and competition measures at the compiled procurement-process grain.
+    source_table: procurement_process
+    grain: one latest approved compiled record per OCID
+    grain_columns: [ocid]
+    surrogate_key: procurement_process_fact_key
+    foreign_keys:
+      process_key: dim_process
+      buyer_key: dim_buyer
+      procurement_method_key: dim_procurement_method
+      tender_currency_key: dim_currency
+      budget_currency_key: dim_currency
+      tender_published_date_key: dim_date
+      record_date_key: dim_date
+      published_date_key: dim_date
+      tender_period_start_date_key: dim_date
+      tender_period_end_date_key: dim_date
+      enquiry_period_start_date_key: dim_date
+      enquiry_period_end_date_key: dim_date
+    source_refs:
+      - procurement_process.ocid
+      - procurement_process.compiled_release_buyer_id
+      - procurement_process.compiled_release_date
+      - procurement_process.compiled_release_published_date
+      - procurement_process.compiled_release_tender_date_published
+      - procurement_process.compiled_release_tender_tender_period_start_date
+      - procurement_process.compiled_release_tender_tender_period_end_date
+      - procurement_process.compiled_release_tender_enquiry_period_start_date
+      - procurement_process.compiled_release_tender_enquiry_period_end_date
+    measures:
+      process_count:
+        expression: 1
+        aggregation: sum
+        additivity: additive
+      planning_budget_amount_original:
+        source_ref: procurement_process.compiled_release_planning_budget_amount_amount
+        aggregation: sum
+        additivity: conditional_same_currency
+      tender_amount_original:
+        source_ref: procurement_process.compiled_release_tender_value_amount
+        aggregation: sum
+        additivity: conditional_same_currency
+      tender_amount_pen_published:
+        source_ref: procurement_process.compiled_release_tender_value_amount_pen
+        aggregation: sum
+        additivity: additive
+      tenderer_count_declared:
+        source_ref: procurement_process.compiled_release_tender_number_of_tenderers
+        aggregation: sum
+        additivity: additive_count_not_distinct_suppliers
+      tenderer_count_observed:
+        derivation: Count bridge_process_tenderer rows per OCID.
+        source_refs:
+          - tenderer.ocid
+          - tenderer.compiled_release_tender_tenderers_id
+        aggregation: sum
+        additivity: additive_count_not_distinct_suppliers
+      tender_item_amount_sum_original:
+        derivation: Sum fact_tender_item total amount by OCID.
+        source_ref: tender_item.compiled_release_tender_items_total_value_amount
+        aggregation: none
+        additivity: non_additive_audit
+      tender_amount_difference_original:
+        derivation: tender_amount_original - tender_item_amount_sum_original
+        aggregation: none
+        additivity: non_additive_audit
+    quality_columns:
+      - dq_tender_value_is_zero
+      - dq_tenderer_count_matches_observed
+      - dq_tender_amount_reconciled_0_01
+
+  fact_tender_item:
+    description: Tender item quantity and value at native item grain.
+    source_table: tender_item
+    grain: one tender item per OCID
+    grain_columns: [ocid, compiled_release_tender_items_id]
+    surrogate_key: tender_item_fact_key
+    foreign_keys:
+      process_key: dim_process
+      buyer_key: dim_buyer
+      procurement_method_key: dim_procurement_method
+      primary_category_key: dim_category
+      standard_category_key: dim_category
+      unit_key: dim_unit
+      currency_key: dim_currency
+      tender_published_date_key: dim_date
+    source_refs:
+      - tender_item.ocid
+      - tender_item.compiled_release_tender_items_id
+      - tender_item.compiled_release_tender_items_position
+      - tender_item.compiled_release_tender_items_description
+      - tender_item.compiled_release_tender_items_status
+      - tender_item.compiled_release_tender_items_status_details
+      - tender_item.compiled_release_tender_items_classification_id
+      - tender_item_classification.compiled_release_tender_items_additional_classifications_id
+    measures:
+      tender_item_count:
+        expression: 1
+        aggregation: sum
+        additivity: additive
+      quantity:
+        source_ref: tender_item.compiled_release_tender_items_quantity
+        aggregation: sum
+        additivity: conditional_same_unit
+      total_amount_original:
+        source_ref: tender_item.compiled_release_tender_items_total_value_amount
+        aggregation: sum
+        additivity: conditional_same_currency
+      conversion_rate_to_pen:
+        source_ref: tender_item_exchange_rate.compiled_release_tender_items_total_value_exchange_rates_rate
+        aggregation: none
+        additivity: non_additive
+      total_amount_pen_calculated:
+        derivation: Original amount for PEN; otherwise original amount multiplied by the OECE PEN rate.
+        source_refs:
+          - tender_item.compiled_release_tender_items_total_value_amount
+          - tender_item_exchange_rate.compiled_release_tender_items_total_value_exchange_rates_rate
+        aggregation: sum
+        additivity: additive_when_conversion_available
+    quality_columns:
+      - dq_classification_was_missing
+      - dq_standard_category_missing
+      - dq_pen_conversion_available
+
+  fact_award:
+    description: Awarded value at one row per award within a process, never expanded by item or supplier.
+    source_table: award
+    grain: one award identified within an OCID
+    grain_columns: [ocid, compiled_release_awards_id]
+    surrogate_key: award_fact_key
+    foreign_keys:
+      process_key: dim_process
+      buyer_key: dim_buyer
+      procurement_method_key: dim_procurement_method
+      attributed_supplier_key: dim_supplier
+      currency_key: dim_currency
+      award_date_key: dim_date
+    source_refs:
+      - award.ocid
+      - award.compiled_release_awards_id
+      - award.compiled_release_awards_date
+      - award_supplier.compiled_release_awards_suppliers_id
+    measures:
+      award_count:
+        expression: 1
+        aggregation: sum
+        additivity: additive
+      award_amount_original:
+        source_ref: award.compiled_release_awards_value_amount
+        aggregation: sum
+        additivity: conditional_same_currency
+      conversion_rate_to_pen:
+        source_ref: award_value_exchange_rate.compiled_release_awards_value_exchange_rates_rate
+        aggregation: none
+        additivity: non_additive
+      award_amount_pen_calculated:
+        derivation: Original amount for PEN; otherwise original amount multiplied by the OECE PEN rate.
+        source_refs:
+          - award.compiled_release_awards_value_amount
+          - award_value_exchange_rate.compiled_release_awards_value_exchange_rates_rate
+        aggregation: sum
+        additivity: additive_when_conversion_available
+      supplier_count:
+        derivation: Count bridge_award_supplier rows per award.
+        source_ref: award_supplier.compiled_release_awards_suppliers_id
+        aggregation: none
+        additivity: non_additive_audit
+      award_item_amount_sum_original:
+        derivation: Sum fact_award_item total amount by award.
+        source_ref: award_item.compiled_release_awards_items_total_value_amount
+        aggregation: none
+        additivity: non_additive_audit
+    attribution_policy: Set attributed_supplier_key only when supplier_count = 1; otherwise use key 0.
+    quality_columns:
+      - dq_supplier_amount_attributable
+      - dq_pen_conversion_available
+      - dq_award_amount_reconciled_0_01
+
+  fact_award_item:
+    description: Award item quantity and value by classification.
+    source_table: award_item
+    grain: one item per award and OCID
+    grain_columns: [ocid, compiled_release_awards_id, compiled_release_awards_items_id]
+    surrogate_key: award_item_fact_key
+    foreign_keys:
+      process_key: dim_process
+      buyer_key: dim_buyer
+      attributed_supplier_key: dim_supplier
+      primary_category_key: dim_category
+      standard_category_key: dim_category
+      unit_key: dim_unit
+      currency_key: dim_currency
+      award_date_key: dim_date
+    source_refs:
+      - award_item.ocid
+      - award_item.compiled_release_awards_id
+      - award_item.compiled_release_awards_items_id
+      - award_item.compiled_release_awards_items_position
+      - award_item.compiled_release_awards_items_description
+      - award_item.compiled_release_awards_items_status
+      - award_item.compiled_release_awards_items_status_details
+      - award_item.compiled_release_awards_items_classification_id
+      - award_item_classification.compiled_release_awards_items_additional_classifications_id
+    measures:
+      award_item_count:
+        expression: 1
+        aggregation: sum
+        additivity: additive
+      quantity:
+        source_ref: award_item.compiled_release_awards_items_quantity
+        aggregation: sum
+        additivity: conditional_same_unit
+      total_amount_original:
+        source_ref: award_item.compiled_release_awards_items_total_value_amount
+        aggregation: sum
+        additivity: conditional_same_currency
+      conversion_rate_to_pen:
+        source_ref: award_item_exchange_rate.compiled_release_awards_items_total_value_exchange_rates_rate
+        aggregation: none
+        additivity: non_additive
+      total_amount_pen_calculated:
+        derivation: Original amount for PEN; otherwise original amount multiplied by the OECE PEN rate.
+        source_refs:
+          - award_item.compiled_release_awards_items_total_value_amount
+          - award_item_exchange_rate.compiled_release_awards_items_total_value_exchange_rates_rate
+        aggregation: sum
+        additivity: additive_when_conversion_available
+    attribution_policy: Inherit the award supplier only when the parent award has exactly one supplier.
+    quality_columns:
+      - dq_classification_was_missing
+      - dq_standard_category_missing
+      - dq_supplier_amount_attributable
+      - dq_pen_conversion_available
+
+  fact_contract:
+    description: Formalized contract value, distinct from award and final execution value.
+    source_table: contract
+    grain: one contract per OCID
+    grain_columns: [ocid, compiled_release_contracts_id]
+    surrogate_key: contract_fact_key
+    foreign_keys:
+      process_key: dim_process
+      buyer_key: dim_buyer
+      procurement_method_key: dim_procurement_method
+      attributed_supplier_key: dim_supplier
+      currency_key: dim_currency
+      contract_signed_date_key: dim_date
+      contract_period_start_date_key: dim_date
+      contract_period_end_date_key: dim_date
+      implementation_end_date_key: dim_date
+    source_refs:
+      - contract.ocid
+      - contract.compiled_release_contracts_id
+      - contract.compiled_release_contracts_award_id
+      - contract.compiled_release_contracts_title
+      - contract.compiled_release_contracts_description
+      - contract.compiled_release_contracts_date_signed
+      - contract.compiled_release_contracts_period_start_date
+      - contract.compiled_release_contracts_period_end_date
+      - contract.compiled_release_contracts_implementation_end_date
+    measures:
+      contract_count:
+        expression: 1
+        aggregation: sum
+        additivity: additive
+      contract_amount_original:
+        source_ref: contract.compiled_release_contracts_value_amount
+        aggregation: sum
+        additivity: conditional_same_currency
+      conversion_rate_to_pen:
+        source_ref: contract_value_exchange_rate.compiled_release_contracts_value_exchange_rates_rate
+        aggregation: none
+        additivity: non_additive
+      contract_amount_pen_calculated:
+        derivation: Original amount for PEN; otherwise original amount multiplied by the OECE PEN rate.
+        source_refs:
+          - contract.compiled_release_contracts_value_amount
+          - contract_value_exchange_rate.compiled_release_contracts_value_exchange_rates_rate
+        aggregation: sum
+        additivity: additive_when_conversion_available
+      contract_duration_days:
+        source_ref: contract.compiled_release_contracts_period_duration_in_days
+        aggregation: average
+        additivity: non_additive
+      final_value_original:
+        source_ref: contract.compiled_release_contracts_implementation_final_value_amount
+        aggregation: sum
+        additivity: not_fit_for_kpi
+      contract_item_amount_sum_original:
+        derivation: Sum fact_contract_item total amount by contract.
+        source_ref: contract_item.compiled_release_contracts_items_total_value_amount
+        aggregation: none
+        additivity: non_additive_audit
+    attribution_policy: Inherit the award supplier only when the referenced award has exactly one supplier.
+    quality_columns:
+      - dq_final_value_available
+      - dq_supplier_amount_attributable
+      - dq_pen_conversion_available
+      - dq_contract_amount_reconciled_0_01
+
+  fact_contract_item:
+    description: Contract item quantity and formalized value by classification.
+    source_table: contract_item
+    grain: one item per contract and OCID
+    grain_columns: [ocid, compiled_release_contracts_id, compiled_release_contracts_items_id]
+    surrogate_key: contract_item_fact_key
+    foreign_keys:
+      process_key: dim_process
+      buyer_key: dim_buyer
+      attributed_supplier_key: dim_supplier
+      primary_category_key: dim_category
+      standard_category_key: dim_category
+      unit_key: dim_unit
+      currency_key: dim_currency
+      contract_signed_date_key: dim_date
+    source_refs:
+      - contract_item.ocid
+      - contract_item.compiled_release_contracts_id
+      - contract_item.compiled_release_contracts_items_id
+      - contract_item.compiled_release_contracts_items_position
+      - contract_item.compiled_release_contracts_items_description
+      - contract_item.compiled_release_contracts_items_status
+      - contract_item.compiled_release_contracts_items_status_details
+      - contract_item.compiled_release_contracts_items_classification_id
+      - contract_item_classification.compiled_release_contracts_items_additional_classifications_id
+    measures:
+      contract_item_count:
+        expression: 1
+        aggregation: sum
+        additivity: additive
+      quantity:
+        source_ref: contract_item.compiled_release_contracts_items_quantity
+        aggregation: sum
+        additivity: conditional_same_unit
+      total_amount_original:
+        source_ref: contract_item.compiled_release_contracts_items_total_value_amount
+        aggregation: sum
+        additivity: conditional_same_currency
+      conversion_rate_to_pen:
+        source_ref: contract_item_exchange_rate.compiled_release_contracts_items_total_value_exchange_rates_rate
+        aggregation: none
+        additivity: non_additive
+      total_amount_pen_calculated:
+        derivation: Original amount for PEN; otherwise original amount multiplied by the OECE PEN rate.
+        source_refs:
+          - contract_item.compiled_release_contracts_items_total_value_amount
+          - contract_item_exchange_rate.compiled_release_contracts_items_total_value_exchange_rates_rate
+        aggregation: sum
+        additivity: additive_when_conversion_available
+    attribution_policy: Inherit the award supplier only when the referenced award has exactly one supplier.
+    quality_columns:
+      - dq_classification_was_missing
+      - dq_standard_category_missing
+      - dq_supplier_amount_attributable
+      - dq_pen_conversion_available
+
+bridges:
+  bridge_process_tenderer:
+    description: Factless participation bridge; it never carries process monetary amounts.
+    source_table: tenderer
+    grain: one observed tenderer per OCID
+    grain_columns: [ocid, compiled_release_tender_tenderers_id]
+    foreign_keys:
+      process_key: dim_process
+      supplier_key: dim_supplier
+    measures:
+      participation_count:
+        expression: 1
+        aggregation: sum
+        additivity: additive
+    prohibited_measures:
+      - tender_amount_original
+      - tender_amount_pen_published
+
+  bridge_award_supplier:
+    description: Factless award participation bridge; monetary allocation is prohibited.
+    source_table: award_supplier
+    grain: one observed supplier per award and OCID
+    grain_columns: [ocid, compiled_release_awards_id, compiled_release_awards_suppliers_id]
+    foreign_keys:
+      process_key: dim_process
+      supplier_key: dim_supplier
+    measures:
+      participation_count:
+        expression: 1
+        aggregation: sum
+        additivity: additive
+    prohibited_measures:
+      - award_amount_original
+      - award_amount_pen_calculated
+
+semantic_relationship_policy:
+  default_cardinality: one_to_many
+  default_filter_direction: single_dimension_to_fact
+  active_date_roles:
+    fact_procurement_process: tender_published_date_key
+    fact_tender_item: tender_published_date_key
+    fact_award: award_date_key
+    fact_award_item: award_date_key
+    fact_contract: contract_signed_date_key
+    fact_contract_item: contract_signed_date_key
+  category_roles:
+    primary_category_key: CUBSO primary classification
+    standard_category_key: UNSPSC additional classification
+
+quality_gates:
+  - gate_id: DM-GRAIN-001
+    description: Every source grain used by a fact or bridge is complete and unique.
+    threshold: 0 violations
+  - gate_id: DM-REF-001
+    description: Buyer, tenderer, supplier and contract-award references resolve to their parent.
+    threshold: 0 orphans
+  - gate_id: DM-CAT-001
+    description: At most one standard classification maps directly to each item.
+    threshold: maximum 1 row per item in the approved model
+  - gate_id: DM-SUP-001
+    description: Supplier monetary attribution occurs only for exactly one supplier.
+    threshold: 0 invented allocations
+  - gate_id: DM-AMT-001
+    description: Header-item differences are measured, never overwritten.
+    threshold: 100 percent of parent rows evaluated
+  - gate_id: DM-RATE-001
+    description: Foreign-currency PEN measures are null when an OECE rate is unavailable.
+    threshold: 0 unsupported conversions
+
+deferred_or_excluded:
+  dim_geography:
+    reason: Official UBIGEO version is not yet ingested and approved.
+  release_history:
+    destination: stg_and_audit
+    reason: Multiple releases describe process history and are not monetary facts.
+  process_source:
+    destination: stg_and_audit
+    reason: Provenance metadata remains outside the business fact constellation.
+  tender_document:
+    destination: stg_or_future_factless_document_model
+    reason: Documents do not contribute MVP measures.
+  contract_document:
+    destination: stg_or_future_factless_document_model
+    reason: Documents do not contribute MVP measures.
+  exchange_rate_tables:
+    destination: stg_and_fact_derivation
+    reason: Rates enrich native facts and are not independently additive facts.
+  final_value_kpi:
+    destination: blocked
+    reason: Coverage is insufficient for a representative execution KPI.
