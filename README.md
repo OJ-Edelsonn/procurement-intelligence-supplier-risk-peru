@@ -2,7 +2,7 @@
 
 Solución end-to-end de Data/BI para analizar contratación pública peruana, inteligencia comercial y exposición a proveedores usando datos abiertos oficiales de OECE/SEACE.
 
-> Estado: Fase 8 validada en SQL Server Express: 45 reglas SQL y 113 reconciliaciones avanzadas sin fallos bloqueantes. El resultado es `PASS_WITH_WARNINGS`; todavía no se publican KPIs.
+> Estado: Fase 9 completada. El EDA gobernado ejecutó 10 datasets SQL, generó 7 visualizaciones y documentó 8 hallazgos sobre 6,452 procesos. Los resultados son descriptivos; todavía no se publican KPIs ni scores.
 
 ## Problema de negocio
 
@@ -153,6 +153,18 @@ La Fase 8 es de solo lectura y requiere el servicio `SQL Server (SQLEXPRESS)` in
 ```
 
 El piloto ejecutó 45 reglas de estructura, grano, integridad, linaje, atribución y cálculo. Además aprobó 38 reconciliaciones de filas, 52 controles monetarios por moneda, 14 controles de artefactos y 9 comparaciones Python↔SQL. El resultado `PASS_WITH_WARNINGS` conserva nueve hallazgos reales sin bloquear el inicio de EDA. Véanse la [metodología](docs/methodology/sql_validation_quality_reconciliation.md), el [catálogo de reglas](docs/data_dictionary/sql_validation_catalog.md) y los [resultados](docs/results/phase8_sql_validation.md).
+
+## Ejecutar el análisis exploratorio
+
+La Fase 9 exige primero la puerta aprobada de la Fase 8 y consulta únicamente el modelo `dw` activo:
+
+```powershell
+.\.venv\Scripts\run-procurement-eda.exe `
+  --config config\eda.yml `
+  --env-file .env
+```
+
+La ejecución validada procesó 10 datasets analíticos, creó 7 figuras PNG y dejó evidencia JSON y Markdown con hashes de configuración, SQL, ejecutor y gráficos. El alcance corresponde solo a `source_period=2026-07`; por ello no se calculan crecimiento ni comparaciones interanuales. Véanse la [metodología](docs/methodology/exploratory_data_analysis.md), el [diccionario de datasets](docs/data_dictionary/eda_datasets.md) y los [resultados](docs/results/phase9_eda.md).
 
 ## Fuentes oficiales y trazabilidad
 
