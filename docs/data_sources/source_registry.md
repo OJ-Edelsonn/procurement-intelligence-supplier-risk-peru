@@ -7,7 +7,7 @@
 | Campo | Valor |
 |---|---|
 | Versión del esquema | 1.0 |
-| Última revisión | 2026-08-19 |
+| Última revisión | 2026-08-20 |
 | Responsable | Procurement Intelligence & Supplier Risk - Perú |
 | Repositorio | <https://github.com/OJ-Edelsonn/procurement-intelligence-supplier-risk-peru> |
 
@@ -37,6 +37,7 @@
 | `oece_complementary_open_data` | Portal de Datos Abiertos del OECE | Organismo Especializado para las Contrataciones Públicas Eficientes (OECE) | `complementary_data` | `candidate_not_ingested` | No |
 | `peru_national_open_data_seace_catalog` | Catálogo Nacional de Datos Abiertos - búsqueda SEACE | Plataforma Nacional de Datos Abiertos del Estado peruano | `discovery_catalog` | `candidate_not_ingested` | No |
 | `inei_ubigeo_open_data` | Código de ubicación geográfica en el Perú (UBIGEO) | Instituto Nacional de Estadística e Informática (INEI) | `reference_dimension` | `candidate_not_ingested` | No |
+| `sunat_ruc_structure_and_consultation` | Estructura y consulta oficial del RUC | Superintendencia Nacional de Aduanas y de Administración Tributaria (SUNAT) | `reference_documentation` | `reference_only` | Sí |
 | `project_github_repository` | Repositorio del proyecto | Edelson Anghuelo Orihuela Jara | `project_provenance` | `active_used` | Sí |
 
 ## Descargas masivas OCDS de SEACE V3
@@ -223,6 +224,36 @@
 - **Actualización:** Verificar vigencia en cada versión publicada.
 - **Licencia/términos:** Revisar la ficha y los metadatos del recurso antes de usar.
 - **Verificación de enlaces:** PARTIAL el 2026-08-19 mediante Revisión de resultados oficiales; pendiente verificar los recursos descargables.
+
+## Estructura y consulta oficial del RUC
+
+- **ID:** `sunat_ruc_structure_and_consultation`
+- **Publicador:** Superintendencia Nacional de Aduanas y de Administración Tributaria (SUNAT)
+- **Autoridad:** `official_publisher`
+- **Estado:** `reference_only`
+- **Propósito:** Sustentar la validación estructural de 11 dígitos y documentar el canal oficial para una futura consulta registral.
+
+### Alcance
+
+- SUNAT declara que el RUC es un identificador único de 11 dígitos.
+- La ficha de gob.pe permite consultar estado y condición de un RUC mediante el servicio oficial.
+
+### Limitaciones
+
+- La Fase 4 valida estructura, no estado activo, habido ni identidad registral.
+- No se realiza consulta masiva al servicio ni se almacena información adicional de SUNAT.
+- No se usa un algoritmo de checksum como validación oficial porque no se identificó su documentación primaria.
+
+### Enlaces oficiales
+
+- Ruc Structure: <https://centrovirtual.sunat.gob.pe/tramites/inscribete-ruc>
+- Official Query: <https://www.gob.pe/565-consultar-el-estado-del-ruc>
+
+- **Formatos:** HTML
+- **Acceso:** Consulta web oficial; sin extracción masiva en esta fase.
+- **Actualización:** Verificar vigencia antes de realizar una consulta registral.
+- **Licencia/términos:** Consulta informativa sujeta a las condiciones del servicio oficial.
+- **Verificación de enlaces:** PASS el 2026-08-20 mediante HTTP GET y revisión de las páginas oficiales.
 
 ## Repositorio del proyecto
 

@@ -1,7 +1,7 @@
 registry:
   schema_version: "1.0"
   title: Registro maestro de fuentes y evidencia de adquisición
-  last_reviewed: 2026-08-19
+  last_reviewed: 2026-08-20
   owner: Procurement Intelligence & Supplier Risk - Perú
   repository: https://github.com/OJ-Edelsonn/procurement-intelligence-supplier-risk-peru
   policy:
@@ -176,6 +176,33 @@ sources:
       date: 2026-08-19
       method: Revisión de resultados oficiales; pendiente verificar los recursos descargables
       result: PARTIAL
+
+  - source_id: sunat_ruc_structure_and_consultation
+    name: Estructura y consulta oficial del RUC
+    publisher: Superintendencia Nacional de Aduanas y de Administración Tributaria (SUNAT)
+    authority: official_publisher
+    category: reference_documentation
+    status: reference_only
+    used_in_project: true
+    purpose: Sustentar la validación estructural de 11 dígitos y documentar el canal oficial para una futura consulta registral.
+    scope_and_coverage:
+      - SUNAT declara que el RUC es un identificador único de 11 dígitos.
+      - La ficha de gob.pe permite consultar estado y condición de un RUC mediante el servicio oficial.
+    limitations:
+      - La Fase 4 valida estructura, no estado activo, habido ni identidad registral.
+      - No se realiza consulta masiva al servicio ni se almacena información adicional de SUNAT.
+      - No se usa un algoritmo de checksum como validación oficial porque no se identificó su documentación primaria.
+    official_urls:
+      ruc_structure: https://centrovirtual.sunat.gob.pe/tramites/inscribete-ruc
+      official_query: https://www.gob.pe/565-consultar-el-estado-del-ruc
+    formats: [HTML]
+    access_method: Consulta web oficial; sin extracción masiva en esta fase.
+    update_frequency: Verificar vigencia antes de realizar una consulta registral.
+    license_or_terms: Consulta informativa sujeta a las condiciones del servicio oficial.
+    last_link_verification:
+      date: 2026-08-20
+      method: HTTP GET y revisión de las páginas oficiales
+      result: PASS
 
   - source_id: project_github_repository
     name: Repositorio del proyecto

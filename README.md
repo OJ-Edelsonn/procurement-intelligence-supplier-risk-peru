@@ -2,7 +2,7 @@
 
 Solución end-to-end de Data/BI para analizar contratación pública peruana, inteligencia comercial y exposición a proveedores usando datos abiertos oficiales de OECE/SEACE.
 
-> Estado: Fase 3 completada: arquitectura objetivo y registro maestro de fuentes definidos. Todavía no se publican KPIs de negocio.
+> Estado: Fase 4 completada en el snapshot piloto: marco inicial de Data Quality, 17 reglas ejecutables y baseline antes del ETL. Todavía no se publican KPIs de negocio.
 
 ## Problema de negocio
 
@@ -82,6 +82,23 @@ $profile = "C:\Data\procurement-intelligence-supplier-risk-peru\metadata\oece\oc
 ```
 
 El detalle metodológico está en [docs/methodology/data_download_and_profiling.md](docs/methodology/data_download_and_profiling.md) y los resultados del piloto en [docs/results/phase2_data_profiling.md](docs/results/phase2_data_profiling.md).
+
+## Ejecutar Data Quality inicial
+
+```powershell
+$archive = "C:\Data\procurement-intelligence-supplier-risk-peru\raw\oece\ocds\seace_v3\2026\07\snapshot_date=2026-08-19\2026-07_seace_v3_csv.zip"
+$quality = "C:\Data\procurement-intelligence-supplier-risk-peru\metadata\oece\ocds\seace_v3\2026\07\snapshot_date=2026-08-19\quality_phase4_full.json"
+
+.\.venv\Scripts\python.exe -m procurement_intelligence.validation.validate_ocds_csv `
+  $archive `
+  --rules config\data_quality_rules.yml `
+  --source-period 2026-07 `
+  --snapshot-date 2026-08-19 `
+  --output $quality `
+  --summary-output reports\data_quality\oece_ocds_seace_v3_2026_07_quality_summary.json
+```
+
+El piloto queda deliberadamente `BLOCKED` para promoción a Silver por 10 duplicados adicionales y una clave de clasificación nula. Esto demuestra que la puerta de calidad funciona antes del ETL. La metodología y severidades están en [docs/methodology/data_quality_framework.md](docs/methodology/data_quality_framework.md), y los resultados en [docs/results/phase4_initial_data_quality.md](docs/results/phase4_initial_data_quality.md).
 
 ## Fuentes oficiales y trazabilidad
 

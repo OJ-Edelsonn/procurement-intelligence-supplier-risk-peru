@@ -17,6 +17,7 @@ authors = [
 download-oece-ocds = "procurement_intelligence.extraction.download_ocds:main"
 profile-oece-ocds = "procurement_intelligence.profiling.profile_ocds_csv:main"
 validate-source-registry = "procurement_intelligence.documentation.source_registry:main"
+validate-oece-quality = "procurement_intelligence.validation.validate_ocds_csv:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

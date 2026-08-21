@@ -1,0 +1,1338 @@
+{
+  "schema_version": "1.0",
+  "source": {
+    "source_id": "oece_ocds_seace_v3_bulk",
+    "source_period": "2026-07",
+    "snapshot_date": "2026-08-19",
+    "archive_filename": "2026-07_seace_v3_csv.zip",
+    "archive_size_bytes": 8052765,
+    "archive_sha256": "024ef9eb7a282de74559ea78ba149ff87aa041d7c92947795ac354d49f0ba4e8",
+    "rule_config": "config/data_quality_rules.yml",
+    "rule_config_sha256": "c771208ae4c85a8d379f8715e4295c577de9403e4994292ad3aa2db35174d12a"
+  },
+  "summary": {
+    "overall_status": "BLOCKED",
+    "promotion_eligible": false,
+    "rule_count": 17,
+    "passed_rules": 11,
+    "failed_rules": 6,
+    "blocking_failures": 1,
+    "warning_failures": 5,
+    "tables_evaluated": 22,
+    "rows_across_tables": 231123
+  },
+  "results": [
+    {
+      "rule_id": "DQ-SCHEMA-001",
+      "name": "Tablas oficiales esperadas",
+      "dimension": "schema",
+      "type": "required_tables",
+      "severity": "critical",
+      "status": "PASS",
+      "rows_evaluated": 22,
+      "invalid_rows": 0,
+      "invalid_pct": 0.0,
+      "threshold": {
+        "max_invalid_count": 0
+      },
+      "description": "El ZIP debe contener las 22 tablas relacionales observadas y documentadas para SEACE V3.",
+      "details": {
+        "missing_tables": []
+      },
+      "post_treatment": {
+        "status": "NOT_EVALUATED",
+        "reason": "No transformations are applied during Phase 4."
+      }
+    },
+    {
+      "rule_id": "DQ-SCHEMA-002",
+      "name": "Columnas raíz necesarias para el MVP",
+      "dimension": "schema",
+      "type": "required_columns",
+      "severity": "critical",
+      "status": "PASS",
+      "rows_evaluated": 18,
+      "invalid_rows": 0,
+      "invalid_pct": 0.0,
+      "threshold": {
+        "max_invalid_count": 0
+      },
+      "description": "Records debe conservar identificadores, compradores, licitación, montos y fechas necesarios para análisis.",
+      "details": {
+        "missing_columns": []
+      },
+      "post_treatment": {
+        "status": "NOT_EVALUATED",
+        "reason": "No transformations are applied during Phase 4."
+      }
+    },
+    {
+      "rule_id": "DQ-COMP-001",
+      "name": "Campos obligatorios para análisis principal",
+      "dimension": "completeness",
+      "type": "not_null",
+      "severity": "error",
+      "status": "PASS",
+      "rows_evaluated": 14364,
+      "invalid_rows": 0,
+      "invalid_pct": 0.0,
+      "threshold": {
+        "max_invalid_count": 0
+      },
+      "description": "Identificadores y medidas centrales deben estar informados en su grano nativo.",
+      "details": {
+        "targets": [
+          {
+            "table": "records.csv",
+            "rows": 6452,
+            "invalid_rows": 0
+          },
+          {
+            "table": "com_awards.csv",
+            "rows": 3397,
+            "invalid_rows": 0
+          },
+          {
+            "table": "com_awa_suppliers.csv",
+            "rows": 3396,
+            "invalid_rows": 0
+          },
+          {
+            "table": "com_contracts.csv",
+            "rows": 1119,
+            "invalid_rows": 0
+          }
+        ]
+      },
+      "post_treatment": {
+        "status": "NOT_EVALUATED",
+        "reason": "No transformations are applied during Phase 4."
+      }
+    },
+    {
+      "rule_id": "DQ-UNIQ-001",
+      "name": "Granos candidatos completos y únicos",
+      "dimension": "uniqueness",
+      "type": "candidate_grains",
+      "severity": "error",
+      "status": "FAIL",
+      "rows_evaluated": 231123,
+      "invalid_rows": 11,
+      "invalid_pct": 0.0048,
+      "threshold": {
+        "max_invalid_count": 0
+      },
+      "description": "Cada tabla debe respetar el grano candidato perfilado para evitar doble contabilización.",
+      "details": {
+        "targets": [
+          {
+            "table": "records.csv",
+            "rows": 6452,
+            "null_key_rows": 0,
+            "additional_duplicate_key_rows": 0
+          },
+          {
+            "table": "releases.csv",
+            "rows": 80789,
+            "null_key_rows": 0,
+            "additional_duplicate_key_rows": 0
+          },
+          {
+            "table": "com_sources.csv",
+            "rows": 6452,
+            "null_key_rows": 0,
+            "additional_duplicate_key_rows": 0
+          },
+          {
+            "table": "com_parties.csv",
+            "rows": 40567,
+            "null_key_rows": 0,
+            "additional_duplicate_key_rows": 0
+          },
+          {
+            "table": "com_par_additionalIdentifiers.csv",
+            "rows": 6452,
+            "null_key_rows": 0,
+            "additional_duplicate_key_rows": 0
+          },
+          {
+            "table": "com_ten_tenderers.csv",
+            "rows": 34115,
+            "null_key_rows": 0,
+            "additional_duplicate_key_rows": 0
+          },
+          {
+            "table": "com_ten_documents.csv",
+            "rows": 24516,
+            "null_key_rows": 0,
+            "additional_duplicate_key_rows": 0
+          },
+          {
+            "table": "com_ten_items.csv",
+            "rows": 7359,
+            "null_key_rows": 0,
+            "additional_duplicate_key_rows": 0
+          },
+          {
+            "table": "com_ten_ite_additionalClassific.csv",
+            "rows": 6078,
+            "null_key_rows": 1,
+            "additional_duplicate_key_rows": 0
+          },
+          {
+            "table": "com_ten_ite_tot_exchangeRates.csv",
+            "rows": 120,
+            "null_key_rows": 0,
+            "additional_duplicate_key_rows": 10
+          },
+          {
+            "table": "com_awards.csv",
+            "rows": 3397,
+            "null_key_rows": 0,
+            "additional_duplicate_key_rows": 0
+          },
+          {
+            "table": "com_awa_suppliers.csv",
+            "rows": 3396,
+            "null_key_rows": 0,
+            "additional_duplicate_key_rows": 0
+          },
+          {
+            "table": "com_awa_items.csv",
+            "rows": 3590,
+            "null_key_rows": 0,
+            "additional_duplicate_key_rows": 0
+          },
+          {
+            "table": "com_awa_ite_additionalClassific.csv",
+            "rows": 2942,
+            "null_key_rows": 0,
+            "additional_duplicate_key_rows": 0
+          },
+          {
+            "table": "com_awa_ite_tot_exchangeRates.csv",
+            "rows": 86,
+            "null_key_rows": 0,
+            "additional_duplicate_key_rows": 0
+          },
+          {
+            "table": "com_awa_val_exchangeRates.csv",
+            "rows": 86,
+            "null_key_rows": 0,
+            "additional_duplicate_key_rows": 0
+          },
+          {
+            "table": "com_contracts.csv",
+            "rows": 1119,
+            "null_key_rows": 0,
+            "additional_duplicate_key_rows": 0
+          },
+          {
+            "table": "com_con_documents.csv",
+            "rows": 1414,
+            "null_key_rows": 0,
+            "additional_duplicate_key_rows": 0
+          },
+          {
+            "table": "com_con_items.csv",
+            "rows": 1139,
+            "null_key_rows": 0,
+            "additional_duplicate_key_rows": 0
+          },
+          {
+            "table": "com_con_ite_additionalClassific.csv",
+            "rows": 934,
+            "null_key_rows": 0,
+            "additional_duplicate_key_rows": 0
+          },
+          {
+            "table": "com_con_ite_tot_exchangeRates.csv",
+            "rows": 60,
+            "null_key_rows": 0,
+            "additional_duplicate_key_rows": 0
+          },
+          {
+            "table": "com_con_val_exchangeRates.csv",
+            "rows": 60,
+            "null_key_rows": 0,
+            "additional_duplicate_key_rows": 0
+          }
+        ]
+      },
+      "post_treatment": {
+        "status": "NOT_EVALUATED",
+        "reason": "No transformations are applied during Phase 4."
+      }
+    },
+    {
+      "rule_id": "DQ-DUP-001",
+      "name": "Filas exactas duplicadas",
+      "dimension": "uniqueness",
+      "type": "exact_duplicates",
+      "severity": "warning",
+      "status": "FAIL",
+      "rows_evaluated": 231123,
+      "invalid_rows": 10,
+      "invalid_pct": 0.0043,
+      "threshold": {
+        "max_invalid_count": 0
+      },
+      "description": "Se cuentan filas adicionales idénticas; RAW se conserva y la deduplicación se implementará en Silver.",
+      "details": {
+        "targets": [
+          {
+            "table": "com_awa_ite_additionalClassific.csv",
+            "rows": 2942,
+            "additional_duplicate_rows": 0,
+            "affected_rows": 0
+          },
+          {
+            "table": "com_awa_ite_tot_exchangeRates.csv",
+            "rows": 86,
+            "additional_duplicate_rows": 0,
+            "affected_rows": 0
+          },
+          {
+            "table": "com_awa_items.csv",
+            "rows": 3590,
+            "additional_duplicate_rows": 0,
+            "affected_rows": 0
+          },
+          {
+            "table": "com_awa_suppliers.csv",
+            "rows": 3396,
+            "additional_duplicate_rows": 0,
+            "affected_rows": 0
+          },
+          {
+            "table": "com_awa_val_exchangeRates.csv",
+            "rows": 86,
+            "additional_duplicate_rows": 0,
+            "affected_rows": 0
+          },
+          {
+            "table": "com_awards.csv",
+            "rows": 3397,
+            "additional_duplicate_rows": 0,
+            "affected_rows": 0
+          },
+          {
+            "table": "com_con_documents.csv",
+            "rows": 1414,
+            "additional_duplicate_rows": 0,
+            "affected_rows": 0
+          },
+          {
+            "table": "com_con_ite_additionalClassific.csv",
+            "rows": 934,
+            "additional_duplicate_rows": 0,
+            "affected_rows": 0
+          },
+          {
+            "table": "com_con_ite_tot_exchangeRates.csv",
+            "rows": 60,
+            "additional_duplicate_rows": 0,
+            "affected_rows": 0
+          },
+          {
+            "table": "com_con_items.csv",
+            "rows": 1139,
+            "additional_duplicate_rows": 0,
+            "affected_rows": 0
+          },
+          {
+            "table": "com_con_val_exchangeRates.csv",
+            "rows": 60,
+            "additional_duplicate_rows": 0,
+            "affected_rows": 0
+          },
+          {
+            "table": "com_contracts.csv",
+            "rows": 1119,
+            "additional_duplicate_rows": 0,
+            "affected_rows": 0
+          },
+          {
+            "table": "com_par_additionalIdentifiers.csv",
+            "rows": 6452,
+            "additional_duplicate_rows": 0,
+            "affected_rows": 0
+          },
+          {
+            "table": "com_parties.csv",
+            "rows": 40567,
+            "additional_duplicate_rows": 0,
+            "affected_rows": 0
+          },
+          {
+            "table": "com_sources.csv",
+            "rows": 6452,
+            "additional_duplicate_rows": 0,
+            "affected_rows": 0
+          },
+          {
+            "table": "com_ten_documents.csv",
+            "rows": 24516,
+            "additional_duplicate_rows": 0,
+            "affected_rows": 0
+          },
+          {
+            "table": "com_ten_ite_additionalClassific.csv",
+            "rows": 6078,
+            "additional_duplicate_rows": 0,
+            "affected_rows": 0
+          },
+          {
+            "table": "com_ten_ite_tot_exchangeRates.csv",
+            "rows": 120,
+            "additional_duplicate_rows": 10,
+            "affected_rows": 20
+          },
+          {
+            "table": "com_ten_items.csv",
+            "rows": 7359,
+            "additional_duplicate_rows": 0,
+            "affected_rows": 0
+          },
+          {
+            "table": "com_ten_tenderers.csv",
+            "rows": 34115,
+            "additional_duplicate_rows": 0,
+            "affected_rows": 0
+          },
+          {
+            "table": "records.csv",
+            "rows": 6452,
+            "additional_duplicate_rows": 0,
+            "affected_rows": 0
+          },
+          {
+            "table": "releases.csv",
+            "rows": 80789,
+            "additional_duplicate_rows": 0,
+            "affected_rows": 0
+          }
+        ]
+      },
+      "post_treatment": {
+        "status": "NOT_EVALUATED",
+        "reason": "No transformations are applied during Phase 4."
+      }
+    },
+    {
+      "rule_id": "DQ-REF-001",
+      "name": "Referencia de tablas hijas al record raíz",
+      "dimension": "referential_integrity",
+      "type": "root_references",
+      "severity": "error",
+      "status": "PASS",
+      "rows_evaluated": 368553,
+      "invalid_rows": 0,
+      "invalid_pct": 0.0,
+      "threshold": {
+        "max_invalid_count": 0
+      },
+      "description": "OCID y compiledRelease/id de cada tabla hija deben existir en records.csv.",
+      "details": {
+        "checks": [
+          {
+            "table": "com_awa_ite_additionalClassific.csv",
+            "key": "ocid",
+            "rows_evaluated": 2942,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_awa_ite_additionalClassific.csv",
+            "key": "compiledRelease/id",
+            "rows_evaluated": 2942,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_awa_ite_tot_exchangeRates.csv",
+            "key": "ocid",
+            "rows_evaluated": 86,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_awa_ite_tot_exchangeRates.csv",
+            "key": "compiledRelease/id",
+            "rows_evaluated": 86,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_awa_items.csv",
+            "key": "ocid",
+            "rows_evaluated": 3590,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_awa_items.csv",
+            "key": "compiledRelease/id",
+            "rows_evaluated": 3590,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_awa_suppliers.csv",
+            "key": "ocid",
+            "rows_evaluated": 3396,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_awa_suppliers.csv",
+            "key": "compiledRelease/id",
+            "rows_evaluated": 3396,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_awa_val_exchangeRates.csv",
+            "key": "ocid",
+            "rows_evaluated": 86,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_awa_val_exchangeRates.csv",
+            "key": "compiledRelease/id",
+            "rows_evaluated": 86,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_awards.csv",
+            "key": "ocid",
+            "rows_evaluated": 3397,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_awards.csv",
+            "key": "compiledRelease/id",
+            "rows_evaluated": 3397,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_con_documents.csv",
+            "key": "ocid",
+            "rows_evaluated": 1414,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_con_documents.csv",
+            "key": "compiledRelease/id",
+            "rows_evaluated": 1414,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_con_ite_additionalClassific.csv",
+            "key": "ocid",
+            "rows_evaluated": 934,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_con_ite_additionalClassific.csv",
+            "key": "compiledRelease/id",
+            "rows_evaluated": 934,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_con_ite_tot_exchangeRates.csv",
+            "key": "ocid",
+            "rows_evaluated": 60,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_con_ite_tot_exchangeRates.csv",
+            "key": "compiledRelease/id",
+            "rows_evaluated": 60,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_con_items.csv",
+            "key": "ocid",
+            "rows_evaluated": 1139,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_con_items.csv",
+            "key": "compiledRelease/id",
+            "rows_evaluated": 1139,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_con_val_exchangeRates.csv",
+            "key": "ocid",
+            "rows_evaluated": 60,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_con_val_exchangeRates.csv",
+            "key": "compiledRelease/id",
+            "rows_evaluated": 60,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_contracts.csv",
+            "key": "ocid",
+            "rows_evaluated": 1119,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_contracts.csv",
+            "key": "compiledRelease/id",
+            "rows_evaluated": 1119,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_par_additionalIdentifiers.csv",
+            "key": "ocid",
+            "rows_evaluated": 6452,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_par_additionalIdentifiers.csv",
+            "key": "compiledRelease/id",
+            "rows_evaluated": 6452,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_parties.csv",
+            "key": "ocid",
+            "rows_evaluated": 40567,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_parties.csv",
+            "key": "compiledRelease/id",
+            "rows_evaluated": 40567,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_sources.csv",
+            "key": "ocid",
+            "rows_evaluated": 6452,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_sources.csv",
+            "key": "compiledRelease/id",
+            "rows_evaluated": 6452,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_ten_documents.csv",
+            "key": "ocid",
+            "rows_evaluated": 24516,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_ten_documents.csv",
+            "key": "compiledRelease/id",
+            "rows_evaluated": 24516,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_ten_ite_additionalClassific.csv",
+            "key": "ocid",
+            "rows_evaluated": 6078,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_ten_ite_additionalClassific.csv",
+            "key": "compiledRelease/id",
+            "rows_evaluated": 6078,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_ten_ite_tot_exchangeRates.csv",
+            "key": "ocid",
+            "rows_evaluated": 120,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_ten_ite_tot_exchangeRates.csv",
+            "key": "compiledRelease/id",
+            "rows_evaluated": 120,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_ten_items.csv",
+            "key": "ocid",
+            "rows_evaluated": 7359,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_ten_items.csv",
+            "key": "compiledRelease/id",
+            "rows_evaluated": 7359,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_ten_tenderers.csv",
+            "key": "ocid",
+            "rows_evaluated": 34115,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "com_ten_tenderers.csv",
+            "key": "compiledRelease/id",
+            "rows_evaluated": 34115,
+            "missing_parent_rows": 0
+          },
+          {
+            "table": "releases.csv",
+            "key": "ocid",
+            "rows_evaluated": 80789,
+            "missing_parent_rows": 0
+          }
+        ],
+        "check_count": 41
+      },
+      "post_treatment": {
+        "status": "NOT_EVALUATED",
+        "reason": "No transformations are applied during Phase 4."
+      }
+    },
+    {
+      "rule_id": "DQ-REF-002",
+      "name": "Relaciones profundas entre entidades OCDS",
+      "dimension": "referential_integrity",
+      "type": "foreign_keys",
+      "severity": "error",
+      "status": "PASS",
+      "rows_evaluated": 64987,
+      "invalid_rows": 0,
+      "invalid_pct": 0.0,
+      "threshold": {
+        "max_invalid_count": 0
+      },
+      "description": "Ítems, proveedores, documentos y tasas deben conservar su adjudicación, contrato, parte o ítem padre.",
+      "details": {
+        "checks": [
+          {
+            "name": "party_additional_identifier_to_party",
+            "rows_evaluated": 6452,
+            "orphan_rows": 0
+          },
+          {
+            "name": "tenderer_to_party",
+            "rows_evaluated": 34115,
+            "orphan_rows": 0
+          },
+          {
+            "name": "tender_classification_to_item",
+            "rows_evaluated": 6078,
+            "orphan_rows": 0
+          },
+          {
+            "name": "tender_exchange_rate_to_item",
+            "rows_evaluated": 120,
+            "orphan_rows": 0
+          },
+          {
+            "name": "award_supplier_to_award",
+            "rows_evaluated": 3396,
+            "orphan_rows": 0
+          },
+          {
+            "name": "award_supplier_to_party",
+            "rows_evaluated": 3396,
+            "orphan_rows": 0
+          },
+          {
+            "name": "award_item_to_award",
+            "rows_evaluated": 3590,
+            "orphan_rows": 0
+          },
+          {
+            "name": "award_classification_to_item",
+            "rows_evaluated": 2942,
+            "orphan_rows": 0
+          },
+          {
+            "name": "award_item_exchange_rate_to_item",
+            "rows_evaluated": 86,
+            "orphan_rows": 0
+          },
+          {
+            "name": "award_value_exchange_rate_to_award",
+            "rows_evaluated": 86,
+            "orphan_rows": 0
+          },
+          {
+            "name": "contract_to_award",
+            "rows_evaluated": 1119,
+            "orphan_rows": 0
+          },
+          {
+            "name": "contract_document_to_contract",
+            "rows_evaluated": 1414,
+            "orphan_rows": 0
+          },
+          {
+            "name": "contract_item_to_contract",
+            "rows_evaluated": 1139,
+            "orphan_rows": 0
+          },
+          {
+            "name": "contract_classification_to_item",
+            "rows_evaluated": 934,
+            "orphan_rows": 0
+          },
+          {
+            "name": "contract_item_exchange_rate_to_item",
+            "rows_evaluated": 60,
+            "orphan_rows": 0
+          },
+          {
+            "name": "contract_value_exchange_rate_to_contract",
+            "rows_evaluated": 60,
+            "orphan_rows": 0
+          }
+        ],
+        "check_count": 16
+      },
+      "post_treatment": {
+        "status": "NOT_EVALUATED",
+        "reason": "No transformations are applied during Phase 4."
+      }
+    },
+    {
+      "rule_id": "DQ-VALID-001",
+      "name": "Numéricos no negativos y convertibles",
+      "dimension": "validity",
+      "type": "numeric_min",
+      "severity": "error",
+      "status": "PASS",
+      "rows_evaluated": 46953,
+      "invalid_rows": 0,
+      "invalid_pct": 0.0,
+      "threshold": {
+        "max_invalid_count": 0
+      },
+      "description": "Montos, cantidades y conteos informados deben convertirse a número y no ser negativos.",
+      "details": {
+        "targets": [
+          {
+            "table": "records.csv",
+            "column": "compiledRelease/tender/value/amount",
+            "rows_evaluated": 6452,
+            "null_invalid_rows": 0,
+            "parse_invalid_rows": 0,
+            "range_invalid_rows": 0
+          },
+          {
+            "table": "records.csv",
+            "column": "compiledRelease/tender/value/amount_PEN",
+            "rows_evaluated": 6452,
+            "null_invalid_rows": 0,
+            "parse_invalid_rows": 0,
+            "range_invalid_rows": 0
+          },
+          {
+            "table": "records.csv",
+            "column": "compiledRelease/tender/numberOfTenderers",
+            "rows_evaluated": 4243,
+            "null_invalid_rows": 0,
+            "parse_invalid_rows": 0,
+            "range_invalid_rows": 0
+          },
+          {
+            "table": "com_ten_items.csv",
+            "column": "compiledRelease/tender/items/0/quantity",
+            "rows_evaluated": 7359,
+            "null_invalid_rows": 0,
+            "parse_invalid_rows": 0,
+            "range_invalid_rows": 0
+          },
+          {
+            "table": "com_ten_items.csv",
+            "column": "compiledRelease/tender/items/0/totalValue/amount",
+            "rows_evaluated": 7359,
+            "null_invalid_rows": 0,
+            "parse_invalid_rows": 0,
+            "range_invalid_rows": 0
+          },
+          {
+            "table": "com_awards.csv",
+            "column": "compiledRelease/awards/0/value/amount",
+            "rows_evaluated": 3397,
+            "null_invalid_rows": 0,
+            "parse_invalid_rows": 0,
+            "range_invalid_rows": 0
+          },
+          {
+            "table": "com_awa_items.csv",
+            "column": "compiledRelease/awards/0/items/0/quantity",
+            "rows_evaluated": 3590,
+            "null_invalid_rows": 0,
+            "parse_invalid_rows": 0,
+            "range_invalid_rows": 0
+          },
+          {
+            "table": "com_awa_items.csv",
+            "column": "compiledRelease/awards/0/items/0/totalValue/amount",
+            "rows_evaluated": 3590,
+            "null_invalid_rows": 0,
+            "parse_invalid_rows": 0,
+            "range_invalid_rows": 0
+          },
+          {
+            "table": "com_contracts.csv",
+            "column": "compiledRelease/contracts/0/period/durationInDays",
+            "rows_evaluated": 1111,
+            "null_invalid_rows": 0,
+            "parse_invalid_rows": 0,
+            "range_invalid_rows": 0
+          },
+          {
+            "table": "com_contracts.csv",
+            "column": "compiledRelease/contracts/0/value/amount",
+            "rows_evaluated": 1119,
+            "null_invalid_rows": 0,
+            "parse_invalid_rows": 0,
+            "range_invalid_rows": 0
+          },
+          {
+            "table": "com_contracts.csv",
+            "column": "compiledRelease/contracts/0/implementation/finalValue/amount",
+            "rows_evaluated": 3,
+            "null_invalid_rows": 0,
+            "parse_invalid_rows": 0,
+            "range_invalid_rows": 0
+          },
+          {
+            "table": "com_con_items.csv",
+            "column": "compiledRelease/contracts/0/items/0/quantity",
+            "rows_evaluated": 1139,
+            "null_invalid_rows": 0,
+            "parse_invalid_rows": 0,
+            "range_invalid_rows": 0
+          },
+          {
+            "table": "com_con_items.csv",
+            "column": "compiledRelease/contracts/0/items/0/totalValue/amount",
+            "rows_evaluated": 1139,
+            "null_invalid_rows": 0,
+            "parse_invalid_rows": 0,
+            "range_invalid_rows": 0
+          }
+        ]
+      },
+      "post_treatment": {
+        "status": "NOT_EVALUATED",
+        "reason": "No transformations are applied during Phase 4."
+      }
+    },
+    {
+      "rule_id": "DQ-VALID-002",
+      "name": "Tasas de cambio positivas",
+      "dimension": "validity",
+      "type": "numeric_min",
+      "severity": "error",
+      "status": "PASS",
+      "rows_evaluated": 412,
+      "invalid_rows": 0,
+      "invalid_pct": 0.0,
+      "threshold": {
+        "max_invalid_count": 0
+      },
+      "description": "Toda tasa informada debe convertirse a número y ser estrictamente mayor que cero.",
+      "details": {
+        "targets": [
+          {
+            "table": "com_ten_ite_tot_exchangeRates.csv",
+            "column": "compiledRelease/tender/items/0/totalValue/exchangeRates/0/rate",
+            "rows_evaluated": 120,
+            "null_invalid_rows": 0,
+            "parse_invalid_rows": 0,
+            "range_invalid_rows": 0
+          },
+          {
+            "table": "com_awa_ite_tot_exchangeRates.csv",
+            "column": "compiledRelease/awards/0/items/0/totalValue/exchangeRates/0/rate",
+            "rows_evaluated": 86,
+            "null_invalid_rows": 0,
+            "parse_invalid_rows": 0,
+            "range_invalid_rows": 0
+          },
+          {
+            "table": "com_awa_val_exchangeRates.csv",
+            "column": "compiledRelease/awards/0/value/exchangeRates/0/rate",
+            "rows_evaluated": 86,
+            "null_invalid_rows": 0,
+            "parse_invalid_rows": 0,
+            "range_invalid_rows": 0
+          },
+          {
+            "table": "com_con_ite_tot_exchangeRates.csv",
+            "column": "compiledRelease/contracts/0/items/0/totalValue/exchangeRates/0/rate",
+            "rows_evaluated": 60,
+            "null_invalid_rows": 0,
+            "parse_invalid_rows": 0,
+            "range_invalid_rows": 0
+          },
+          {
+            "table": "com_con_val_exchangeRates.csv",
+            "column": "compiledRelease/contracts/0/value/exchangeRates/0/rate",
+            "rows_evaluated": 60,
+            "null_invalid_rows": 0,
+            "parse_invalid_rows": 0,
+            "range_invalid_rows": 0
+          }
+        ]
+      },
+      "post_treatment": {
+        "status": "NOT_EVALUATED",
+        "reason": "No transformations are applied during Phase 4."
+      }
+    },
+    {
+      "rule_id": "DQ-TEMP-001",
+      "name": "Fechas de negocio interpretables",
+      "dimension": "validity",
+      "type": "parseable_datetime",
+      "severity": "error",
+      "status": "PASS",
+      "rows_evaluated": 47223,
+      "invalid_rows": 0,
+      "invalid_pct": 0.0,
+      "threshold": {
+        "max_invalid_count": 0
+      },
+      "description": "Las fechas no nulas deben convertirse a datetime con zona horaria normalizada.",
+      "details": {
+        "targets": [
+          {
+            "table": "records.csv",
+            "column": "compiledRelease/date",
+            "rows_evaluated": 6452,
+            "invalid_rows": 0
+          },
+          {
+            "table": "records.csv",
+            "column": "compiledRelease/publishedDate",
+            "rows_evaluated": 6452,
+            "invalid_rows": 0
+          },
+          {
+            "table": "records.csv",
+            "column": "compiledRelease/tender/datePublished",
+            "rows_evaluated": 6452,
+            "invalid_rows": 0
+          },
+          {
+            "table": "records.csv",
+            "column": "compiledRelease/tender/tenderPeriod/startDate",
+            "rows_evaluated": 6020,
+            "invalid_rows": 0
+          },
+          {
+            "table": "records.csv",
+            "column": "compiledRelease/tender/tenderPeriod/endDate",
+            "rows_evaluated": 6020,
+            "invalid_rows": 0
+          },
+          {
+            "table": "records.csv",
+            "column": "compiledRelease/tender/enquiryPeriod/startDate",
+            "rows_evaluated": 4536,
+            "invalid_rows": 0
+          },
+          {
+            "table": "records.csv",
+            "column": "compiledRelease/tender/enquiryPeriod/endDate",
+            "rows_evaluated": 4536,
+            "invalid_rows": 0
+          },
+          {
+            "table": "com_awards.csv",
+            "column": "compiledRelease/awards/0/date",
+            "rows_evaluated": 3397,
+            "invalid_rows": 0
+          },
+          {
+            "table": "com_contracts.csv",
+            "column": "compiledRelease/contracts/0/period/startDate",
+            "rows_evaluated": 1119,
+            "invalid_rows": 0
+          },
+          {
+            "table": "com_contracts.csv",
+            "column": "compiledRelease/contracts/0/period/endDate",
+            "rows_evaluated": 1119,
+            "invalid_rows": 0
+          },
+          {
+            "table": "com_contracts.csv",
+            "column": "compiledRelease/contracts/0/dateSigned",
+            "rows_evaluated": 1119,
+            "invalid_rows": 0
+          },
+          {
+            "table": "com_contracts.csv",
+            "column": "compiledRelease/contracts/0/implementation/endDate",
+            "rows_evaluated": 1,
+            "invalid_rows": 0
+          }
+        ]
+      },
+      "post_treatment": {
+        "status": "NOT_EVALUATED",
+        "reason": "No transformations are applied during Phase 4."
+      }
+    },
+    {
+      "rule_id": "DQ-TEMP-002",
+      "name": "Secuencia temporal coherente",
+      "dimension": "consistency",
+      "type": "ordered_datetimes",
+      "severity": "error",
+      "status": "PASS",
+      "rows_evaluated": 11675,
+      "invalid_rows": 0,
+      "invalid_pct": 0.0,
+      "threshold": {
+        "max_invalid_count": 0
+      },
+      "description": "Cuando ambas fechas existen, el inicio no puede ser posterior al fin.",
+      "details": {
+        "pairs": [
+          {
+            "table": "records.csv",
+            "start_column": "compiledRelease/tender/tenderPeriod/startDate",
+            "end_column": "compiledRelease/tender/tenderPeriod/endDate",
+            "rows_evaluated": 6020,
+            "invalid_rows": 0
+          },
+          {
+            "table": "records.csv",
+            "start_column": "compiledRelease/tender/enquiryPeriod/startDate",
+            "end_column": "compiledRelease/tender/enquiryPeriod/endDate",
+            "rows_evaluated": 4536,
+            "invalid_rows": 0
+          },
+          {
+            "table": "com_contracts.csv",
+            "start_column": "compiledRelease/contracts/0/period/startDate",
+            "end_column": "compiledRelease/contracts/0/period/endDate",
+            "rows_evaluated": 1119,
+            "invalid_rows": 0
+          }
+        ]
+      },
+      "post_treatment": {
+        "status": "NOT_EVALUATED",
+        "reason": "No transformations are applied during Phase 4."
+      }
+    },
+    {
+      "rule_id": "DQ-CONS-001",
+      "name": "Moneda presente cuando existe monto",
+      "dimension": "consistency",
+      "type": "conditional_not_null",
+      "severity": "error",
+      "status": "PASS",
+      "rows_evaluated": 23059,
+      "invalid_rows": 0,
+      "invalid_pct": 0.0,
+      "threshold": {
+        "max_invalid_count": 0
+      },
+      "description": "Un monto informado debe conservar su moneda en el mismo grano.",
+      "details": {
+        "targets": [
+          {
+            "table": "records.csv",
+            "rows_evaluated": 6452,
+            "invalid_rows": 0
+          },
+          {
+            "table": "com_ten_items.csv",
+            "rows_evaluated": 7359,
+            "invalid_rows": 0
+          },
+          {
+            "table": "com_awards.csv",
+            "rows_evaluated": 3397,
+            "invalid_rows": 0
+          },
+          {
+            "table": "com_awa_items.csv",
+            "rows_evaluated": 3590,
+            "invalid_rows": 0
+          },
+          {
+            "table": "com_contracts.csv",
+            "rows_evaluated": 1119,
+            "invalid_rows": 0
+          },
+          {
+            "table": "com_contracts.csv",
+            "rows_evaluated": 3,
+            "invalid_rows": 0
+          },
+          {
+            "table": "com_con_items.csv",
+            "rows_evaluated": 1139,
+            "invalid_rows": 0
+          }
+        ]
+      },
+      "post_treatment": {
+        "status": "NOT_EVALUATED",
+        "reason": "No transformations are applied during Phase 4."
+      }
+    },
+    {
+      "rule_id": "DQ-ID-001",
+      "name": "Formato estructural de identificadores PE-RUC",
+      "dimension": "validity",
+      "type": "peru_ruc",
+      "severity": "warning",
+      "status": "FAIL",
+      "rows_evaluated": 34115,
+      "invalid_rows": 1797,
+      "invalid_pct": 5.2675,
+      "threshold": {
+        "max_invalid_count": 0
+      },
+      "description": "Los identificadores PE-RUC deben contener exactamente 11 dígitos según la estructura publicada por SUNAT; se reportan sin corregir.",
+      "details": {
+        "scheme": "PE-RUC",
+        "rows_evaluated": 34115,
+        "format_invalid_rows": 1797,
+        "invalid_length_rows": 1654,
+        "non_digit_rows_with_length_11": 143
+      },
+      "post_treatment": {
+        "status": "NOT_EVALUATED",
+        "reason": "No transformations are applied during Phase 4."
+      }
+    },
+    {
+      "rule_id": "DQ-CAT-001",
+      "name": "Clasificación de ítems completa",
+      "dimension": "completeness",
+      "type": "classification_completeness",
+      "severity": "warning",
+      "status": "FAIL",
+      "rows_evaluated": 22042,
+      "invalid_rows": 2135,
+      "invalid_pct": 9.6861,
+      "threshold": {
+        "max_invalid_count": 0
+      },
+      "description": "Cada clasificación publicada debe conservar código, descripción y esquema; faltantes se tratarán como Sin clasificar.",
+      "details": {
+        "targets": [
+          {
+            "table": "com_ten_items.csv",
+            "rows": 7359,
+            "invalid_rows": 1281
+          },
+          {
+            "table": "com_ten_ite_additionalClassific.csv",
+            "rows": 6078,
+            "invalid_rows": 1
+          },
+          {
+            "table": "com_awa_items.csv",
+            "rows": 3590,
+            "invalid_rows": 648
+          },
+          {
+            "table": "com_awa_ite_additionalClassific.csv",
+            "rows": 2942,
+            "invalid_rows": 0
+          },
+          {
+            "table": "com_con_items.csv",
+            "rows": 1139,
+            "invalid_rows": 205
+          },
+          {
+            "table": "com_con_ite_additionalClassific.csv",
+            "rows": 934,
+            "invalid_rows": 0
+          }
+        ]
+      },
+      "post_treatment": {
+        "status": "NOT_EVALUATED",
+        "reason": "No transformations are applied during Phase 4."
+      }
+    },
+    {
+      "rule_id": "DQ-FIT-001",
+      "name": "Cobertura mínima de valor final de implementación",
+      "dimension": "fitness_for_use",
+      "type": "minimum_coverage",
+      "severity": "warning",
+      "status": "FAIL",
+      "rows_evaluated": 1119,
+      "invalid_rows": 1116,
+      "invalid_pct": 99.7319,
+      "threshold": {
+        "min_coverage_pct": 5
+      },
+      "description": "Mide si finalValue puede sostener KPIs de ejecución contractual; no imputa valores faltantes.",
+      "details": {
+        "coverage_pct": 0.2681
+      },
+      "post_treatment": {
+        "status": "NOT_EVALUATED",
+        "reason": "No transformations are applied during Phase 4."
+      }
+    },
+    {
+      "rule_id": "DQ-FIT-002",
+      "name": "Cobertura mínima de número de ofertantes",
+      "dimension": "fitness_for_use",
+      "type": "minimum_coverage",
+      "severity": "info",
+      "status": "PASS",
+      "rows_evaluated": 6452,
+      "invalid_rows": 2209,
+      "invalid_pct": 34.2374,
+      "threshold": {
+        "min_coverage_pct": 60
+      },
+      "description": "Evalúa aptitud preliminar para indicadores de competencia sin exigir cobertura total.",
+      "details": {
+        "coverage_pct": 65.7626
+      },
+      "post_treatment": {
+        "status": "NOT_EVALUATED",
+        "reason": "No transformations are applied during Phase 4."
+      }
+    },
+    {
+      "rule_id": "DQ-BIZ-001",
+      "name": "Valor de licitación positivo",
+      "dimension": "fitness_for_use",
+      "type": "numeric_min",
+      "severity": "warning",
+      "status": "FAIL",
+      "rows_evaluated": 6452,
+      "invalid_rows": 1752,
+      "invalid_pct": 27.1544,
+      "threshold": {
+        "max_invalid_count": 0
+      },
+      "description": "Los montos cero se conservan, pero no deben interpretarse automáticamente como gasto de mercado.",
+      "details": {
+        "targets": [
+          {
+            "table": "records.csv",
+            "column": "compiledRelease/tender/value/amount",
+            "rows_evaluated": 6452,
+            "null_invalid_rows": 0,
+            "parse_invalid_rows": 0,
+            "range_invalid_rows": 1752
+          }
+        ]
+      },
+      "post_treatment": {
+        "status": "NOT_EVALUATED",
+        "reason": "No transformations are applied during Phase 4."
+      }
+    }
+  ]
+}
