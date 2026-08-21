@@ -7,7 +7,7 @@ from zipfile import ZIP_DEFLATED, ZipFile
 import pandas as pd
 import yaml
 
-from procurement_intelligence.extraction.download_ocds import sha256_file
+from procurement_intelligence.extraction.download_ocds import sha256_text_file
 from procurement_intelligence.profiling.profile_ocds_csv import CANDIDATE_GRAINS
 from procurement_intelligence.validation.validate_ocds_csv import (
     _peru_ruc,
@@ -180,7 +180,7 @@ def test_committed_quality_summary_reconciles_with_rules() -> None:
         if result["severity"] in {"critical", "error"}
     ]
 
-    assert report["source"]["rule_config_sha256"] == sha256_file(RULES_PATH)
+    assert report["source"]["rule_config_sha256"] == sha256_text_file(RULES_PATH)
     assert report["summary"]["rule_count"] == len(results) == 17
     assert report["summary"]["passed_rules"] == len(results) - len(failures) == 11
     assert report["summary"]["failed_rules"] == len(failures) == 6
