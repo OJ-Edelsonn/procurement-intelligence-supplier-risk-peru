@@ -1,0 +1,126 @@
+validation:
+  schema_version: "1.0"
+  name: Procurement Intelligence SQL Server quality gates
+  target_database_env: SQL_DATABASE
+  source_id: oece_ocds_seace_v3_bulk
+  blocking_severities:
+    - error
+  warning_severities:
+    - warning
+  amount_scale: 14
+  inputs:
+    etl_summary: reports/etl/oece_ocds_seace_v3_2026_07_etl_summary.json
+    dimensional_analysis: reports/modeling/oece_ocds_seace_v3_2026_07_dimensional_model_analysis.json
+    sql_load_report: reports/sql/oece_ocds_seace_v3_2026_07_sql_server_load.json
+  sql_scripts:
+    integrity: sql/validation/phase8_integrity_checks.sql
+    business_quality: sql/validation/phase8_business_quality_checks.sql
+    row_reconciliation: sql/validation/phase8_row_reconciliation.sql
+    financial_reconciliation: sql/validation/phase8_financial_reconciliation.sql
+    dbcc: sql/validation/phase8_dbcc_constraints.sql
+  expected_objects:
+    staging_tables: 22
+    warehouse_tables: 16
+    primary_keys: 16
+    unique_constraints: 16
+    check_constraints: 9
+    foreign_keys: 55
+    audited_tables: 38
+
+rules:
+  - {rule_id: SQL-BATCH-001, category: audit, severity: error, name: Latest successful load exists}
+  - {rule_id: SQL-STRUCT-001, category: structure, severity: error, name: Expected staging tables exist}
+  - {rule_id: SQL-STRUCT-002, category: structure, severity: error, name: Expected warehouse tables exist}
+  - {rule_id: SQL-STRUCT-003, category: structure, severity: error, name: Every warehouse table has a primary key}
+  - {rule_id: SQL-STRUCT-004, category: structure, severity: error, name: Governed unique constraints exist}
+  - {rule_id: SQL-STRUCT-005, category: structure, severity: error, name: Governed check constraints exist}
+  - {rule_id: SQL-STRUCT-006, category: structure, severity: error, name: Foreign keys exist and are trusted}
+  - {rule_id: SQL-STRUCT-007, category: structure, severity: error, name: Warehouse tables are not heaps}
+  - {rule_id: SQL-AUDIT-001, category: audit, severity: error, name: Table audit is complete and successful}
+  - {rule_id: SQL-AUDIT-002, category: audit, severity: error, name: Physical rows match the load audit}
+  - {rule_id: SQL-DIM-001, category: dimensions, severity: error, name: Every dimension has one unknown member}
+  - {rule_id: SQL-DIM-002, category: dimensions, severity: error, name: Date dimension is continuous and internally consistent}
+  - {rule_id: SQL-GRAIN-001, category: grain, severity: error, name: Procurement process fact grain is unique}
+  - {rule_id: SQL-GRAIN-002, category: grain, severity: error, name: Tender item fact grain is unique}
+  - {rule_id: SQL-GRAIN-003, category: grain, severity: error, name: Award fact grain is unique}
+  - {rule_id: SQL-GRAIN-004, category: grain, severity: error, name: Award item fact grain is unique}
+  - {rule_id: SQL-GRAIN-005, category: grain, severity: error, name: Contract fact grain is unique}
+  - {rule_id: SQL-GRAIN-006, category: grain, severity: error, name: Contract item fact grain is unique}
+  - {rule_id: SQL-GRAIN-007, category: grain, severity: error, name: Process tenderer bridge grain is unique}
+  - {rule_id: SQL-GRAIN-008, category: grain, severity: error, name: Award supplier bridge grain is unique}
+  - {rule_id: SQL-REF-001, category: referential_integrity, severity: error, name: DBCC reports no constraint violations}
+  - {rule_id: SQL-REF-002, category: referential_integrity, severity: error, name: Contract award references resolve semantically}
+  - {rule_id: SQL-LINEAGE-001, category: lineage, severity: error, name: Fact and bridge lineage matches the active batch}
+  - {rule_id: SQL-BRIDGE-001, category: modeling, severity: error, name: Factless bridges contain no monetary columns}
+  - {rule_id: SQL-BUS-001, category: business_logic, severity: error, name: Observed tenderer count equals the participation bridge}
+  - {rule_id: SQL-BUS-002, category: business_logic, severity: error, name: Award supplier count equals the supplier bridge}
+  - {rule_id: SQL-BUS-003, category: business_logic, severity: error, name: Award monetary attribution follows the single-supplier policy}
+  - {rule_id: SQL-BUS-004, category: business_logic, severity: error, name: Award item attribution inherits the governed award supplier}
+  - {rule_id: SQL-BUS-005, category: business_logic, severity: error, name: Contract attribution inherits the governed award supplier}
+  - {rule_id: SQL-BUS-006, category: business_logic, severity: error, name: Contract item attribution inherits its contract supplier}
+  - {rule_id: SQL-CALC-001, category: calculation, severity: error, name: PEN conversions are reproducible and never invented}
+  - {rule_id: SQL-CALC-002, category: calculation, severity: error, name: Header-item differences and flags are reproducible}
+  - {rule_id: SQL-CALC-003, category: calculation, severity: error, name: Classification quality flags match unknown keys}
+  - {rule_id: SQL-CALC-004, category: calculation, severity: error, name: Zero tender amount flag matches the amount}
+  - {rule_id: SQL-WARN-001, category: observed_quality, severity: warning, name: Supplier members with invalid published RUC format}
+  - {rule_id: SQL-WARN-002, category: observed_quality, severity: warning, name: Supplier name conflicts preserved}
+  - {rule_id: SQL-WARN-003, category: observed_quality, severity: warning, name: Category description conflicts preserved}
+  - {rule_id: SQL-WARN-004, category: observed_quality, severity: warning, name: Declared and observed tenderer counts differ}
+  - {rule_id: SQL-WARN-005, category: observed_quality, severity: warning, name: Tender header and item totals differ by more than 0.01}
+  - {rule_id: SQL-WARN-006, category: observed_quality, severity: warning, name: Award header and item totals differ by more than 0.01}
+  - {rule_id: SQL-WARN-007, category: observed_quality, severity: warning, name: Contract header and item totals differ by more than 0.01}
+  - {rule_id: SQL-WARN-008, category: observed_quality, severity: warning, name: Foreign-currency rows lack a published PEN rate}
+  - {rule_id: SQL-WARN-009, category: observed_quality, severity: warning, name: Contracts lack final implementation value}
+  - {rule_id: SQL-WARN-010, category: observed_quality, severity: warning, name: Negative monetary amounts observed}
+  - {rule_id: SQL-WARN-011, category: observed_quality, severity: warning, name: Zero tender header amounts observed}
+
+reconciliation:
+  dimension_unknown_adjustment:
+    dim_date: 1
+    dim_process: 1
+    dim_buyer: 1
+    dim_supplier: 1
+    dim_category: 0
+    dim_procurement_method: 1
+    dim_currency: 1
+    dim_unit: 1
+  warning_metric_mapping:
+    SQL-WARN-001: dimension_quality.supplier_invalid_ruc_members
+    SQL-WARN-002: warning_metrics.supplier_name_conflicts
+    SQL-WARN-003: warning_metrics.category_description_conflicts
+    SQL-WARN-004: warning_metrics.tenderer_count_differences
+    SQL-WARN-005: amount_reconciliation.tender.mismatches_over_0_01
+    SQL-WARN-006: amount_reconciliation.award.mismatches_over_0_01
+    SQL-WARN-007: amount_reconciliation.contract.mismatches_over_0_01
+    SQL-WARN-008: warning_metrics.foreign_rows_without_rate
+    SQL-WARN-009: warning_metrics.contracts_without_final_value
+
+financial_controls:
+  - control_id: process_tender_amount
+    silver_table: procurement_process
+    currency_column: compiled_release_tender_value_currency
+    amount_column: compiled_release_tender_value_amount
+  - control_id: process_budget_amount
+    silver_table: procurement_process
+    currency_column: compiled_release_planning_budget_amount_currency
+    amount_column: compiled_release_planning_budget_amount_amount
+  - control_id: tender_item_amount
+    silver_table: tender_item
+    currency_column: compiled_release_tender_items_total_value_currency
+    amount_column: compiled_release_tender_items_total_value_amount
+  - control_id: award_amount
+    silver_table: award
+    currency_column: compiled_release_awards_value_currency
+    amount_column: compiled_release_awards_value_amount
+  - control_id: award_item_amount
+    silver_table: award_item
+    currency_column: compiled_release_awards_items_total_value_currency
+    amount_column: compiled_release_awards_items_total_value_amount
+  - control_id: contract_amount
+    silver_table: contract
+    currency_column: compiled_release_contracts_value_currency
+    amount_column: compiled_release_contracts_value_amount
+  - control_id: contract_item_amount
+    silver_table: contract_item
+    currency_column: compiled_release_contracts_items_total_value_currency
+    amount_column: compiled_release_contracts_items_total_value_amount
