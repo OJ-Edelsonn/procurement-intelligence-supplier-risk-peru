@@ -47,4 +47,23 @@ No es obligatorio activar el entorno. Para activarlo:
 .\.venv\Scripts\python.exe -m pytest --version
 ```
 
-La conexión real a SQL Server se probará cuando exista la base del proyecto. El controlador configurado es `ODBC Driver 18 for SQL Server` y la instancia local prevista es `localhost\SQLEXPRESS`.
+## SQL Server local
+
+La Fase 7 fue validada con SQL Server 2022 Express de 64 bits, `ODBC Driver 18 for SQL Server` y autenticación integrada de Windows. Antes de cargar, iniciar `SQL Server (SQLEXPRESS)` desde `services.msc` o SQL Server Configuration Manager.
+
+Variables esperadas en `.env`:
+
+```dotenv
+SQL_SERVER=localhost\SQLEXPRESS
+SQL_DATABASE=ProcurementIntelligence
+SQL_DRIVER=ODBC Driver 18 for SQL Server
+SQL_TRUSTED_CONNECTION=yes
+SQL_ENCRYPT=yes
+SQL_TRUST_SERVER_CERTIFICATE=yes
+```
+
+No añadir usuario ni contraseña al repositorio. Verificación sin mostrar la cadena:
+
+```powershell
+.\.venv\Scripts\python.exe -c "from procurement_intelligence.settings import load_sql_server_settings; from procurement_intelligence.loading.sql_server import connect_sql_server; c=connect_sql_server(load_sql_server_settings(),'master'); print(c.cursor().execute('SELECT 1').fetchval()); c.close()"
+```
