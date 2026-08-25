@@ -1,0 +1,1040 @@
+{
+  "schema_version": "1.0",
+  "generated_at_utc": "2026-08-25T00:42:30.011094+00:00",
+  "scope": "governed_kpis",
+  "source": {
+    "source_id": "oece_ocds_seace_v3_bulk",
+    "source_period": "2026-07",
+    "snapshot_date": "2026-08-19",
+    "load_batch_id": 4,
+    "database_name": "ProcurementIntelligence",
+    "sql_server_version": "16.0.1000.6",
+    "phase8_gate": "reports/sql/oece_ocds_seace_v3_2026_07_phase8_validation.json",
+    "phase8_gate_sha256": "d0168d36b3f069be90aea5ec3c610fafb5cd50597d67d22db838356c0689639a",
+    "phase9_gate": "reports/eda/oece_ocds_seace_v3_2026_07_eda_summary.json",
+    "phase9_gate_sha256": "d0de73125e2dca6f49619d13c9b444b93aea633717ba385060d4587d237f261b",
+    "kpi_config": "config/kpis.yml",
+    "kpi_config_sha256": "5c280c23265989d0258dab1ea73b45cd5e258024b222f0c49cfcc62d9737caf2",
+    "kpi_runner_sha256": "33f35de3c3bea908ef952ffa18a7d5b16d1b1e79ba784253efe5c6f159799f31",
+    "dax_catalog": "powerbi/dax/phase10_kpi_measures.dax",
+    "dax_catalog_sha256": "7dd9d07b556b27e25c51ad49bc22bfa57664ab70b3c2916ed7a09d15a7af2026",
+    "sql_datasets": {
+      "portfolio_kpis": {
+        "path": "sql/analytics/phase10_portfolio_kpis.sql",
+        "sha256": "1b43fbb3d2472243545985725cbec16b6cf9f5a2f37af4b3d6f52b4e804d9e02"
+      },
+      "buyer_kpis": {
+        "path": "sql/analytics/phase10_buyer_kpis.sql",
+        "sha256": "02ffbf21f74cc451760ded7918aa0cda3b40d5236cfae3b87489322785bd35a9"
+      },
+      "supplier_kpis": {
+        "path": "sql/analytics/phase10_supplier_kpis.sql",
+        "sha256": "5799394aba53c3a7a15c8947fe36974746a8b7aa8bcc7c8d7340bf2c3f07810a"
+      },
+      "category_kpis": {
+        "path": "sql/analytics/phase10_category_kpis.sql",
+        "sha256": "1cfa20dcde35ecfeb67a59de98615f80583e094e5410b60381ea3d7174cf2de4"
+      }
+    }
+  },
+  "summary": {
+    "status": "PASS",
+    "datasets_executed": 4,
+    "published_kpis": 21,
+    "blocked_kpis": 7,
+    "reconciliations_passed": 7,
+    "reconciliations_failed": 0,
+    "source_period_count": 1,
+    "duration_seconds": 27.5891
+  },
+  "analysis": {
+    "portfolio_kpis": [
+      {
+        "metric_id": "procurement_processes",
+        "label": "Procesos publicados",
+        "domain": "demand",
+        "grain": "process",
+        "unit": "count",
+        "direction": "context",
+        "publishable": true,
+        "metric_value": "6452.000000",
+        "numerator": 6452,
+        "denominator": 6452
+      },
+      {
+        "metric_id": "tender_amount_pen",
+        "label": "Monto licitado PEN",
+        "domain": "demand",
+        "grain": "process",
+        "unit": "PEN",
+        "direction": "context",
+        "publishable": true,
+        "metric_value": "6924924015.380000",
+        "numerator": 6452,
+        "denominator": 6452
+      },
+      {
+        "metric_id": "tender_amount_pen_coverage_pct",
+        "label": "Cobertura monto licitado PEN",
+        "domain": "quality",
+        "grain": "process",
+        "unit": "percent",
+        "direction": "higher_is_better",
+        "publishable": true,
+        "metric_value": "100.000000",
+        "numerator": 6452,
+        "denominator": 6452
+      },
+      {
+        "metric_id": "tender_zero_amount_pct",
+        "label": "Procesos con monto licitado cero",
+        "domain": "quality",
+        "grain": "process",
+        "unit": "percent",
+        "direction": "lower_is_better",
+        "publishable": true,
+        "metric_value": "27.154371",
+        "numerator": 1752,
+        "denominator": 6452
+      },
+      {
+        "metric_id": "average_tender_ticket_pen",
+        "label": "Ticket promedio licitado PEN",
+        "domain": "demand",
+        "grain": "process",
+        "unit": "PEN",
+        "direction": "context",
+        "publishable": true,
+        "metric_value": "1073298.824454",
+        "numerator": 6452,
+        "denominator": 6452
+      },
+      {
+        "metric_id": "active_buyers",
+        "label": "Compradores observados",
+        "domain": "buyer",
+        "grain": "buyer",
+        "unit": "count",
+        "direction": "context",
+        "publishable": true,
+        "metric_value": "1450.000000",
+        "numerator": 1450,
+        "denominator": 1450
+      },
+      {
+        "metric_id": "award_count",
+        "label": "Adjudicaciones",
+        "domain": "award",
+        "grain": "award",
+        "unit": "count",
+        "direction": "context",
+        "publishable": true,
+        "metric_value": "3397.000000",
+        "numerator": 3397,
+        "denominator": 3397
+      },
+      {
+        "metric_id": "award_amount_pen",
+        "label": "Monto adjudicado PEN",
+        "domain": "award",
+        "grain": "award",
+        "unit": "PEN",
+        "direction": "context",
+        "publishable": true,
+        "metric_value": "2375748188.206233",
+        "numerator": 3397,
+        "denominator": 3397
+      },
+      {
+        "metric_id": "award_amount_pen_coverage_pct",
+        "label": "Cobertura monto adjudicado PEN",
+        "domain": "quality",
+        "grain": "award",
+        "unit": "percent",
+        "direction": "higher_is_better",
+        "publishable": true,
+        "metric_value": "100.000000",
+        "numerator": 3397,
+        "denominator": 3397
+      },
+      {
+        "metric_id": "average_award_ticket_pen",
+        "label": "Ticket promedio adjudicado PEN",
+        "domain": "award",
+        "grain": "award",
+        "unit": "PEN",
+        "direction": "context",
+        "publishable": true,
+        "metric_value": "699366.555256",
+        "numerator": 3397,
+        "denominator": 3397
+      },
+      {
+        "metric_id": "attributable_award_pct",
+        "label": "Adjudicaciones atribuibles a proveedor único",
+        "domain": "quality",
+        "grain": "award",
+        "unit": "percent",
+        "direction": "higher_is_better",
+        "publishable": true,
+        "metric_value": "99.970562",
+        "numerator": 3396,
+        "denominator": 3397
+      },
+      {
+        "metric_id": "awarded_suppliers",
+        "label": "Proveedores adjudicados atribuibles",
+        "domain": "supplier",
+        "grain": "supplier",
+        "unit": "count",
+        "direction": "context",
+        "publishable": true,
+        "metric_value": "2960.000000",
+        "numerator": 2960,
+        "denominator": 2960
+      },
+      {
+        "metric_id": "contract_count",
+        "label": "Contratos",
+        "domain": "contract",
+        "grain": "contract",
+        "unit": "count",
+        "direction": "context",
+        "publishable": true,
+        "metric_value": "1119.000000",
+        "numerator": 1119,
+        "denominator": 1119
+      },
+      {
+        "metric_id": "contract_amount_pen",
+        "label": "Monto contractual PEN",
+        "domain": "contract",
+        "grain": "contract",
+        "unit": "PEN",
+        "direction": "context",
+        "publishable": true,
+        "metric_value": "652169385.667922",
+        "numerator": 1115,
+        "denominator": 1119
+      },
+      {
+        "metric_id": "contract_amount_pen_coverage_pct",
+        "label": "Cobertura monto contractual PEN",
+        "domain": "quality",
+        "grain": "contract",
+        "unit": "percent",
+        "direction": "higher_is_better",
+        "publishable": true,
+        "metric_value": "99.642538",
+        "numerator": 1115,
+        "denominator": 1119
+      },
+      {
+        "metric_id": "average_contract_ticket_pen",
+        "label": "Ticket promedio contractual PEN",
+        "domain": "contract",
+        "grain": "contract",
+        "unit": "PEN",
+        "direction": "context",
+        "publishable": true,
+        "metric_value": "584905.278626",
+        "numerator": 1115,
+        "denominator": 1119
+      },
+      {
+        "metric_id": "competition_coverage_pct",
+        "label": "Procesos con ofertantes observados",
+        "domain": "competition",
+        "grain": "process",
+        "unit": "percent",
+        "direction": "higher_is_better",
+        "publishable": true,
+        "metric_value": "65.762554",
+        "numerator": 4243,
+        "denominator": 6452
+      },
+      {
+        "metric_id": "average_observed_tenderers",
+        "label": "Promedio de ofertantes en procesos con detalle",
+        "domain": "competition",
+        "grain": "process",
+        "unit": "tenderers",
+        "direction": "context",
+        "publishable": true,
+        "metric_value": "8.040302",
+        "numerator": 34115,
+        "denominator": 4243
+      },
+      {
+        "metric_id": "award_process_presence_pct",
+        "label": "Procesos con adjudicación observada",
+        "domain": "lifecycle",
+        "grain": "process",
+        "unit": "percent",
+        "direction": "context",
+        "publishable": true,
+        "metric_value": "51.813391",
+        "numerator": 3343,
+        "denominator": 6452
+      },
+      {
+        "metric_id": "contract_process_presence_pct",
+        "label": "Procesos con contrato observado",
+        "domain": "lifecycle",
+        "grain": "process",
+        "unit": "percent",
+        "direction": "context",
+        "publishable": true,
+        "metric_value": "17.079975",
+        "numerator": 1102,
+        "denominator": 6452
+      },
+      {
+        "metric_id": "award_item_standard_category_coverage_pct",
+        "label": "Cobertura de categoría estándar en ítems adjudicados",
+        "domain": "quality",
+        "grain": "award_item",
+        "unit": "percent",
+        "direction": "higher_is_better",
+        "publishable": true,
+        "metric_value": "81.949861",
+        "numerator": 2942,
+        "denominator": 3590
+      }
+    ],
+    "rankings": {
+      "buyers": [
+        {
+          "buyer_key": 794,
+          "buyer_name": "DIRECCION GENERAL DE ELECTRIFICACION RURAL DEL MINISTERIO DE ENERGÍA Y MINAS",
+          "process_count": 7,
+          "tender_amount_pen": "691945109.15000000000000",
+          "average_tender_ticket_pen": "98849301.30714285714285",
+          "award_count": 0,
+          "award_amount_pen": null,
+          "contract_count": 0,
+          "contract_amount_pen": null
+        },
+        {
+          "buyer_key": 1180,
+          "buyer_name": "GOBIERNO REGIONAL DE JUNIN SEDE CENTRAL",
+          "process_count": 36,
+          "tender_amount_pen": "570123016.92000000000000",
+          "average_tender_ticket_pen": "15836750.47000000000000",
+          "award_count": 11,
+          "award_amount_pen": "10593102.19000000000000",
+          "contract_count": 0,
+          "contract_amount_pen": null
+        },
+        {
+          "buyer_key": 141,
+          "buyer_name": "GOBIERNO REGIONAL DE CUSCO - DIRECCION REGIONAL DE TRANSPORTES Y COMUNICACIONES CUSCO",
+          "process_count": 26,
+          "tender_amount_pen": "512695765.49000000000000",
+          "average_tender_ticket_pen": "19719067.90346153846153",
+          "award_count": 14,
+          "award_amount_pen": "5058900.51000000000000",
+          "contract_count": 6,
+          "contract_amount_pen": "543269.60000000000000"
+        },
+        {
+          "buyer_key": 610,
+          "buyer_name": "MUNICIPALIDAD PROVINCIAL DE TOCACHE",
+          "process_count": 1,
+          "tender_amount_pen": "353247788.59000000000000",
+          "average_tender_ticket_pen": "353247788.59000000000000",
+          "award_count": 0,
+          "award_amount_pen": null,
+          "contract_count": 0,
+          "contract_amount_pen": null
+        },
+        {
+          "buyer_key": 813,
+          "buyer_name": "GOBIERNO REGIONAL DE CAJAMARCA UNIDAD EJECUTORA PROGRAMAS REGIONALES - PROREGION",
+          "process_count": 1,
+          "tender_amount_pen": "255734423.59000000000000",
+          "average_tender_ticket_pen": "255734423.59000000000000",
+          "award_count": 1,
+          "award_amount_pen": "255734423.59000000000000",
+          "contract_count": 0,
+          "contract_amount_pen": null
+        },
+        {
+          "buyer_key": 1048,
+          "buyer_name": "SERVICIO DE AGUA POTABLE Y ALCANTARILLADO DE LIMA - SEDAPAL",
+          "process_count": 21,
+          "tender_amount_pen": "230677397.54000000000000",
+          "average_tender_ticket_pen": "10984637.97809523809523",
+          "award_count": 7,
+          "award_amount_pen": "23332973.87000000000000",
+          "contract_count": 1,
+          "contract_amount_pen": "351168.00000000000000"
+        },
+        {
+          "buyer_key": 720,
+          "buyer_name": "MTC-PROYECTO ESPECIAL DE INFRAESTRUCTURA DE TRANSPORTE NACIONAL (PROVIAS NACIONAL)",
+          "process_count": 15,
+          "tender_amount_pen": "194632358.83000000000000",
+          "average_tender_ticket_pen": "12975490.58866666666666",
+          "award_count": 8,
+          "award_amount_pen": "193529092.33000000000000",
+          "contract_count": 2,
+          "contract_amount_pen": "191779709.93000000000000"
+        },
+        {
+          "buyer_key": 1232,
+          "buyer_name": "GOBIERNO REGIONAL DE UCAYALI SEDE CENTRAL",
+          "process_count": 22,
+          "tender_amount_pen": "170692840.64000000000000",
+          "average_tender_ticket_pen": "7758765.48363636363636",
+          "award_count": 6,
+          "award_amount_pen": "8274257.88000000000000",
+          "contract_count": 0,
+          "contract_amount_pen": null
+        },
+        {
+          "buyer_key": 1215,
+          "buyer_name": "GOBIERNO REGIONAL DE PUNO SEDE CENTRAL",
+          "process_count": 90,
+          "tender_amount_pen": "162375830.27000000000000",
+          "average_tender_ticket_pen": "1804175.89188888888888",
+          "award_count": 35,
+          "award_amount_pen": "8138124.04000000000000",
+          "contract_count": 11,
+          "contract_amount_pen": "1010749.86000000000000"
+        },
+        {
+          "buyer_key": 1102,
+          "buyer_name": "OFICINA NACIONAL DE PROCESOS ELECTORALES",
+          "process_count": 8,
+          "tender_amount_pen": "137576369.60000000000000",
+          "average_tender_ticket_pen": "17197046.20000000000000",
+          "award_count": 7,
+          "award_amount_pen": "137546050.00000000000000",
+          "contract_count": 4,
+          "contract_amount_pen": "856000.00000000000000"
+        },
+        {
+          "buyer_key": 736,
+          "buyer_name": "GOBIERNO REGIONAL DE CALLAO SEDE CENTRAL",
+          "process_count": 12,
+          "tender_amount_pen": "130735092.04000000000000",
+          "average_tender_ticket_pen": "10894591.00333333333333",
+          "award_count": 3,
+          "award_amount_pen": "284598.27000000000000",
+          "contract_count": 1,
+          "contract_amount_pen": "98600.13000000000000"
+        },
+        {
+          "buyer_key": 352,
+          "buyer_name": "MINISTERIO DE ECONOMIA Y FINANZAS",
+          "process_count": 11,
+          "tender_amount_pen": "118867245.41000000000000",
+          "average_tender_ticket_pen": "10806113.21909090909090",
+          "award_count": 7,
+          "award_amount_pen": "44324039.99000000000000",
+          "contract_count": 6,
+          "contract_amount_pen": "44236595.99000000000000"
+        },
+        {
+          "buyer_key": 97,
+          "buyer_name": "GOBIERNO REGIONAL DE ANCASH-AGRICULTURA",
+          "process_count": 1,
+          "tender_amount_pen": "90531512.21000000000000",
+          "average_tender_ticket_pen": "90531512.21000000000000",
+          "award_count": 0,
+          "award_amount_pen": null,
+          "contract_count": 0,
+          "contract_amount_pen": null
+        },
+        {
+          "buyer_key": 1153,
+          "buyer_name": "GOBIERNO REGIONAL DE CAJAMARCA SEDE CENTRAL",
+          "process_count": 8,
+          "tender_amount_pen": "74100358.47000000000000",
+          "average_tender_ticket_pen": "9262544.80875000000000",
+          "award_count": 2,
+          "award_amount_pen": "40095576.32000000000000",
+          "contract_count": 0,
+          "contract_amount_pen": null
+        },
+        {
+          "buyer_key": 1088,
+          "buyer_name": "SEGURO SOCIAL DE  SALUD",
+          "process_count": 140,
+          "tender_amount_pen": "70644182.95000000000000",
+          "average_tender_ticket_pen": "504601.30678571428571",
+          "award_count": 36,
+          "award_amount_pen": "56063458.30000000000000",
+          "contract_count": 1,
+          "contract_amount_pen": "2811994.50000000000000"
+        },
+        {
+          "buyer_key": 187,
+          "buyer_name": "MUNICIPALIDAD DISTRITAL DE MARCONA",
+          "process_count": 17,
+          "tender_amount_pen": "70211403.51000000000000",
+          "average_tender_ticket_pen": "4130082.55941176470588",
+          "award_count": 7,
+          "award_amount_pen": "3066123.38000000000000",
+          "contract_count": 2,
+          "contract_amount_pen": "198664.53000000000000"
+        },
+        {
+          "buyer_key": 67,
+          "buyer_name": "EJERCITO PERUANO",
+          "process_count": 135,
+          "tender_amount_pen": "54659313.10000000000000",
+          "average_tender_ticket_pen": "404883.80074074074074",
+          "award_count": 101,
+          "award_amount_pen": "41279770.03000000000000",
+          "contract_count": 23,
+          "contract_amount_pen": "17126801.06000000000000"
+        },
+        {
+          "buyer_key": 1211,
+          "buyer_name": "GOBIERNO REGIONAL DE PIURA SEDE CENTRAL",
+          "process_count": 11,
+          "tender_amount_pen": "52776859.65000000000000",
+          "average_tender_ticket_pen": "4797896.33181818181818",
+          "award_count": 3,
+          "award_amount_pen": "835709.00000000000000",
+          "contract_count": 1,
+          "contract_amount_pen": "52150.00000000000000"
+        },
+        {
+          "buyer_key": 20,
+          "buyer_name": "MUNICIPALIDAD PROVINCIAL DE LAURICOCHA",
+          "process_count": 11,
+          "tender_amount_pen": "45514237.13000000000000",
+          "average_tender_ticket_pen": "4137657.92090909090909",
+          "award_count": 8,
+          "award_amount_pen": "6691802.77000000000000",
+          "contract_count": 0,
+          "contract_amount_pen": null
+        },
+        {
+          "buyer_key": 1170,
+          "buyer_name": "MUNICIPALIDAD DISTRITAL DE CERRO COLORADO",
+          "process_count": 26,
+          "tender_amount_pen": "43774576.51000000000000",
+          "average_tender_ticket_pen": "1683637.55807692307692",
+          "award_count": 9,
+          "award_amount_pen": "6052448.50000000000000",
+          "contract_count": 0,
+          "contract_amount_pen": null
+        }
+      ],
+      "suppliers": [
+        {
+          "supplier_key": 3272,
+          "supplier_name": "CONSORCIO CONSTRUCTOR CAJAMARCA",
+          "award_count": 1,
+          "buyer_count": 1,
+          "award_amount_pen": "255734423.59000000000000",
+          "average_award_ticket_pen": "255734423.59000000000000",
+          "contract_count": 0,
+          "contract_amount_pen": null
+        },
+        {
+          "supplier_key": 2383,
+          "supplier_name": "CONSORCIO CARRETERO CHECCA MAZOCRUZ",
+          "award_count": 1,
+          "buyer_count": 1,
+          "award_amount_pen": "191699709.93000000000000",
+          "average_award_ticket_pen": "191699709.93000000000000",
+          "contract_count": 1,
+          "contract_amount_pen": "191699709.93000000000000"
+        },
+        {
+          "supplier_key": 2784,
+          "supplier_name": "ADMINISTRADOR DE PROCESOS ELECTORALES CSA",
+          "award_count": 1,
+          "buyer_count": 1,
+          "award_amount_pen": "115000000.00000000000000",
+          "average_award_ticket_pen": "115000000.00000000000000",
+          "contract_count": 0,
+          "contract_amount_pen": null
+        },
+        {
+          "supplier_key": 12731,
+          "supplier_name": "BAKER BOTTS LLP",
+          "award_count": 3,
+          "buyer_count": 1,
+          "award_amount_pen": "40354600.00000000000000",
+          "average_award_ticket_pen": "13451533.33333333333333",
+          "contract_count": 3,
+          "contract_amount_pen": "40354600.00000000000000"
+        },
+        {
+          "supplier_key": 3116,
+          "supplier_name": "CONSORCIO Z&S",
+          "award_count": 1,
+          "buyer_count": 1,
+          "award_amount_pen": "33972402.22000000000000",
+          "average_award_ticket_pen": "33972402.22000000000000",
+          "contract_count": 0,
+          "contract_amount_pen": null
+        },
+        {
+          "supplier_key": 6735,
+          "supplier_name": "HMF SMART SOLUTIONS GMBH SUCURSAL DEL PERU",
+          "award_count": 1,
+          "buyer_count": 1,
+          "award_amount_pen": "29492499.54000000000000",
+          "average_award_ticket_pen": "29492499.54000000000000",
+          "contract_count": 0,
+          "contract_amount_pen": null
+        },
+        {
+          "supplier_key": 3787,
+          "supplier_name": "CONSORCIO EJECUTOR CELENDIN",
+          "award_count": 1,
+          "buyer_count": 1,
+          "award_amount_pen": "26129073.02000000000000",
+          "average_award_ticket_pen": "26129073.02000000000000",
+          "contract_count": 0,
+          "contract_amount_pen": null
+        },
+        {
+          "supplier_key": 4886,
+          "supplier_name": "AMERICA MOVIL PERU S.A.C.",
+          "award_count": 2,
+          "buyer_count": 2,
+          "award_amount_pen": "21809098.00000000000000",
+          "average_award_ticket_pen": "10904549.00000000000000",
+          "contract_count": 0,
+          "contract_amount_pen": null
+        },
+        {
+          "supplier_key": 2664,
+          "supplier_name": "CONSORCIO EL SALVADOR",
+          "award_count": 1,
+          "buyer_count": 1,
+          "award_amount_pen": "21381630.35000000000000",
+          "average_award_ticket_pen": "21381630.35000000000000",
+          "contract_count": 0,
+          "contract_amount_pen": null
+        },
+        {
+          "supplier_key": 3911,
+          "supplier_name": "CONSORCIO LOS TUCOS I",
+          "award_count": 1,
+          "buyer_count": 1,
+          "award_amount_pen": "20237773.81000000000000",
+          "average_award_ticket_pen": "20237773.81000000000000",
+          "contract_count": 0,
+          "contract_amount_pen": null
+        },
+        {
+          "supplier_key": 2969,
+          "supplier_name": "NEFRORENAL",
+          "award_count": 1,
+          "buyer_count": 1,
+          "award_amount_pen": "17704440.00000000000000",
+          "average_award_ticket_pen": "17704440.00000000000000",
+          "contract_count": 0,
+          "contract_amount_pen": null
+        },
+        {
+          "supplier_key": 4033,
+          "supplier_name": "PETROLEOS DEL PERU S.A.",
+          "award_count": 1,
+          "buyer_count": 1,
+          "award_amount_pen": "17388617.48000000000000",
+          "average_award_ticket_pen": "17388617.48000000000000",
+          "contract_count": 0,
+          "contract_amount_pen": null
+        },
+        {
+          "supplier_key": 5881,
+          "supplier_name": "FABRICA DE ARMAS Y MUNICIONES DEL EJERCITO SAC - FAME SAC",
+          "award_count": 4,
+          "buyer_count": 2,
+          "award_amount_pen": "15204178.00000000000000",
+          "average_award_ticket_pen": "3801044.50000000000000",
+          "contract_count": 4,
+          "contract_amount_pen": "15204178.00000000000000"
+        },
+        {
+          "supplier_key": 4055,
+          "supplier_name": "SERVICIOS INTEGRADOS DE LIMPIEZA SA (SIL SA)",
+          "award_count": 1,
+          "buyer_count": 1,
+          "award_amount_pen": "14115286.52000000000000",
+          "average_award_ticket_pen": "14115286.52000000000000",
+          "contract_count": 0,
+          "contract_amount_pen": null
+        },
+        {
+          "supplier_key": 3784,
+          "supplier_name": "CONSORCIO KAORI ADVENTURES",
+          "award_count": 1,
+          "buyer_count": 1,
+          "award_amount_pen": "13966503.30000000000000",
+          "average_award_ticket_pen": "13966503.30000000000000",
+          "contract_count": 0,
+          "contract_amount_pen": null
+        },
+        {
+          "supplier_key": 12766,
+          "supplier_name": "DST CO., LTD",
+          "award_count": 1,
+          "buyer_count": 1,
+          "award_amount_pen": "13660295.60000000000000",
+          "average_award_ticket_pen": "13660295.60000000000000",
+          "contract_count": 0,
+          "contract_amount_pen": null
+        },
+        {
+          "supplier_key": 6699,
+          "supplier_name": "CENTRO DE DIALISIS SAN LUIS S.A.C.",
+          "award_count": 1,
+          "buyer_count": 1,
+          "award_amount_pen": "13457340.00000000000000",
+          "average_award_ticket_pen": "13457340.00000000000000",
+          "contract_count": 0,
+          "contract_amount_pen": null
+        },
+        {
+          "supplier_key": 3942,
+          "supplier_name": "CONSORCIO PASAKY",
+          "award_count": 1,
+          "buyer_count": 1,
+          "award_amount_pen": "12854322.74000000000000",
+          "average_award_ticket_pen": "12854322.74000000000000",
+          "contract_count": 0,
+          "contract_amount_pen": null
+        },
+        {
+          "supplier_key": 3765,
+          "supplier_name": "CONSORCIO EJECUTOR RM",
+          "award_count": 1,
+          "buyer_count": 1,
+          "award_amount_pen": "12701029.05000000000000",
+          "average_award_ticket_pen": "12701029.05000000000000",
+          "contract_count": 0,
+          "contract_amount_pen": null
+        },
+        {
+          "supplier_key": 2939,
+          "supplier_name": "CONSORCIO LOSAS",
+          "award_count": 1,
+          "buyer_count": 1,
+          "award_amount_pen": "11795622.08000000000000",
+          "average_award_ticket_pen": "11795622.08000000000000",
+          "contract_count": 1,
+          "contract_amount_pen": "11795622.08000000000000"
+        }
+      ],
+      "categories": [
+        {
+          "category_key": 3317,
+          "classification_code": "72141001",
+          "classification_description": "Servicios de construcción de pistas y carreteras nuevas",
+          "award_item_count": 39,
+          "process_count": 39,
+          "buyer_count": 34,
+          "supplier_count": 39,
+          "award_item_amount_pen": "505075549.99000000000000",
+          "average_award_item_ticket_pen": "12950655.12794871794871"
+        },
+        {
+          "category_key": 3324,
+          "classification_code": "72141107",
+          "classification_description": "Servicios de construcción y reparación de puentes",
+          "award_item_count": 87,
+          "process_count": 87,
+          "buyer_count": 53,
+          "supplier_count": 87,
+          "award_item_amount_pen": "145202614.27000000000000",
+          "average_award_item_ticket_pen": "1668995.56632183908045"
+        },
+        {
+          "category_key": 3298,
+          "classification_code": "72121103",
+          "classification_description": "Servicios de renovación y reparación de edificios comerciales y de oficinas",
+          "award_item_count": 30,
+          "process_count": 29,
+          "buyer_count": 22,
+          "supplier_count": 29,
+          "award_item_amount_pen": "131281228.91000000000000",
+          "average_award_item_ticket_pen": "4376040.96366666666666"
+        },
+        {
+          "category_key": 3326,
+          "classification_code": "72141121",
+          "classification_description": "Servicios de construcción de tuberías principales de agua",
+          "award_item_count": 64,
+          "process_count": 64,
+          "buyer_count": 59,
+          "supplier_count": 64,
+          "award_item_amount_pen": "105198670.08000000000000",
+          "average_award_item_ticket_pen": "1643729.22000000000000"
+        },
+        {
+          "category_key": 3307,
+          "classification_code": "72121406",
+          "classification_description": "Servicios de construcción de escuelas",
+          "award_item_count": 52,
+          "process_count": 52,
+          "buyer_count": 45,
+          "supplier_count": 52,
+          "award_item_amount_pen": "74180828.60000000000000",
+          "average_award_item_ticket_pen": "1426554.39615384615384"
+        },
+        {
+          "category_key": 3374,
+          "classification_code": "72153102",
+          "classification_description": "Servicios de construcción de campos deportivos interiores",
+          "award_item_count": 76,
+          "process_count": 76,
+          "buyer_count": 61,
+          "supplier_count": 76,
+          "award_item_amount_pen": "72151714.08000000000000",
+          "average_award_item_ticket_pen": "949364.65894736842105"
+        },
+        {
+          "category_key": 3319,
+          "classification_code": "72141003",
+          "classification_description": "Servicios de mantenimiento de pistas y carreteras",
+          "award_item_count": 76,
+          "process_count": 76,
+          "buyer_count": 56,
+          "supplier_count": 74,
+          "award_item_amount_pen": "68486060.00000000000000",
+          "average_award_item_ticket_pen": "901132.36842105263157"
+        },
+        {
+          "category_key": 3296,
+          "classification_code": "72121101",
+          "classification_description": "Servicios de construcción de nuevos edificios comerciales y de oficinas",
+          "award_item_count": 38,
+          "process_count": 38,
+          "buyer_count": 34,
+          "supplier_count": 36,
+          "award_item_amount_pen": "53670670.02000000000000",
+          "average_award_item_ticket_pen": "1412386.05315789473684"
+        },
+        {
+          "category_key": 3501,
+          "classification_code": "80121704",
+          "classification_description": "Servicios legales de contratos",
+          "award_item_count": 5,
+          "process_count": 5,
+          "buyer_count": 1,
+          "supplier_count": 3,
+          "award_item_amount_pen": "43754022.00000000000000",
+          "average_award_item_ticket_pen": "8750804.40000000000000"
+        },
+        {
+          "category_key": 3329,
+          "classification_code": "72141128",
+          "classification_description": "Servicio de remodelación  y/o construcción de plazas públicas",
+          "award_item_count": 39,
+          "process_count": 39,
+          "buyer_count": 32,
+          "supplier_count": 39,
+          "award_item_amount_pen": "43371488.97000000000000",
+          "average_award_item_ticket_pen": "1112089.46076923076923"
+        },
+        {
+          "category_key": 3305,
+          "classification_code": "72121403",
+          "classification_description": "Servicios de construcción de hospitales",
+          "award_item_count": 36,
+          "process_count": 36,
+          "buyer_count": 19,
+          "supplier_count": 32,
+          "award_item_amount_pen": "39906391.97000000000000",
+          "average_award_item_ticket_pen": "1108510.88805555555555"
+        },
+        {
+          "category_key": 2453,
+          "classification_code": "15101505",
+          "classification_description": "Diesel",
+          "award_item_count": 127,
+          "process_count": 125,
+          "buyer_count": 107,
+          "supplier_count": 102,
+          "award_item_amount_pen": "31555671.22000000000000",
+          "average_award_item_ticket_pen": "248469.85212598425196"
+        },
+        {
+          "category_key": 3303,
+          "classification_code": "72121203",
+          "classification_description": "Servicios de construcción de silos y de edificaciones para servicio agrícola",
+          "award_item_count": 24,
+          "process_count": 24,
+          "buyer_count": 21,
+          "supplier_count": 24,
+          "award_item_amount_pen": "31546622.06000000000000",
+          "average_award_item_ticket_pen": "1314442.58583333333333"
+        },
+        {
+          "category_key": 3636,
+          "classification_code": "85121504",
+          "classification_description": "Servicios médicos de emergencia de médicos de atenciòn primaria",
+          "award_item_count": 7,
+          "process_count": 2,
+          "buyer_count": 1,
+          "supplier_count": 2,
+          "award_item_amount_pen": "31161780.00000000000000",
+          "average_award_item_ticket_pen": "4451682.85714285714285"
+        },
+        {
+          "category_key": 3602,
+          "classification_code": "83111510",
+          "classification_description": "Servicio de respuesta de voz interactiva",
+          "award_item_count": 2,
+          "process_count": 1,
+          "buyer_count": 1,
+          "supplier_count": 1,
+          "award_item_amount_pen": "29492499.54000000000000",
+          "average_award_item_ticket_pen": "14746249.77000000000000"
+        },
+        {
+          "category_key": 3666,
+          "classification_code": "91111603",
+          "classification_description": "Servicios de cocina o preparación de comidas",
+          "award_item_count": 37,
+          "process_count": 31,
+          "buyer_count": 19,
+          "supplier_count": 31,
+          "award_item_amount_pen": "26731001.94000000000000",
+          "average_award_item_ticket_pen": "722459.51189189189189"
+        },
+        {
+          "category_key": 3606,
+          "classification_code": "83121703",
+          "classification_description": "Servicios relacionados con Internet",
+          "award_item_count": 17,
+          "process_count": 15,
+          "buyer_count": 14,
+          "supplier_count": 15,
+          "award_item_amount_pen": "26139117.40000000000000",
+          "average_award_item_ticket_pen": "1537595.14117647058823"
+        },
+        {
+          "category_key": 3335,
+          "classification_code": "72141505",
+          "classification_description": "Servicios de movimientos de tierras",
+          "award_item_count": 37,
+          "process_count": 37,
+          "buyer_count": 12,
+          "supplier_count": 35,
+          "award_item_amount_pen": "23999987.12000000000000",
+          "average_award_item_ticket_pen": "648648.30054054054054"
+        },
+        {
+          "category_key": 3667,
+          "classification_code": "92101501",
+          "classification_description": "Servicios de vigilancia",
+          "award_item_count": 24,
+          "process_count": 23,
+          "buyer_count": 18,
+          "supplier_count": 18,
+          "award_item_amount_pen": "23610435.84000000000000",
+          "average_award_item_ticket_pen": "983768.16000000000000"
+        },
+        {
+          "category_key": 3394,
+          "classification_code": "72154022",
+          "classification_description": "Servicios de instalación y mantenimiento de equipos hidráulicos",
+          "award_item_count": 5,
+          "process_count": 4,
+          "buyer_count": 4,
+          "supplier_count": 5,
+          "award_item_amount_pen": "23311905.63000000000000",
+          "average_award_item_ticket_pen": "4662381.12600000000000"
+        }
+      ]
+    },
+    "blocked_metrics": [
+      {
+        "metric_id": "yoy_growth_pct",
+        "reason": "Requires comparable source periods for current and prior year."
+      },
+      {
+        "metric_id": "historical_growth_pct",
+        "reason": "Requires at least two comparable source periods."
+      },
+      {
+        "metric_id": "geographic_spend_pen",
+        "reason": "Official governed UBIGEO dimension is not loaded."
+      },
+      {
+        "metric_id": "final_value_pen",
+        "reason": "Final contract value coverage is only 0.2681 percent."
+      },
+      {
+        "metric_id": "supplier_market_share",
+        "reason": "Deferred to Phase 11 market concentration."
+      },
+      {
+        "metric_id": "b2g_opportunity_score",
+        "reason": "Deferred to Phase 12 methodology and sensitivity analysis."
+      },
+      {
+        "metric_id": "supplier_exposure_score",
+        "reason": "Deferred to Phase 13 methodology and sensitivity analysis."
+      }
+    ],
+    "reconciliations": [
+      {
+        "metric_id": "procurement_processes",
+        "kpi_value": "6452.000000",
+        "eda_value": "6452",
+        "difference": "0.000000",
+        "status": "PASS"
+      },
+      {
+        "metric_id": "tender_amount_pen",
+        "kpi_value": "6924924015.380000",
+        "eda_value": "6924924015.38000000000000",
+        "difference": "0E-14",
+        "status": "PASS"
+      },
+      {
+        "metric_id": "award_count",
+        "kpi_value": "3397.000000",
+        "eda_value": "3397",
+        "difference": "0.000000",
+        "status": "PASS"
+      },
+      {
+        "metric_id": "award_amount_pen",
+        "kpi_value": "2375748188.206233",
+        "eda_value": "2375748188.20623342318763",
+        "difference": "-4.2318763E-7",
+        "status": "PASS"
+      },
+      {
+        "metric_id": "contract_count",
+        "kpi_value": "1119.000000",
+        "eda_value": "1119",
+        "difference": "0.000000",
+        "status": "PASS"
+      },
+      {
+        "metric_id": "contract_amount_pen",
+        "kpi_value": "652169385.667922",
+        "eda_value": "652169385.66792150846161",
+        "difference": "4.9153839E-7",
+        "status": "PASS"
+      },
+      {
+        "metric_id": "active_buyers",
+        "kpi_value": "1450.000000",
+        "eda_value": "1450",
+        "difference": "0.000000",
+        "status": "PASS"
+      }
+    ]
+  },
+  "artifacts": {
+    "json": "reports/kpis/oece_ocds_seace_v3_2026_07_kpi_summary.json",
+    "markdown": "reports/kpis/oece_ocds_seace_v3_2026_07_kpi_report.md",
+    "dax": "powerbi/dax/phase10_kpi_measures.dax"
+  }
+}

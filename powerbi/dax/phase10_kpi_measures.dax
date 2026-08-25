@@ -1,0 +1,110 @@
+// Phase 10 governed measures. Table and column names match the SQL Server DW.
+// Amounts from different facts are intentionally never combined.
+
+Procurement Processes =
+SUM ( 'fact_procurement_process'[process_count] )
+
+Tender Amount PEN =
+SUM ( 'fact_procurement_process'[tender_amount_pen_published] )
+
+Tender Amount PEN Rows =
+COUNT ( 'fact_procurement_process'[tender_amount_pen_published] )
+
+Tender Amount PEN Coverage % =
+DIVIDE ( [Tender Amount PEN Rows], [Procurement Processes] )
+
+Zero Tender Processes =
+CALCULATE (
+    [Procurement Processes],
+    'fact_procurement_process'[dq_tender_value_is_zero] = TRUE ()
+)
+
+Zero Tender Processes % =
+DIVIDE ( [Zero Tender Processes], [Procurement Processes] )
+
+Average Tender Ticket PEN =
+DIVIDE ( [Tender Amount PEN], [Tender Amount PEN Rows] )
+
+Active Buyers =
+CALCULATE (
+    DISTINCTCOUNT ( 'fact_procurement_process'[buyer_key] ),
+    'fact_procurement_process'[buyer_key] <> 0
+)
+
+Awards =
+SUM ( 'fact_award'[award_count] )
+
+Award Amount PEN =
+SUM ( 'fact_award'[award_amount_pen_calculated] )
+
+Award Amount PEN Rows =
+COUNT ( 'fact_award'[award_amount_pen_calculated] )
+
+Award Amount PEN Coverage % =
+DIVIDE ( [Award Amount PEN Rows], [Awards] )
+
+Average Award Ticket PEN =
+DIVIDE ( [Award Amount PEN], [Award Amount PEN Rows] )
+
+Attributable Awards =
+CALCULATE ( [Awards], 'fact_award'[attributed_supplier_key] <> 0 )
+
+Attributable Awards % =
+DIVIDE ( [Attributable Awards], [Awards] )
+
+Awarded Suppliers =
+CALCULATE (
+    DISTINCTCOUNT ( 'fact_award'[attributed_supplier_key] ),
+    'fact_award'[attributed_supplier_key] <> 0
+)
+
+Contracts =
+SUM ( 'fact_contract'[contract_count] )
+
+Contract Amount PEN =
+SUM ( 'fact_contract'[contract_amount_pen_calculated] )
+
+Contract Amount PEN Rows =
+COUNT ( 'fact_contract'[contract_amount_pen_calculated] )
+
+Contract Amount PEN Coverage % =
+DIVIDE ( [Contract Amount PEN Rows], [Contracts] )
+
+Average Contract Ticket PEN =
+DIVIDE ( [Contract Amount PEN], [Contract Amount PEN Rows] )
+
+Processes With Observed Tenderers =
+CALCULATE (
+    [Procurement Processes],
+    'fact_procurement_process'[tenderer_count_observed] > 0
+)
+
+Competition Coverage % =
+DIVIDE ( [Processes With Observed Tenderers], [Procurement Processes] )
+
+Observed Tenderers =
+SUM ( 'fact_procurement_process'[tenderer_count_observed] )
+
+Average Observed Tenderers =
+DIVIDE ( [Observed Tenderers], [Processes With Observed Tenderers] )
+
+Processes With Awards =
+CALCULATE ( DISTINCTCOUNT ( 'fact_award'[process_key] ) )
+
+Award Process Presence % =
+DIVIDE ( [Processes With Awards], [Procurement Processes] )
+
+Processes With Contracts =
+CALCULATE ( DISTINCTCOUNT ( 'fact_contract'[process_key] ) )
+
+Contract Process Presence % =
+DIVIDE ( [Processes With Contracts], [Procurement Processes] )
+
+Award Items =
+SUM ( 'fact_award_item'[award_item_count] )
+
+Classified Award Items =
+CALCULATE ( [Award Items], 'fact_award_item'[standard_category_key] <> 0 )
+
+Award Item Standard Category Coverage % =
+DIVIDE ( [Classified Award Items], [Award Items] )

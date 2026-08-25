@@ -23,6 +23,7 @@ validate-dimensional-model = "procurement_intelligence.modeling.validate_dimensi
 load-sql-server = "procurement_intelligence.loading.load_sql_server:main"
 validate-sql-server = "procurement_intelligence.validation.validate_sql_server:main"
 run-procurement-eda = "procurement_intelligence.analytics.run_eda:main"
+run-procurement-kpis = "procurement_intelligence.analytics.run_kpis:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
