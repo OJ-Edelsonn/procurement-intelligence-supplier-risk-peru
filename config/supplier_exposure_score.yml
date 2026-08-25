@@ -1,0 +1,97 @@
+supplier_exposure:
+  schema_version: "1.0"
+  score_version: supplier-exposure-pilot-v1
+  name: Supplier Operational and Commercial Exposure Score
+  source_period: "2026-07"
+  phase12_gate: reports/opportunity/oece_ocds_seace_v3_2026_07_opportunity_score.json
+  input_mode: audited_silver_rebuild
+  silver_etl_summary: reports/etl/oece_ocds_seace_v3_2026_07_etl_summary.json
+  dimensional_gate: reports/modeling/oece_ocds_seace_v3_2026_07_dimensional_model_analysis.json
+  eligibility:
+    minimum_awards: 2
+    minimum_known_buyer_amount_coverage_pct: 95.0
+    minimum_known_category_item_amount_coverage_pct: 80.0
+  normalization: cross-sectional percentile rank from 0 to 100 within eligible suppliers
+  outputs:
+    json: reports/supplier_exposure/oece_ocds_seace_v3_2026_07_supplier_exposure.json
+    markdown: reports/supplier_exposure/oece_ocds_seace_v3_2026_07_supplier_exposure.md
+    csv: reports/supplier_exposure/oece_ocds_seace_v3_2026_07_supplier_exposure.csv
+    figures: reports/supplier_exposure/figures
+  top_n: 20
+  figure_dpi: 150
+  bands:
+    higher_relative_exposure_max_rank_pct: 20
+    medium_relative_exposure_max_rank_pct: 60
+  disclaimer: El indicador no constituye una calificación crediticia, evaluación legal, acusación de irregularidad ni predicción de fraude.
+  policies:
+    - The score measures relative operational and commercial exposure in observed public procurement data.
+    - It does not label a supplier as fraudulent, corrupt, insolvent, illegal or dangerous.
+    - Amounts are attributed only from awards with one official supplier and supported PEN value.
+    - Buyer and category dependencies remain at their native grains and are not added as money.
+    - Sanctions, penalties, abrupt changes and recurrence are excluded because their evidence is unavailable.
+    - A single source period cannot establish persistent dependency or deterioration.
+
+variables:
+  - variable_id: award_amount_materiality
+    source_field: award_amount_pen
+    label: Materialidad adjudicada
+    direction: higher_is_more_exposure
+    baseline_weight: 0.20
+  - variable_id: buyer_dependency
+    source_field: top_buyer_share_pct
+    label: Dependencia del principal comprador
+    direction: higher_is_more_exposure
+    baseline_weight: 0.30
+  - variable_id: category_dependency
+    source_field: top_category_share_pct
+    label: Dependencia de categoría
+    direction: higher_is_more_exposure
+    baseline_weight: 0.25
+  - variable_id: award_concentration
+    source_field: award_hhi
+    label: Concentración entre adjudicaciones
+    direction: higher_is_more_exposure
+    baseline_weight: 0.15
+  - variable_id: limited_buyer_breadth
+    source_field: buyer_count
+    label: Amplitud limitada de compradores
+    direction: lower_is_more_exposure
+    baseline_weight: 0.10
+
+sensitivity_scenarios:
+  dependency_heavy:
+    award_amount_materiality: 0.10
+    buyer_dependency: 0.40
+    category_dependency: 0.35
+    award_concentration: 0.10
+    limited_buyer_breadth: 0.05
+  materiality_heavy:
+    award_amount_materiality: 0.40
+    buyer_dependency: 0.20
+    category_dependency: 0.15
+    award_concentration: 0.15
+    limited_buyer_breadth: 0.10
+  balanced_equal:
+    award_amount_materiality: 0.20
+    buyer_dependency: 0.20
+    category_dependency: 0.20
+    award_concentration: 0.20
+    limited_buyer_breadth: 0.20
+
+excluded_variables:
+  - {variable_id: sanctions, reason: Official sanctions dataset is not ingested.}
+  - {variable_id: penalties, reason: Penalty evidence is not present in the active source.}
+  - {variable_id: abrupt_changes, reason: One source period cannot measure changes.}
+  - {variable_id: recurrence, reason: Multi-period supplier history is unavailable.}
+  - {variable_id: creditworthiness, reason: Outside dataset scope and prohibited interpretation.}
+
+input_datasets:
+  - dataset_id: supplier_awards
+    sql: sql/analytics/phase13_supplier_awards.sql
+    required_columns: [award_fact_key, supplier_key, supplier_name, buyer_key, amount_pen]
+  - dataset_id: supplier_items
+    sql: sql/analytics/phase13_supplier_items.sql
+    required_columns: [supplier_key, standard_category_key, amount_pen]
+  - dataset_id: supplier_contracts
+    sql: sql/analytics/phase13_supplier_contracts.sql
+    required_columns: [contract_fact_key, supplier_key, amount_pen]

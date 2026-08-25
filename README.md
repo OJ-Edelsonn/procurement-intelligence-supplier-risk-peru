@@ -2,7 +2,7 @@
 
 Solución end-to-end de Data/BI para analizar contratación pública peruana, inteligencia comercial y exposición a proveedores usando datos abiertos oficiales de OECE/SEACE.
 
-> Estado: Fase 12 completada. El B2G Commercial Opportunity Score piloto puntúa 87 mercados elegibles, valida 87/87 cálculos y publica tres escenarios de sensibilidad. No representa pronóstico de ventas.
+> Estado: Fase 13 completada. El Supplier Operational and Commercial Exposure Score piloto puntúa 179 proveedores elegibles y valida 179/179 cálculos. No constituye una calificación crediticia, evaluación legal, acusación de irregularidad ni predicción de fraude.
 
 ## Problema de negocio
 
@@ -194,6 +194,16 @@ La Fase 11 define cada categoría estándar como un mercado descriptivo, calcula
 ```
 
 La Fase 12 normaliza tamaño, frecuencia, compradores, ticket y apertura mediante percentiles, aplica pesos explícitos y compara tres escenarios. La versión piloto puntúa 87 mercados y exporta JSON, Markdown, CSV y tres figuras. Véanse la [metodología](docs/methodology/b2g_opportunity_score.md), el [diccionario](docs/data_dictionary/opportunity_score.md) y los [resultados](docs/results/phase12_opportunity_score.md).
+
+## Calcular exposición operativa y comercial de proveedores
+
+```powershell
+.\.venv\Scripts\run-supplier-exposure.exe `
+  --config config\supplier_exposure_score.yml `
+  --env-file .env
+```
+
+La Fase 13 reconstruye los hechos auditados desde Silver, exige coberturas mínimas y combina cinco percentiles con pesos explícitos. Puntúa 179 proveedores, valida todos los cálculos y compara tres escenarios. Sanciones, penalidades, historia, solvencia y fraude se excluyen por falta de evidencia o por interpretación improcedente. Véanse la [metodología](docs/methodology/supplier_exposure_score.md), el [diccionario](docs/data_dictionary/supplier_exposure_score.md) y los [resultados](docs/results/phase13_supplier_exposure.md).
 
 ## Fuentes oficiales y trazabilidad
 
