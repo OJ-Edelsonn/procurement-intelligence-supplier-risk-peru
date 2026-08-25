@@ -1,0 +1,36 @@
+concentration:
+  schema_version: "1.0"
+  name: Category-level supplier concentration
+  source_period: "2026-07"
+  phase10_gate: reports/kpis/oece_ocds_seace_v3_2026_07_kpi_summary.json
+  market_definition: one governed standard category within one source period
+  amount_measure: fact_award_item.total_amount_pen_calculated
+  supplier_attribution: exactly one official award supplier
+  eligibility:
+    minimum_suppliers: 3
+    minimum_buyers: 2
+    minimum_award_items: 5
+    minimum_attributable_amount_coverage_pct: 95.0
+  top_n: 20
+  figure_dpi: 150
+  dax_catalog: powerbi/dax/phase11_concentration_measures.dax
+  outputs:
+    json: reports/concentration/oece_ocds_seace_v3_2026_07_market_concentration.json
+    markdown: reports/concentration/oece_ocds_seace_v3_2026_07_market_concentration.md
+    figures: reports/concentration/figures
+  policies:
+    - HHI is the sum of squared supplier percentage shares and ranges from 0 to 10000.
+    - Effective suppliers equals 10000 divided by HHI when HHI is positive.
+    - Shares use only positive PEN item amounts attributable to exactly one supplier.
+    - Unknown standard categories are excluded from market definition and reported as coverage loss.
+    - HHI is descriptive and is not a legal, antitrust or misconduct determination.
+    - A one-period concentration result does not establish persistence or trend.
+    - Markets below eligibility thresholds remain visible but are not ranked as decision-ready.
+
+datasets:
+  - dataset_id: category_concentration
+    sql: sql/analytics/phase11_category_concentration.sql
+    required_columns: [category_key, classification_code, classification_description, award_item_count, buyer_count, supplier_count, total_category_amount_pen, attributable_amount_pen, attributable_amount_coverage_pct, top1_share_pct, top3_share_pct, top5_share_pct, top10_share_pct, hhi, effective_supplier_count, is_analysis_eligible]
+  - dataset_id: category_supplier_shares
+    sql: sql/analytics/phase11_category_supplier_shares.sql
+    required_columns: [category_key, classification_code, supplier_key, supplier_name, supplier_amount_pen, market_amount_pen, supplier_share_pct, supplier_rank]
