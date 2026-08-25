@@ -2,7 +2,7 @@
 
 Solución end-to-end de Data/BI para analizar contratación pública peruana, inteligencia comercial y exposición a proveedores usando datos abiertos oficiales de OECE/SEACE.
 
-> Estado: Fase 9 completada. El EDA gobernado ejecutó 10 datasets SQL, generó 7 visualizaciones y documentó 8 hallazgos sobre 6,452 procesos. Los resultados son descriptivos; todavía no se publican KPIs ni scores.
+> Estado: Fase 10 completada. La capa semántica publica 21 KPIs gobernados, conserva 7 métricas bloqueadas y reconcilia 7/7 totales críticos. Concentración y scores permanecen en sus fases posteriores.
 
 ## Problema de negocio
 
@@ -165,6 +165,16 @@ La Fase 9 exige primero la puerta aprobada de la Fase 8 y consulta únicamente e
 ```
 
 La ejecución validada procesó 10 datasets analíticos, creó 7 figuras PNG y dejó evidencia JSON y Markdown con hashes de configuración, SQL, ejecutor y gráficos. El alcance corresponde solo a `source_period=2026-07`; por ello no se calculan crecimiento ni comparaciones interanuales. Véanse la [metodología](docs/methodology/exploratory_data_analysis.md), el [diccionario de datasets](docs/data_dictionary/eda_datasets.md) y los [resultados](docs/results/phase9_eda.md).
+
+## Calcular KPIs gobernados
+
+```powershell
+.\.venv\Scripts\run-procurement-kpis.exe `
+  --config config\kpis.yml `
+  --env-file .env
+```
+
+La Fase 10 publica 21 indicadores con grano, unidad y denominador explícitos, genera rankings Top 20 y reconcilia siete totales contra el EDA. También versiona medidas DAX equivalentes para Power BI. Crecimiento, YoY, geografía, HHI y scores permanecen bloqueados hasta sus fases correspondientes. Véanse la [metodología](docs/methodology/governed_kpi_framework.md), el [catálogo](docs/data_dictionary/kpi_catalog.md) y los [resultados](docs/results/phase10_kpis.md).
 
 ## Fuentes oficiales y trazabilidad
 
