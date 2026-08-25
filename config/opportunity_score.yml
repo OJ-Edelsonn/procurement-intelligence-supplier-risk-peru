@@ -1,0 +1,83 @@
+opportunity_score:
+  schema_version: "1.0"
+  score_version: b2g-opportunity-pilot-v1
+  name: B2G Commercial Opportunity Score
+  source_period: "2026-07"
+  phase11_gate: reports/concentration/oece_ocds_seace_v3_2026_07_market_concentration.json
+  population: phase11 markets where is_analysis_eligible is true
+  normalization: cross-sectional percentile rank from 0 to 100 within eligible population
+  outputs:
+    json: reports/opportunity/oece_ocds_seace_v3_2026_07_opportunity_score.json
+    markdown: reports/opportunity/oece_ocds_seace_v3_2026_07_opportunity_score.md
+    csv: reports/opportunity/oece_ocds_seace_v3_2026_07_opportunity_score.csv
+    figures: reports/opportunity/figures
+  figure_dpi: 150
+  top_n: 20
+  bands:
+    higher_relative_opportunity_max_rank_pct: 20
+    medium_relative_opportunity_max_rank_pct: 60
+  policies:
+    - The score is a relative prioritization aid within the eligible snapshot, not a forecast or recommendation.
+    - Every component is normalized by percentile rank to reduce scale and outlier dominance.
+    - Growth and recurrence receive no proxy because comparable source periods do not exist.
+    - Higher HHI lowers the market_openness component; it does not imply misconduct.
+    - Weights are explicit and sensitivity scenarios are mandatory.
+    - Scores must never be presented as expected sales, win probability or financial return.
+
+variables:
+  - variable_id: market_size
+    source_field: attributable_amount_pen
+    label: Tamaño del mercado
+    direction: higher_is_better
+    baseline_weight: 0.30
+    rationale: Larger observed demand increases commercial scale.
+  - variable_id: frequency
+    source_field: award_item_count
+    label: Frecuencia de ítems
+    direction: higher_is_better
+    baseline_weight: 0.20
+    rationale: More items provide more observed purchasing events.
+  - variable_id: buyer_breadth
+    source_field: buyer_count
+    label: Diversidad de compradores
+    direction: higher_is_better
+    baseline_weight: 0.20
+    rationale: More public buyers reduce dependence on one entity.
+  - variable_id: average_ticket
+    source_field: derived_attributable_amount_per_item
+    label: Ticket promedio por ítem
+    direction: higher_is_better
+    baseline_weight: 0.15
+    rationale: Larger average transactions may justify acquisition effort.
+  - variable_id: market_openness
+    source_field: hhi
+    label: Apertura relativa
+    direction: lower_is_better
+    baseline_weight: 0.15
+    rationale: Lower monetary concentration reduces observed incumbent dominance.
+
+sensitivity_scenarios:
+  demand_heavy:
+    market_size: 0.40
+    frequency: 0.25
+    buyer_breadth: 0.15
+    average_ticket: 0.10
+    market_openness: 0.10
+  accessibility_heavy:
+    market_size: 0.20
+    frequency: 0.15
+    buyer_breadth: 0.25
+    average_ticket: 0.10
+    market_openness: 0.30
+  balanced_equal:
+    market_size: 0.20
+    frequency: 0.20
+    buyer_breadth: 0.20
+    average_ticket: 0.20
+    market_openness: 0.20
+
+excluded_variables:
+  - {variable_id: growth, reason: No comparable source periods.}
+  - {variable_id: recurrence, reason: No multi-period history.}
+  - {variable_id: geographic_reach, reason: Governed UBIGEO dimension is not loaded.}
+  - {variable_id: sanctions, reason: Sanctions source is not ingested and is not an opportunity variable.}
