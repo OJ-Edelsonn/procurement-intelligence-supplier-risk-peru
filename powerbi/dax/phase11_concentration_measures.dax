@@ -1,0 +1,67 @@
+// Phase 11 category-market concentration measures.
+// Apply a governed standard-category filter before interpreting these measures.
+
+Attributed Award Item Amount PEN =
+CALCULATE (
+    SUM ( 'fact_award_item'[total_amount_pen_calculated] ),
+    'fact_award_item'[standard_category_key] <> 0,
+    'fact_award_item'[attributed_supplier_key] <> 0,
+    'fact_award_item'[total_amount_pen_calculated] > 0
+)
+
+Supplier Market Share % =
+DIVIDE (
+    [Attributed Award Item Amount PEN],
+    CALCULATE (
+        [Attributed Award Item Amount PEN],
+        REMOVEFILTERS ( 'dim_supplier' )
+    )
+)
+
+Top 1 Supplier Share % =
+MAXX (
+    FILTER ( VALUES ( 'dim_supplier'[supplier_key] ), 'dim_supplier'[supplier_key] <> 0 ),
+    [Supplier Market Share %]
+)
+
+Top 3 Supplier Share % =
+SUMX (
+    TOPN (
+        3,
+        FILTER ( VALUES ( 'dim_supplier'[supplier_key] ), 'dim_supplier'[supplier_key] <> 0 ),
+        [Attributed Award Item Amount PEN], DESC,
+        'dim_supplier'[supplier_key], ASC
+    ),
+    [Supplier Market Share %]
+)
+
+Top 5 Supplier Share % =
+SUMX (
+    TOPN (
+        5,
+        FILTER ( VALUES ( 'dim_supplier'[supplier_key] ), 'dim_supplier'[supplier_key] <> 0 ),
+        [Attributed Award Item Amount PEN], DESC,
+        'dim_supplier'[supplier_key], ASC
+    ),
+    [Supplier Market Share %]
+)
+
+Top 10 Supplier Share % =
+SUMX (
+    TOPN (
+        10,
+        FILTER ( VALUES ( 'dim_supplier'[supplier_key] ), 'dim_supplier'[supplier_key] <> 0 ),
+        [Attributed Award Item Amount PEN], DESC,
+        'dim_supplier'[supplier_key], ASC
+    ),
+    [Supplier Market Share %]
+)
+
+Supplier HHI =
+SUMX (
+    FILTER ( VALUES ( 'dim_supplier'[supplier_key] ), 'dim_supplier'[supplier_key] <> 0 ),
+    POWER ( [Supplier Market Share %] * 100, 2 )
+)
+
+Effective Supplier Count =
+DIVIDE ( 10000, [Supplier HHI] )
