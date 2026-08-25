@@ -121,3 +121,13 @@ Genera evidencia JSON, Markdown y tres figuras bajo `reports/concentration/`. La
 ```
 
 Consume la evidencia aprobada de Fase 11 y genera JSON, Markdown, CSV y figuras bajo `reports/opportunity/`. No requiere conexión adicional porque el gate conserva los 87 mercados elegibles.
+
+## Supplier Operational and Commercial Exposure Score
+
+```powershell
+.\.venv\Scripts\run-supplier-exposure.exe `
+  --config config\supplier_exposure_score.yml `
+  --env-file .env
+```
+
+El modo oficial `audited_silver_rebuild` lee los Parquet Silver desde `DATA_ROOT`, reconstruye el modelo dimensional y reconcilia sus conteos con Fase 6. No requiere que SQL Server esté disponible. Para probar los contratos SQL equivalentes puede añadirse `--input-mode sql_server` cuando la instancia disponga de memoria suficiente.

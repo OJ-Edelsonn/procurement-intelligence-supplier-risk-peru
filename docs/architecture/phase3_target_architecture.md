@@ -291,6 +291,10 @@ La Fase 11 define mercado como categoría estándar por periodo fuente y usa mon
 
 La Fase 12 consume los 87 mercados elegibles y calcula un score relativo 0–100 con cinco percentiles y pesos versionados. Tres escenarios cuantifican sensibilidad; cada score se recalcula y el CSV queda preparado para Power BI. Crecimiento y recurrencia no reciben proxies. La versión piloto sirve para priorizar investigación, no para pronosticar ventas o rentabilidad.
 
+### Exposición operativa y comercial en Fase 13
+
+La Fase 13 puntúa 179 proveedores con evidencia suficiente mediante materialidad, dependencia de comprador, dependencia de categoría, concentración entre adjudicaciones y amplitud de compradores. La corrida oficial reconstruye el DW desde Silver y lo reconcilia contra Fase 6; los SQL equivalentes permanecen versionados. El score es relativo y sensible a pesos. Sanciones, penalidades, recurrencia, solvencia y cualquier conclusión legal o de fraude están fuera de alcance.
+
 ## Criterios de aceptación para pasar a Fase 4
 
 - Registro maestro de fuentes estructuralmente válido y documento sincronizado.
