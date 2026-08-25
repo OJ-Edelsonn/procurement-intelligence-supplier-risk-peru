@@ -1,0 +1,56 @@
+eda:
+  schema_version: "1.0"
+  name: OECE OCDS exploratory data analysis
+  source_period: "2026-07"
+  validation_gate: reports/sql/oece_ocds_seace_v3_2026_07_phase8_validation.json
+  top_n: 15
+  histogram_bins: 30
+  figure_dpi: 150
+  amount_stages:
+    - tender
+    - award
+    - contract
+  outputs:
+    json: reports/eda/oece_ocds_seace_v3_2026_07_eda_summary.json
+    markdown: reports/eda/oece_ocds_seace_v3_2026_07_eda_report.md
+    figures: reports/eda/figures
+  policies:
+    - Use each monetary measure only at its native fact grain.
+    - Never aggregate original-currency amounts across currency codes.
+    - Use PEN only where the governed model provides a published or calculated value.
+    - Keep zero amounts and outliers visible; do not delete them during EDA.
+    - Treat rankings as descriptive exploration, not final KPIs or recommendations.
+    - Do not calculate growth, HHI, market concentration or scores in Phase 9.
+    - Raw buyer geography remains exploratory until an official UBIGEO dimension is approved.
+
+datasets:
+  - dataset_id: overview
+    sql: sql/analytics/phase9_overview.sql
+    required_columns: [load_batch_id, source_period, snapshot_date, process_count, tender_item_count, award_count, contract_count, known_buyer_count, known_supplier_count, known_category_count, tender_amount_pen, award_amount_pen, contract_amount_pen, tender_min_date, tender_max_date, award_min_date, award_max_date, contract_min_date, contract_max_date]
+  - dataset_id: amount_observations
+    sql: sql/analytics/phase9_amount_observations.sql
+    required_columns: [stage, fact_key, amount_pen]
+  - dataset_id: monthly_activity
+    sql: sql/analytics/phase9_monthly_activity.sql
+    required_columns: [stage, year_month, event_count, amount_pen]
+  - dataset_id: buyer_exploration
+    sql: sql/analytics/phase9_buyer_exploration.sql
+    required_columns: [buyer_key, buyer_name, department_name_raw, process_count, tender_amount_pen, award_count, award_amount_pen, contract_count, contract_amount_pen]
+  - dataset_id: supplier_exploration
+    sql: sql/analytics/phase9_supplier_exploration.sql
+    required_columns: [supplier_key, supplier_name, award_count, buyer_count, award_amount_pen, contract_count, contract_amount_pen]
+  - dataset_id: category_exploration
+    sql: sql/analytics/phase9_category_exploration.sql
+    required_columns: [category_key, classification_code, classification_description, award_item_count, buyer_count, award_item_amount_pen]
+  - dataset_id: competition
+    sql: sql/analytics/phase9_competition.sql
+    required_columns: [process_key, tenderer_count_declared, tenderer_count_observed, award_count, contract_count]
+  - dataset_id: procurement_methods
+    sql: sql/analytics/phase9_procurement_methods.sql
+    required_columns: [procurement_method, procurement_method_details, process_count, tender_amount_pen]
+  - dataset_id: currencies
+    sql: sql/analytics/phase9_currencies.sql
+    required_columns: [stage, currency_code, row_count, amount_original, amount_pen, missing_pen_rows]
+  - dataset_id: quality_coverage
+    sql: sql/analytics/phase9_quality_coverage.sql
+    required_columns: [metric_id, numerator, denominator, metric_pct, interpretation]

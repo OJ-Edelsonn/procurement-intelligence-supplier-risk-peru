@@ -36,13 +36,14 @@ No es obligatorio activar el entorno. Para activarlo:
 | python-dotenv | Configuración local desde `.env` |
 | PyYAML | Lectura de configuración YAML |
 | requests | Descargas HTTP controladas |
+| matplotlib | Visualizaciones estáticas reproducibles del EDA |
 | jupyterlab | Exploración y notebooks reproducibles |
 | pytest | Pruebas automatizadas |
 
 ## Verificación rápida
 
 ```powershell
-.\.venv\Scripts\python.exe -c "import numpy, pandas, openpyxl, pyarrow, sqlalchemy, pyodbc, yaml, requests; print('PASS')"
+.\.venv\Scripts\python.exe -c "import numpy, pandas, openpyxl, pyarrow, sqlalchemy, pyodbc, yaml, requests, matplotlib; print('PASS')"
 .\.venv\Scripts\python.exe -m jupyter --version
 .\.venv\Scripts\python.exe -m pytest --version
 ```
@@ -79,3 +80,15 @@ Después de cargar el snapshot, la Fase 8 comprueba el lote sin modificar la bas
 ```
 
 Código de salida 0 significa `PASS` o `PASS_WITH_WARNINGS`; 1 indica un fallo bloqueante. Con `--strict-warnings`, las advertencias devuelven código 2 para escenarios de integración continua que requieran revisión manual.
+
+## Análisis exploratorio reproducible
+
+Con la puerta de Fase 8 aprobada y SQL Server iniciado:
+
+```powershell
+.\.venv\Scripts\run-procurement-eda.exe `
+  --config config\eda.yml `
+  --env-file .env
+```
+
+El comando escribe el resumen JSON, el informe Markdown y siete figuras bajo `reports/eda/`. Los argumentos `--output`, `--markdown-output` y `--figures-dir` permiten destinos alternativos dentro del proyecto; no cambian las consultas ni el contrato analítico.

@@ -275,6 +275,10 @@ La Fase 7 materializó 22 tablas `stg`, 16 tablas `dw` y 2 tablas `audit` en SQL
 
 La Fase 8 materializó la puerta prevista sin alterar el warehouse: 45 reglas T-SQL comprueban estructura, grano, integridad, linaje, atribución y cálculos; 113 reconciliaciones contrastan SQL con auditoría, Silver y evidencia Python. El contrato vigente está en `config/sql_validation.yml`. Solo un resultado sin fallos bloqueantes habilita la Fase 9, mientras las advertencias oficiales permanecen visibles y condicionan el uso de KPIs posteriores.
 
+### Exploración gobernada en Fase 9
+
+La Fase 9 consume exclusivamente el modelo `dw` aprobado por la puerta anterior. Diez datasets SQL versionados preservan sus granos nativos y alimentan perfiles descriptivos, rankings exploratorios y siete figuras reproducibles. El contrato vigente está en `config/eda.yml`; cada ejecución registra hashes de configuración, consultas, ejecutor y gráficos. Con un solo `source_period`, crecimiento, YoY y tendencias históricas permanecen inhabilitados; concentración, scores y KPIs se reservan para sus fases posteriores.
+
 ## Criterios de aceptación para pasar a Fase 4
 
 - Registro maestro de fuentes estructuralmente válido y documento sincronizado.
