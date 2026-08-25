@@ -283,6 +283,10 @@ La Fase 9 consume exclusivamente el modelo `dw` aprobado por la puerta anterior.
 
 La Fase 10 formaliza 21 métricas con definición, grano, unidad, numerador y denominador. SQL calcula desde cada hecho nativo, Python reconcilia contra el EDA y DAX conserva medidas equivalentes para Power BI. El contrato vigente está en `config/kpis.yml`. Siete métricas permanecen bloqueadas por falta de historia, geografía, cobertura o por pertenecer a concentración y scores posteriores.
 
+### Concentración por mercado en Fase 11
+
+La Fase 11 define mercado como categoría estándar por periodo fuente y usa monto positivo de ítems adjudicados con atribución segura. SQL calcula shares y Top N; Python recalcula 772 HHI y genera tres figuras; DAX deja equivalencia para el modelo semántico. Los umbrales de elegibilidad filtran comparaciones frágiles sin eliminar su evidencia. El resultado no constituye evaluación legal o de conducta.
+
 ## Criterios de aceptación para pasar a Fase 4
 
 - Registro maestro de fuentes estructuralmente válido y documento sincronizado.

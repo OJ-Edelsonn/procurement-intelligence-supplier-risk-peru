@@ -102,3 +102,13 @@ El comando escribe el resumen JSON, el informe Markdown y siete figuras bajo `re
 ```
 
 El comando requiere las evidencias aprobadas de Fases 8 y 9, consulta cuatro datasets SQL y escribe `reports/kpis/`. No modifica SQL Server.
+
+## Concentración de mercado
+
+```powershell
+.\.venv\Scripts\run-market-concentration.exe `
+  --config config\market_concentration.yml `
+  --env-file .env
+```
+
+Genera evidencia JSON, Markdown y tres figuras bajo `reports/concentration/`. La ejecución es de solo lectura en SQL Server.

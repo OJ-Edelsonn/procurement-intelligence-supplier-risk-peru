@@ -2,7 +2,7 @@
 
 Solución end-to-end de Data/BI para analizar contratación pública peruana, inteligencia comercial y exposición a proveedores usando datos abiertos oficiales de OECE/SEACE.
 
-> Estado: Fase 10 completada. La capa semántica publica 21 KPIs gobernados, conserva 7 métricas bloqueadas y reconcilia 7/7 totales críticos. Concentración y scores permanecen en sus fases posteriores.
+> Estado: Fase 11 completada. Se analizaron 772 mercados por categoría, 87 cumplieron elegibilidad y 772/772 cálculos HHI fueron reconciliados. Los scores permanecen en sus fases posteriores.
 
 ## Problema de negocio
 
@@ -175,6 +175,16 @@ La ejecución validada procesó 10 datasets analíticos, creó 7 figuras PNG y d
 ```
 
 La Fase 10 publica 21 indicadores con grano, unidad y denominador explícitos, genera rankings Top 20 y reconcilia siete totales contra el EDA. También versiona medidas DAX equivalentes para Power BI. Crecimiento, YoY, geografía, HHI y scores permanecen bloqueados hasta sus fases correspondientes. Véanse la [metodología](docs/methodology/governed_kpi_framework.md), el [catálogo](docs/data_dictionary/kpi_catalog.md) y los [resultados](docs/results/phase10_kpis.md).
+
+## Analizar concentración de mercado
+
+```powershell
+.\.venv\Scripts\run-market-concentration.exe `
+  --config config\market_concentration.yml `
+  --env-file .env
+```
+
+La Fase 11 define cada categoría estándar como un mercado descriptivo, calcula Top 1/3/5/10, HHI y proveedores efectivos, y valida 772/772 distribuciones en Python. Solo 87 mercados cumplen los mínimos de proveedores, compradores, ítems y cobertura. Véanse la [metodología](docs/methodology/market_concentration.md), el [diccionario](docs/data_dictionary/market_concentration.md) y los [resultados](docs/results/phase11_market_concentration.md).
 
 ## Fuentes oficiales y trazabilidad
 
