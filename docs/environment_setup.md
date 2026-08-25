@@ -112,3 +112,12 @@ El comando requiere las evidencias aprobadas de Fases 8 y 9, consulta cuatro dat
 ```
 
 Genera evidencia JSON, Markdown y tres figuras bajo `reports/concentration/`. La ejecución es de solo lectura en SQL Server.
+
+## B2G Commercial Opportunity Score
+
+```powershell
+.\.venv\Scripts\run-opportunity-score.exe `
+  --config config\opportunity_score.yml
+```
+
+Consume la evidencia aprobada de Fase 11 y genera JSON, Markdown, CSV y figuras bajo `reports/opportunity/`. No requiere conexión adicional porque el gate conserva los 87 mercados elegibles.

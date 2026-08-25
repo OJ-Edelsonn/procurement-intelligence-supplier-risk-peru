@@ -287,6 +287,10 @@ La Fase 10 formaliza 21 métricas con definición, grano, unidad, numerador y de
 
 La Fase 11 define mercado como categoría estándar por periodo fuente y usa monto positivo de ítems adjudicados con atribución segura. SQL calcula shares y Top N; Python recalcula 772 HHI y genera tres figuras; DAX deja equivalencia para el modelo semántico. Los umbrales de elegibilidad filtran comparaciones frágiles sin eliminar su evidencia. El resultado no constituye evaluación legal o de conducta.
 
+### Opportunity Score transparente en Fase 12
+
+La Fase 12 consume los 87 mercados elegibles y calcula un score relativo 0–100 con cinco percentiles y pesos versionados. Tres escenarios cuantifican sensibilidad; cada score se recalcula y el CSV queda preparado para Power BI. Crecimiento y recurrencia no reciben proxies. La versión piloto sirve para priorizar investigación, no para pronosticar ventas o rentabilidad.
+
 ## Criterios de aceptación para pasar a Fase 4
 
 - Registro maestro de fuentes estructuralmente válido y documento sincronizado.

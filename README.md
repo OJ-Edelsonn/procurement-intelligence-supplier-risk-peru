@@ -2,7 +2,7 @@
 
 Solución end-to-end de Data/BI para analizar contratación pública peruana, inteligencia comercial y exposición a proveedores usando datos abiertos oficiales de OECE/SEACE.
 
-> Estado: Fase 11 completada. Se analizaron 772 mercados por categoría, 87 cumplieron elegibilidad y 772/772 cálculos HHI fueron reconciliados. Los scores permanecen en sus fases posteriores.
+> Estado: Fase 12 completada. El B2G Commercial Opportunity Score piloto puntúa 87 mercados elegibles, valida 87/87 cálculos y publica tres escenarios de sensibilidad. No representa pronóstico de ventas.
 
 ## Problema de negocio
 
@@ -185,6 +185,15 @@ La Fase 10 publica 21 indicadores con grano, unidad y denominador explícitos, g
 ```
 
 La Fase 11 define cada categoría estándar como un mercado descriptivo, calcula Top 1/3/5/10, HHI y proveedores efectivos, y valida 772/772 distribuciones en Python. Solo 87 mercados cumplen los mínimos de proveedores, compradores, ítems y cobertura. Véanse la [metodología](docs/methodology/market_concentration.md), el [diccionario](docs/data_dictionary/market_concentration.md) y los [resultados](docs/results/phase11_market_concentration.md).
+
+## Calcular el B2G Opportunity Score
+
+```powershell
+.\.venv\Scripts\run-opportunity-score.exe `
+  --config config\opportunity_score.yml
+```
+
+La Fase 12 normaliza tamaño, frecuencia, compradores, ticket y apertura mediante percentiles, aplica pesos explícitos y compara tres escenarios. La versión piloto puntúa 87 mercados y exporta JSON, Markdown, CSV y tres figuras. Véanse la [metodología](docs/methodology/b2g_opportunity_score.md), el [diccionario](docs/data_dictionary/opportunity_score.md) y los [resultados](docs/results/phase12_opportunity_score.md).
 
 ## Fuentes oficiales y trazabilidad
 
