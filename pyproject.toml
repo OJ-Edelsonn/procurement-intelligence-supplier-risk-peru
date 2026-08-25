@@ -25,6 +25,7 @@ validate-sql-server = "procurement_intelligence.validation.validate_sql_server:m
 run-procurement-eda = "procurement_intelligence.analytics.run_eda:main"
 run-procurement-kpis = "procurement_intelligence.analytics.run_kpis:main"
 run-market-concentration = "procurement_intelligence.analytics.run_market_concentration:main"
+run-opportunity-score = "procurement_intelligence.analytics.run_opportunity_score:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
