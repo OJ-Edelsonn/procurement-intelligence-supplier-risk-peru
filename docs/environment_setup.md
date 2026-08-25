@@ -92,3 +92,13 @@ Con la puerta de Fase 8 aprobada y SQL Server iniciado:
 ```
 
 El comando escribe el resumen JSON, el informe Markdown y siete figuras bajo `reports/eda/`. Los argumentos `--output`, `--markdown-output` y `--figures-dir` permiten destinos alternativos dentro del proyecto; no cambian las consultas ni el contrato analítico.
+
+## KPIs gobernados
+
+```powershell
+.\.venv\Scripts\run-procurement-kpis.exe `
+  --config config\kpis.yml `
+  --env-file .env
+```
+
+El comando requiere las evidencias aprobadas de Fases 8 y 9, consulta cuatro datasets SQL y escribe `reports/kpis/`. No modifica SQL Server.

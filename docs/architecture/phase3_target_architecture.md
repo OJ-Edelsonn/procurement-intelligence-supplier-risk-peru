@@ -279,6 +279,10 @@ La Fase 8 materializó la puerta prevista sin alterar el warehouse: 45 reglas T-
 
 La Fase 9 consume exclusivamente el modelo `dw` aprobado por la puerta anterior. Diez datasets SQL versionados preservan sus granos nativos y alimentan perfiles descriptivos, rankings exploratorios y siete figuras reproducibles. El contrato vigente está en `config/eda.yml`; cada ejecución registra hashes de configuración, consultas, ejecutor y gráficos. Con un solo `source_period`, crecimiento, YoY y tendencias históricas permanecen inhabilitados; concentración, scores y KPIs se reservan para sus fases posteriores.
 
+### Capa semántica de KPIs en Fase 10
+
+La Fase 10 formaliza 21 métricas con definición, grano, unidad, numerador y denominador. SQL calcula desde cada hecho nativo, Python reconcilia contra el EDA y DAX conserva medidas equivalentes para Power BI. El contrato vigente está en `config/kpis.yml`. Siete métricas permanecen bloqueadas por falta de historia, geografía, cobertura o por pertenecer a concentración y scores posteriores.
+
 ## Criterios de aceptación para pasar a Fase 4
 
 - Registro maestro de fuentes estructuralmente válido y documento sincronizado.

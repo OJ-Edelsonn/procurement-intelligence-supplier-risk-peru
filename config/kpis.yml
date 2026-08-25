@@ -1,0 +1,66 @@
+kpis:
+  schema_version: "1.0"
+  name: OECE OCDS governed KPI layer
+  source_period: "2026-07"
+  phase8_gate: reports/sql/oece_ocds_seace_v3_2026_07_phase8_validation.json
+  phase9_gate: reports/eda/oece_ocds_seace_v3_2026_07_eda_summary.json
+  top_n: 20
+  outputs:
+    json: reports/kpis/oece_ocds_seace_v3_2026_07_kpi_summary.json
+    markdown: reports/kpis/oece_ocds_seace_v3_2026_07_kpi_report.md
+  dax_catalog: powerbi/dax/phase10_kpi_measures.dax
+  policies:
+    - Every KPI declares a business definition, formula, grain, unit and coverage rule.
+    - Monetary KPIs use PEN only when the governed fact provides a supported value.
+    - Tender, award and contract amounts remain separate and are never added together.
+    - Average tickets use only rows with a calculable PEN amount and publish coverage.
+    - Buyer, supplier and category rankings are scoped to the active source period.
+    - Unknown surrogate members are excluded from distinct entity counts.
+    - Growth and YoY require at least two comparable source periods and remain blocked.
+    - HHI, concentration and scores belong to later approved phases.
+
+datasets:
+  - dataset_id: portfolio_kpis
+    sql: sql/analytics/phase10_portfolio_kpis.sql
+    required_columns: [metric_id, metric_value, numerator, denominator, unit]
+  - dataset_id: buyer_kpis
+    sql: sql/analytics/phase10_buyer_kpis.sql
+    required_columns: [buyer_key, buyer_name, process_count, tender_amount_pen, average_tender_ticket_pen, award_count, award_amount_pen, contract_count, contract_amount_pen]
+  - dataset_id: supplier_kpis
+    sql: sql/analytics/phase10_supplier_kpis.sql
+    required_columns: [supplier_key, supplier_name, award_count, buyer_count, award_amount_pen, average_award_ticket_pen, contract_count, contract_amount_pen]
+  - dataset_id: category_kpis
+    sql: sql/analytics/phase10_category_kpis.sql
+    required_columns: [category_key, classification_code, classification_description, award_item_count, process_count, buyer_count, supplier_count, award_item_amount_pen, average_award_item_ticket_pen]
+
+catalog:
+  - {metric_id: procurement_processes, label: Procesos publicados, domain: demand, grain: process, unit: count, direction: context, publishable: true}
+  - {metric_id: tender_amount_pen, label: Monto licitado PEN, domain: demand, grain: process, unit: PEN, direction: context, publishable: true}
+  - {metric_id: tender_amount_pen_coverage_pct, label: Cobertura monto licitado PEN, domain: quality, grain: process, unit: percent, direction: higher_is_better, publishable: true}
+  - {metric_id: tender_zero_amount_pct, label: Procesos con monto licitado cero, domain: quality, grain: process, unit: percent, direction: lower_is_better, publishable: true}
+  - {metric_id: average_tender_ticket_pen, label: Ticket promedio licitado PEN, domain: demand, grain: process, unit: PEN, direction: context, publishable: true}
+  - {metric_id: active_buyers, label: Compradores observados, domain: buyer, grain: buyer, unit: count, direction: context, publishable: true}
+  - {metric_id: award_count, label: Adjudicaciones, domain: award, grain: award, unit: count, direction: context, publishable: true}
+  - {metric_id: award_amount_pen, label: Monto adjudicado PEN, domain: award, grain: award, unit: PEN, direction: context, publishable: true}
+  - {metric_id: award_amount_pen_coverage_pct, label: Cobertura monto adjudicado PEN, domain: quality, grain: award, unit: percent, direction: higher_is_better, publishable: true}
+  - {metric_id: average_award_ticket_pen, label: Ticket promedio adjudicado PEN, domain: award, grain: award, unit: PEN, direction: context, publishable: true}
+  - {metric_id: attributable_award_pct, label: Adjudicaciones atribuibles a proveedor único, domain: quality, grain: award, unit: percent, direction: higher_is_better, publishable: true}
+  - {metric_id: awarded_suppliers, label: Proveedores adjudicados atribuibles, domain: supplier, grain: supplier, unit: count, direction: context, publishable: true}
+  - {metric_id: contract_count, label: Contratos, domain: contract, grain: contract, unit: count, direction: context, publishable: true}
+  - {metric_id: contract_amount_pen, label: Monto contractual PEN, domain: contract, grain: contract, unit: PEN, direction: context, publishable: true}
+  - {metric_id: contract_amount_pen_coverage_pct, label: Cobertura monto contractual PEN, domain: quality, grain: contract, unit: percent, direction: higher_is_better, publishable: true}
+  - {metric_id: average_contract_ticket_pen, label: Ticket promedio contractual PEN, domain: contract, grain: contract, unit: PEN, direction: context, publishable: true}
+  - {metric_id: competition_coverage_pct, label: Procesos con ofertantes observados, domain: competition, grain: process, unit: percent, direction: higher_is_better, publishable: true}
+  - {metric_id: average_observed_tenderers, label: Promedio de ofertantes en procesos con detalle, domain: competition, grain: process, unit: tenderers, direction: context, publishable: true}
+  - {metric_id: award_process_presence_pct, label: Procesos con adjudicación observada, domain: lifecycle, grain: process, unit: percent, direction: context, publishable: true}
+  - {metric_id: contract_process_presence_pct, label: Procesos con contrato observado, domain: lifecycle, grain: process, unit: percent, direction: context, publishable: true}
+  - {metric_id: award_item_standard_category_coverage_pct, label: Cobertura de categoría estándar en ítems adjudicados, domain: quality, grain: award_item, unit: percent, direction: higher_is_better, publishable: true}
+
+blocked_metrics:
+  - {metric_id: yoy_growth_pct, reason: Requires comparable source periods for current and prior year.}
+  - {metric_id: historical_growth_pct, reason: Requires at least two comparable source periods.}
+  - {metric_id: geographic_spend_pen, reason: Official governed UBIGEO dimension is not loaded.}
+  - {metric_id: final_value_pen, reason: Final contract value coverage is only 0.2681 percent.}
+  - {metric_id: supplier_market_share, reason: Deferred to Phase 11 market concentration.}
+  - {metric_id: b2g_opportunity_score, reason: Deferred to Phase 12 methodology and sensitivity analysis.}
+  - {metric_id: supplier_exposure_score, reason: Deferred to Phase 13 methodology and sensitivity analysis.}
