@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "Si utiliza este proyecto o su metodología, cite este repositorio."
+title: "Procurement Intelligence & Supplier Risk — Perú"
+type: software
+authors:
+  - family-names: "Orihuela Jara"
+    given-names: "Edelson Anghuelo"
+version: 0.1.0
+license: MIT
+abstract: "Pipeline reproducible de Data/BI para contratación pública peruana con Python, SQL Server y Power BI."

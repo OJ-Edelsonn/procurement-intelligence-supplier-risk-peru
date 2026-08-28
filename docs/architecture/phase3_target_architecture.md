@@ -295,6 +295,18 @@ La Fase 12 consume los 87 mercados elegibles y calcula un score relativo 0–100
 
 La Fase 13 puntúa 179 proveedores con evidencia suficiente mediante materialidad, dependencia de comprador, dependencia de categoría, concentración entre adjudicaciones y amplitud de compradores. La corrida oficial reconstruye el DW desde Silver y lo reconcilia contra Fase 6; los SQL equivalentes permanecen versionados. El score es relativo y sensible a pesos. Sanciones, penalidades, recurrencia, solvencia y cualquier conclusión legal o de fraude están fuera de alcance.
 
+### Capa de presentación en Fase 14
+
+La Fase 14 materializa un esquema semántico `bi` y un proyecto PBIP en modo Import. Las cinco páginas consumen exclusivamente superficies SQL gobernadas. El modelo funciona y actualiza; el cierre visual se difiere hasta completar formato, interacciones y QA manual.
+
+### Automatización en Fase 15
+
+`config/pipeline.yml` y el ejecutor Python encadenan gates y artefactos, conservan hashes, tiempos y logs, y reutilizan evidencia previamente validada. Descarga y Power BI son grupos opcionales; la generación PBIP no se ejecuta para proteger cambios manuales.
+
+### Medición en Fase 16
+
+El benchmark combina tiempos registrados, resultados verificables y consultas SQL de solo lectura. Cada métrica identifica su evidencia. Sin línea base manual no se calcula ahorro ni reducción porcentual.
+
 ## Criterios de aceptación para pasar a Fase 4
 
 - Registro maestro de fuentes estructuralmente válido y documento sincronizado.

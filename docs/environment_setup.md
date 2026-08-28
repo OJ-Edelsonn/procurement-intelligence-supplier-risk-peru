@@ -131,3 +131,23 @@ Consume la evidencia aprobada de Fase 11 y genera JSON, Markdown, CSV y figuras 
 ```
 
 El modo oficial `audited_silver_rebuild` lee los Parquet Silver desde `DATA_ROOT`, reconstruye el modelo dimensional y reconcilia sus conteos con Fase 6. No requiere que SQL Server esté disponible. Para probar los contratos SQL equivalentes puede añadirse `--input-mode sql_server` cuando la instancia disponga de memoria suficiente.
+
+## Pipeline automatizado
+
+```powershell
+.\.venv\Scripts\run-procurement-pipeline.exe `
+  --config config\pipeline.yml `
+  --env-file .env
+```
+
+Descarga y Power BI se omiten por defecto. Consultar [el runbook](operations/pipeline_runbook.md) antes de usar `--force` o incorporar un periodo nuevo.
+
+## Benchmark verificable
+
+```powershell
+.\.venv\Scripts\run-procurement-benchmark.exe `
+  --config config\benchmark.yml `
+  --env-file .env
+```
+
+El benchmark ejecuta consultas SQL de solo lectura y publica JSON/Markdown en `reports/benchmark/`.
