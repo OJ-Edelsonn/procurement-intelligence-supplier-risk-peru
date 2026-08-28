@@ -1,0 +1,276 @@
+{
+  "schema_version": "1.0",
+  "pipeline": {
+    "pipeline_id": "procurement-intelligence-current-snapshot-v1",
+    "source_id": "oece_ocds_seace_v3",
+    "source_period": "2026-07",
+    "snapshot_date": "2026-08-19",
+    "config": "config/pipeline.yml",
+    "config_sha256": "5e5acb7b569336fb3be1d9112cb2fc3f8aba91b318ae91b92db923472a3d05f5"
+  },
+  "run": {
+    "run_id": "20260828T054125Z",
+    "started_at_utc": "2026-08-28T05:41:25.283238+00:00",
+    "completed_at_utc": "2026-08-28T05:49:23.083983+00:00",
+    "include_download": false,
+    "include_powerbi": false,
+    "force": false,
+    "dry_run": false,
+    "from_step": null,
+    "to_step": null,
+    "log": "logs/pipeline/20260828T054125Z.log"
+  },
+  "summary": {
+    "status": "PASS_WITH_WARNINGS",
+    "steps_configured": 14,
+    "steps_selected": 14,
+    "steps_executed": 7,
+    "steps_reused": 5,
+    "steps_optional_skipped": 2,
+    "steps_failed": 0,
+    "warning_steps": 5,
+    "duration_seconds": 477.8074,
+    "failure": null
+  },
+  "steps": [
+    {
+      "order": 1,
+      "step_id": "source_registry",
+      "stage": "governance",
+      "optional_group": null,
+      "command": [
+        "python",
+        "-m",
+        "procurement_intelligence.documentation.source_registry",
+        "--registry",
+        "config/source_registry.yml",
+        "--document",
+        "docs/data_sources/source_registry.md",
+        "--check"
+      ],
+      "duration_seconds": 3.7528,
+      "exit_code": 0,
+      "stdout_tail": "PASS: docs\\data_sources\\source_registry.md matches config\\source_registry.yml",
+      "stderr_tail": "",
+      "outcome": "PASS",
+      "artifact": null,
+      "artifact_sha256": null,
+      "artifact_status": null
+    },
+    {
+      "order": 2,
+      "step_id": "download_snapshot",
+      "stage": "extraction",
+      "optional_group": "download",
+      "outcome": "SKIPPED_OPTIONAL"
+    },
+    {
+      "order": 3,
+      "step_id": "profile_raw",
+      "stage": "profiling",
+      "optional_group": null,
+      "outcome": "REUSED_VALIDATED_ARTIFACT",
+      "artifact": "reports/profiling/oece_ocds_seace_v3_2026_07_summary.json",
+      "artifact_sha256": "75a5326f8b124eb99f34b49f448bcab64dbcb71edb0fdd13f20e24f81629eef9",
+      "artifact_status": null,
+      "duration_seconds": 0.0
+    },
+    {
+      "order": 4,
+      "step_id": "validate_raw_quality",
+      "stage": "quality",
+      "optional_group": null,
+      "outcome": "REUSED_VALIDATED_ARTIFACT",
+      "artifact": "reports/data_quality/oece_ocds_seace_v3_2026_07_quality_summary.json",
+      "artifact_sha256": "4e2948ebf270ddc52492a4a9a34a849b5250c05191b6d074c11a4fbbb809d7d4",
+      "artifact_status": "BLOCKED",
+      "duration_seconds": 0.0,
+      "accepted_failed_rule_ids": [
+        "DQ-BIZ-001",
+        "DQ-CAT-001",
+        "DQ-DUP-001",
+        "DQ-FIT-001",
+        "DQ-ID-001",
+        "DQ-UNIQ-001"
+      ]
+    },
+    {
+      "order": 5,
+      "step_id": "transform_silver",
+      "stage": "transformation",
+      "optional_group": null,
+      "outcome": "REUSED_VALIDATED_ARTIFACT",
+      "artifact": "reports/etl/oece_ocds_seace_v3_2026_07_etl_summary.json",
+      "artifact_sha256": "9adc2bb32019d3cc6ca5c4994e88c17f2bc97fad0accfbb8054411762432b5b6",
+      "artifact_status": "PASS_WITH_WARNINGS",
+      "duration_seconds": 0.0
+    },
+    {
+      "order": 6,
+      "step_id": "validate_dimensional_model",
+      "stage": "modeling",
+      "optional_group": null,
+      "outcome": "REUSED_VALIDATED_ARTIFACT",
+      "artifact": "reports/modeling/oece_ocds_seace_v3_2026_07_dimensional_model_analysis.json",
+      "artifact_sha256": "eadce2d5c939b303f52f7eaec003efed0d329eb64d36dca47c67b59cf82b8f02",
+      "artifact_status": "PASS_WITH_WARNINGS",
+      "duration_seconds": 0.0
+    },
+    {
+      "order": 7,
+      "step_id": "load_sql_server",
+      "stage": "loading",
+      "optional_group": null,
+      "outcome": "REUSED_VALIDATED_ARTIFACT",
+      "artifact": "reports/sql/oece_ocds_seace_v3_2026_07_sql_server_load.json",
+      "artifact_sha256": "41b18afa646ae123c37cb0ac8ec1ae1c22cdf16792f3a1740e0241b08100ef3b",
+      "artifact_status": "PASS",
+      "duration_seconds": 0.0
+    },
+    {
+      "order": 8,
+      "step_id": "validate_sql_server",
+      "stage": "validation",
+      "optional_group": null,
+      "command": [
+        "python",
+        "-m",
+        "procurement_intelligence.validation.validate_sql_server",
+        "--env-file",
+        ".env",
+        "--config",
+        "config/sql_validation.yml",
+        "--output",
+        "reports/sql/oece_ocds_seace_v3_2026_07_phase8_validation.json"
+      ],
+      "duration_seconds": 180.3375,
+      "exit_code": 0,
+      "stdout_tail": "SQL validation PASS_WITH_WARNINGS: 36/45 rules passed; 0 blocking failures; 9 warning findings.",
+      "stderr_tail": "",
+      "outcome": "PASS",
+      "artifact": "reports/sql/oece_ocds_seace_v3_2026_07_phase8_validation.json",
+      "artifact_sha256": "d94fcdece06f9ee2864360bddd8bb0bbcd5e3a3aedc314c2dcd13a876da29420",
+      "artifact_status": "PASS_WITH_WARNINGS"
+    },
+    {
+      "order": 9,
+      "step_id": "exploratory_analysis",
+      "stage": "analytics",
+      "optional_group": null,
+      "command": [
+        "python",
+        "-m",
+        "procurement_intelligence.analytics.run_eda",
+        "--env-file",
+        ".env",
+        "--config",
+        "config/eda.yml"
+      ],
+      "duration_seconds": 46.9207,
+      "exit_code": 0,
+      "stdout_tail": "EDA PASS: 10 datasets; 7 figures; 6452 processes.",
+      "stderr_tail": "",
+      "outcome": "PASS",
+      "artifact": "reports/eda/oece_ocds_seace_v3_2026_07_eda_summary.json",
+      "artifact_sha256": "eecbfec50a5fdefc6670ead31b13db5840d78c101437c59f27065f0d1e7edc6a",
+      "artifact_status": "PASS"
+    },
+    {
+      "order": 10,
+      "step_id": "governed_kpis",
+      "stage": "analytics",
+      "optional_group": null,
+      "command": [
+        "python",
+        "-m",
+        "procurement_intelligence.analytics.run_kpis",
+        "--env-file",
+        ".env",
+        "--config",
+        "config/kpis.yml"
+      ],
+      "duration_seconds": 20.9155,
+      "exit_code": 0,
+      "stdout_tail": "KPI PASS: 21 published; 7 blocked; 7 reconciled.",
+      "stderr_tail": "",
+      "outcome": "PASS",
+      "artifact": "reports/kpis/oece_ocds_seace_v3_2026_07_kpi_summary.json",
+      "artifact_sha256": "9c23623b6794509f300b1978576d853cf300f6183261d36979d9a7fc7b38e56d",
+      "artifact_status": "PASS"
+    },
+    {
+      "order": 11,
+      "step_id": "market_concentration",
+      "stage": "analytics",
+      "optional_group": null,
+      "command": [
+        "python",
+        "-m",
+        "procurement_intelligence.analytics.run_market_concentration",
+        "--env-file",
+        ".env",
+        "--config",
+        "config/market_concentration.yml"
+      ],
+      "duration_seconds": 41.8734,
+      "exit_code": 0,
+      "stdout_tail": "Concentration PASS: 772 markets; 87 eligible; 772 HHI checks.",
+      "stderr_tail": "",
+      "outcome": "PASS",
+      "artifact": "reports/concentration/oece_ocds_seace_v3_2026_07_market_concentration.json",
+      "artifact_sha256": "3a890158174dc72d0619549323eb32700bab6c03b875fe275245cc17219addb0",
+      "artifact_status": "PASS"
+    },
+    {
+      "order": 12,
+      "step_id": "opportunity_score",
+      "stage": "scoring",
+      "optional_group": null,
+      "command": [
+        "python",
+        "-m",
+        "procurement_intelligence.analytics.run_opportunity_score",
+        "--config",
+        "config/opportunity_score.yml"
+      ],
+      "duration_seconds": 50.1018,
+      "exit_code": 0,
+      "stdout_tail": "Opportunity PASS_PILOT: 87 markets; 87 validations; 3 scenarios.",
+      "stderr_tail": "",
+      "outcome": "PASS",
+      "artifact": "reports/opportunity/oece_ocds_seace_v3_2026_07_opportunity_score.json",
+      "artifact_sha256": "e26dfc9baedc6161e8a58cd5c64527680c4d73ff466f14820817d85c175ab9bd",
+      "artifact_status": "PASS_PILOT"
+    },
+    {
+      "order": 13,
+      "step_id": "supplier_exposure",
+      "stage": "scoring",
+      "optional_group": null,
+      "command": [
+        "python",
+        "-m",
+        "procurement_intelligence.analytics.run_supplier_exposure",
+        "--env-file",
+        ".env",
+        "--config",
+        "config/supplier_exposure_score.yml"
+      ],
+      "duration_seconds": 131.9462,
+      "exit_code": 0,
+      "stdout_tail": "Supplier exposure PASS_LIMITED: 179 suppliers; 179 validations; 3 scenarios.",
+      "stderr_tail": "",
+      "outcome": "PASS",
+      "artifact": "reports/supplier_exposure/oece_ocds_seace_v3_2026_07_supplier_exposure.json",
+      "artifact_sha256": "d44a90f4bafa51bac5f7d3708e8674939fe2aae0b2ec7c676a455fab2fa10983",
+      "artifact_status": "PASS_LIMITED"
+    },
+    {
+      "order": 14,
+      "step_id": "powerbi_semantic_layer",
+      "stage": "presentation",
+      "optional_group": "powerbi",
+      "outcome": "SKIPPED_OPTIONAL"
+    }
+  ]
+}

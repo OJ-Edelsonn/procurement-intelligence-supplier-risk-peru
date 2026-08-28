@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at_utc": "2026-08-25T00:56:52.267530+00:00",
+  "generated_at_utc": "2026-08-28T05:47:09.287446+00:00",
   "scope": "b2g_commercial_opportunity_score",
   "source": {
     "source_id": "oece_ocds_seace_v3_bulk",
@@ -8,7 +8,7 @@
     "snapshot_date": "2026-08-19",
     "load_batch_id": 4,
     "phase11_gate": "reports/concentration/oece_ocds_seace_v3_2026_07_market_concentration.json",
-    "phase11_gate_sha256": "e3c0940749242ffecdfa1a2f9479e31547d84a6b3912d7e127912efa4be05afa",
+    "phase11_gate_sha256": "d12c81951ec0724bc9b14ea10477bd34bfaa06bc28cb27e7611247f36218fd1d",
     "config": "config/opportunity_score.yml",
     "config_sha256": "45c6db414dd0f0ad6d0a756fad3ac25ab6b8b33f611ff4623030db43d3d81ae8",
     "runner_sha256": "5e1e43f730f27742c1a1e5f71a2302167f764daead6a378d92e22332d23204d3"
@@ -24,7 +24,7 @@
     "lower_relative_markets": 35,
     "sensitivity_scenarios": 3,
     "figures_generated": 3,
-    "duration_seconds": 7.5226
+    "duration_seconds": 14.099
   },
   "methodology": {
     "population": "phase11 markets where is_analysis_eligible is true",

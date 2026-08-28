@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at_utc": "2026-08-25T00:51:30.605231+00:00",
+  "generated_at_utc": "2026-08-28T05:46:17.964666+00:00",
   "scope": "market_concentration",
   "source": {
     "source_id": "oece_ocds_seace_v3_bulk",
@@ -10,7 +10,7 @@
     "database_name": "ProcurementIntelligence",
     "sql_server_version": "16.0.1000.6",
     "phase10_gate": "reports/kpis/oece_ocds_seace_v3_2026_07_kpi_summary.json",
-    "phase10_gate_sha256": "6e932bc8be4415364e9da23ce45058636699d895f394195f5f79f3925662f5bf",
+    "phase10_gate_sha256": "f7c5324f59a45560eee6bb3d9b97afd5dee693da6f4c98aaa430b5399a0b310e",
     "config": "config/market_concentration.yml",
     "config_sha256": "7ceb1172a4de0fa3a623a256104ed9d86f939c2b263e337dde1c5aea4265eab8",
     "runner_sha256": "78de8fa5c1b3227ad8c98f67d8a029f990d2e39d00332b0b3e1cf60ad896e1b8",
@@ -40,7 +40,7 @@
     "share_validations_passed": 772,
     "share_validations_failed": 0,
     "figures_generated": 3,
-    "duration_seconds": 12.2401
+    "duration_seconds": 17.882
   },
   "analysis": {
     "market_definition": "one governed standard category within one source period",

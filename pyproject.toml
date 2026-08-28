@@ -29,6 +29,7 @@ run-opportunity-score = "procurement_intelligence.analytics.run_opportunity_scor
 run-supplier-exposure = "procurement_intelligence.analytics.run_supplier_exposure:main"
 deploy-powerbi-semantic = "procurement_intelligence.powerbi.deploy_semantic_layer:main"
 build-powerbi-project = "procurement_intelligence.powerbi.build_project:main"
+run-procurement-pipeline = "procurement_intelligence.automation.run_pipeline:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

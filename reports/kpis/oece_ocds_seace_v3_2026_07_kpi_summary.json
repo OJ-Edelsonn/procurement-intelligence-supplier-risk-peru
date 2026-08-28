@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at_utc": "2026-08-25T00:42:30.011094+00:00",
+  "generated_at_utc": "2026-08-28T05:45:37.002935+00:00",
   "scope": "governed_kpis",
   "source": {
     "source_id": "oece_ocds_seace_v3_bulk",
@@ -10,9 +10,9 @@
     "database_name": "ProcurementIntelligence",
     "sql_server_version": "16.0.1000.6",
     "phase8_gate": "reports/sql/oece_ocds_seace_v3_2026_07_phase8_validation.json",
-    "phase8_gate_sha256": "d0168d36b3f069be90aea5ec3c610fafb5cd50597d67d22db838356c0689639a",
+    "phase8_gate_sha256": "fa8fd899127c5440e52c21dac3af399c17501787e203be7677c607a6cca758db",
     "phase9_gate": "reports/eda/oece_ocds_seace_v3_2026_07_eda_summary.json",
-    "phase9_gate_sha256": "d0de73125e2dca6f49619d13c9b444b93aea633717ba385060d4587d237f261b",
+    "phase9_gate_sha256": "086dce3b9cbe08ff2a50a93907a2a4f5f9d00065d2617a25d7cb525ff87f0b48",
     "kpi_config": "config/kpis.yml",
     "kpi_config_sha256": "5c280c23265989d0258dab1ea73b45cd5e258024b222f0c49cfcc62d9737caf2",
     "kpi_runner_sha256": "33f35de3c3bea908ef952ffa18a7d5b16d1b1e79ba784253efe5c6f159799f31",
@@ -45,7 +45,7 @@
     "reconciliations_passed": 7,
     "reconciliations_failed": 0,
     "source_period_count": 1,
-    "duration_seconds": 27.5891
+    "duration_seconds": 2.1825
   },
   "analysis": {
     "portfolio_kpis": [
