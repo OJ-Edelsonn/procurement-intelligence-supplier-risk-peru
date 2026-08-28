@@ -1,0 +1,74 @@
+table Compradores
+	lineageTag: ea85e0c2-b5e2-429b-abdf-733f44b3bef1
+
+	measure 'Total Compradores' = COUNTROWS ( 'Compradores' )
+		formatString: #,0
+		lineageTag: 13ad4d02-99be-40db-80d5-28ba38d78380
+
+	measure 'Monto Licitado Compradores PEN' = DIVIDE ( SUM ( 'Compradores'[tender_amount_pen] ), 1000000 )
+		formatString: """S/ "" #,0.0 "" M"""
+		lineageTag: 4b3f181d-c859-4368-9797-55a969d62b57
+
+	column buyer_key
+		dataType: int64
+		lineageTag: b37bbb6f-c1dd-4ad4-b9da-0f0946cd0357
+		summarizeBy: none
+		sourceColumn: buyer_key
+
+	column buyer_name
+		dataType: string
+		lineageTag: 81314180-12d4-4078-9724-429f4fc859e6
+		summarizeBy: none
+		sourceColumn: buyer_name
+
+	column department_name
+		dataType: string
+		lineageTag: 6660f02f-409c-47a7-b4cc-6a209dd1ba5a
+		summarizeBy: none
+		sourceColumn: department_name
+
+	column process_count
+		dataType: int64
+		lineageTag: 13bd6755-442f-4093-a6d4-4e8cd5007580
+		summarizeBy: none
+		sourceColumn: process_count
+
+	column tender_amount_pen
+		dataType: double
+		lineageTag: 1580aaa6-6afa-468e-9ab7-da77d367a5a6
+		summarizeBy: none
+		sourceColumn: tender_amount_pen
+
+	column award_count
+		dataType: int64
+		lineageTag: e6032b3d-a135-45e8-867d-906a4a058e00
+		summarizeBy: none
+		sourceColumn: award_count
+
+	column award_amount_pen
+		dataType: double
+		lineageTag: 8d9dcd4a-97e6-4d46-a416-2482b7943e67
+		summarizeBy: none
+		sourceColumn: award_amount_pen
+
+	column contract_count
+		dataType: int64
+		lineageTag: c70e6db9-6aa7-402f-a9f2-3910b8651831
+		summarizeBy: none
+		sourceColumn: contract_count
+
+	column contract_amount_pen
+		dataType: double
+		lineageTag: cee061c7-7da6-41b7-a5e0-098dcf94ab1c
+		summarizeBy: none
+		sourceColumn: contract_amount_pen
+
+	partition Compradores = m
+		mode: import
+		source =
+				let
+					Source = Sql.Database("localhost\SQLEXPRESS", "ProcurementIntelligence"),
+					Data = Source{[Schema="bi", Item="vw_buyer_summary"]}[Data]
+				in
+					Data
+

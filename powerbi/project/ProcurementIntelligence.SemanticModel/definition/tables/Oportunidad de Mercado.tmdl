@@ -1,0 +1,222 @@
+table 'Oportunidad de Mercado'
+	lineageTag: 63b5a9dc-2243-47d5-8398-1cc45996daf8
+
+	measure 'Mercados Puntuados' = COUNTROWS ( 'Oportunidad de Mercado' )
+		formatString: #,0
+		lineageTag: b3f877a7-ced3-42d5-a089-344a40549307
+
+	measure 'Opportunity Score Máximo' = MAX ( 'Oportunidad de Mercado'[score_baseline] )
+		formatString: 0.0
+		lineageTag: a8d10c02-9f61-4a2d-b0da-7917bd5e30b3
+
+	measure 'Monto Mercados PEN' = DIVIDE ( SUM ( 'Oportunidad de Mercado'[total_category_amount_pen] ), 1000000 )
+		formatString: """S/ "" #,0.0 "" M"""
+		lineageTag: d8709ebe-333f-48a9-9d5a-766696035507
+
+	column category_key
+		dataType: int64
+		lineageTag: a3ec99c9-edc2-4344-882b-31e9c884ff2a
+		summarizeBy: none
+		sourceColumn: category_key
+
+	column classification_code
+		dataType: string
+		lineageTag: d04e2075-4182-49fc-9fce-a9bf9b75ff0c
+		summarizeBy: none
+		sourceColumn: classification_code
+
+	column classification_description
+		dataType: string
+		lineageTag: 4512c387-cb29-49cb-87ca-2aa7bac16b17
+		summarizeBy: none
+		sourceColumn: classification_description
+
+	column award_item_count
+		dataType: int64
+		lineageTag: 04abd174-7bdc-4ad9-a697-a966c33b1bcd
+		summarizeBy: none
+		sourceColumn: award_item_count
+
+	column buyer_count
+		dataType: int64
+		lineageTag: 2a1a9b1f-515b-45a1-a623-2a1f5fe05b1d
+		summarizeBy: none
+		sourceColumn: buyer_count
+
+	column supplier_count
+		dataType: int64
+		lineageTag: eca145d5-2c0a-41e7-879c-61f3b4b64f94
+		summarizeBy: none
+		sourceColumn: supplier_count
+
+	column total_category_amount_pen
+		dataType: double
+		lineageTag: 16bf6d40-ebde-4e1a-8226-f28389f82adc
+		summarizeBy: none
+		sourceColumn: total_category_amount_pen
+
+	column attributable_amount_pen
+		dataType: double
+		lineageTag: a6aacab0-e997-4479-a55f-83ee12dfcf08
+		summarizeBy: none
+		sourceColumn: attributable_amount_pen
+
+	column attributable_amount_coverage_pct
+		dataType: double
+		lineageTag: dd56c631-0a0f-4193-b904-ebb036f94d0d
+		summarizeBy: none
+		sourceColumn: attributable_amount_coverage_pct
+
+	column top1_share_pct
+		dataType: double
+		lineageTag: 5f77c2f7-3500-4441-baff-a8c37ad9b9bf
+		summarizeBy: none
+		sourceColumn: top1_share_pct
+
+	column top3_share_pct
+		dataType: double
+		lineageTag: cd81d54d-0d3a-4a7c-b182-80a5e056ad81
+		summarizeBy: none
+		sourceColumn: top3_share_pct
+
+	column top5_share_pct
+		dataType: double
+		lineageTag: aadf22e1-a2e3-4c3e-a3b2-9b9437da0abc
+		summarizeBy: none
+		sourceColumn: top5_share_pct
+
+	column top10_share_pct
+		dataType: double
+		lineageTag: ba3163a7-0ccb-47a7-b6fd-ab0af3e2e6bb
+		summarizeBy: none
+		sourceColumn: top10_share_pct
+
+	column hhi
+		dataType: double
+		lineageTag: 35ee7cfb-98a0-40c3-bf65-49179f658cb5
+		summarizeBy: none
+		sourceColumn: hhi
+
+	column effective_supplier_count
+		dataType: double
+		lineageTag: 54495889-cae4-42f7-87b3-1707c3d850ee
+		summarizeBy: none
+		sourceColumn: effective_supplier_count
+
+	column is_analysis_eligible
+		dataType: boolean
+		lineageTag: 569e569a-3669-4d6d-8f24-d713fed457aa
+		summarizeBy: none
+		sourceColumn: is_analysis_eligible
+
+	column average_ticket
+		dataType: double
+		lineageTag: 651d11b6-7bca-44e6-8b90-1e8f31518cd4
+		summarizeBy: none
+		sourceColumn: average_ticket
+
+	column component_market_size
+		dataType: double
+		lineageTag: 94e6c6d3-f032-4105-9483-85db8db50401
+		summarizeBy: none
+		sourceColumn: component_market_size
+
+	column component_frequency
+		dataType: double
+		lineageTag: 1b5d5d1d-1334-4285-a36e-f69cc03b7668
+		summarizeBy: none
+		sourceColumn: component_frequency
+
+	column component_buyer_breadth
+		dataType: double
+		lineageTag: 80dde73f-4336-49e1-b612-5361e4b5b5e9
+		summarizeBy: none
+		sourceColumn: component_buyer_breadth
+
+	column component_average_ticket
+		dataType: double
+		lineageTag: 1e81fc69-8a34-4052-9359-805d05ae50a5
+		summarizeBy: none
+		sourceColumn: component_average_ticket
+
+	column component_market_openness
+		dataType: double
+		lineageTag: b43cc0db-01b1-487b-b737-2d9b209be086
+		summarizeBy: none
+		sourceColumn: component_market_openness
+
+	column score_baseline
+		dataType: double
+		lineageTag: a348d4a7-1778-451c-b90f-5dfc0b984ce4
+		summarizeBy: none
+		sourceColumn: score_baseline
+
+	column rank_baseline
+		dataType: int64
+		lineageTag: 844be564-6a4a-487f-b059-22a2e903ad87
+		summarizeBy: none
+		sourceColumn: rank_baseline
+
+	column score_demand_heavy
+		dataType: double
+		lineageTag: 9de30360-4788-4e94-a06d-b220862df719
+		summarizeBy: none
+		sourceColumn: score_demand_heavy
+
+	column rank_demand_heavy
+		dataType: int64
+		lineageTag: 7dd650db-a811-4bed-9a18-085d7208bd11
+		summarizeBy: none
+		sourceColumn: rank_demand_heavy
+
+	column score_accessibility_heavy
+		dataType: double
+		lineageTag: 86aa17af-b60b-49ca-92ba-0f7086eddce3
+		summarizeBy: none
+		sourceColumn: score_accessibility_heavy
+
+	column rank_accessibility_heavy
+		dataType: int64
+		lineageTag: 155220a0-6a45-446b-954e-91d0c0c94f0e
+		summarizeBy: none
+		sourceColumn: rank_accessibility_heavy
+
+	column score_balanced_equal
+		dataType: double
+		lineageTag: 9fa9c059-3572-4b4b-9a92-e8a7cfcae3c1
+		summarizeBy: none
+		sourceColumn: score_balanced_equal
+
+	column rank_balanced_equal
+		dataType: int64
+		lineageTag: f7288581-9c3a-4b0e-847f-085eb88d0817
+		summarizeBy: none
+		sourceColumn: rank_balanced_equal
+
+	column opportunity_band
+		dataType: string
+		lineageTag: fe871978-b9d9-43e3-b797-89ecf26cbfd1
+		summarizeBy: none
+		sourceColumn: opportunity_band
+
+	column scenario_score_range
+		dataType: double
+		lineageTag: 9cd67bae-2602-426a-9da5-ea100fb22a2e
+		summarizeBy: none
+		sourceColumn: scenario_score_range
+
+	column maximum_absolute_rank_shift
+		dataType: int64
+		lineageTag: e4e2c463-9320-49e3-a66b-9157e15980ee
+		summarizeBy: none
+		sourceColumn: maximum_absolute_rank_shift
+
+	partition 'Oportunidad de Mercado' = m
+		mode: import
+		source =
+				let
+					Source = Sql.Database("localhost\SQLEXPRESS", "ProcurementIntelligence"),
+					Data = Source{[Schema="bi", Item="market_opportunity_score"]}[Data]
+				in
+					Data
+

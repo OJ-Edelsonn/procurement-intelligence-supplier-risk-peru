@@ -1,0 +1,281 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "9e81ebeb9447961be549",
+  "position": {
+    "x": 630,
+    "y": 232,
+    "z": 40,
+    "height": 380,
+    "width": 626,
+    "tabOrder": 40
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Top Exposición"
+                    }
+                  },
+                  "Property": "rank_baseline"
+                }
+              },
+              "queryRef": "Top Exposición.rank_baseline",
+              "nativeQueryRef": "rank_baseline"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Top Exposición"
+                    }
+                  },
+                  "Property": "supplier_name"
+                }
+              },
+              "queryRef": "Top Exposición.supplier_name",
+              "nativeQueryRef": "supplier_name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Top Exposición"
+                    }
+                  },
+                  "Property": "award_count"
+                }
+              },
+              "queryRef": "Top Exposición.award_count",
+              "nativeQueryRef": "award_count"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Top Exposición"
+                    }
+                  },
+                  "Property": "buyer_count"
+                }
+              },
+              "queryRef": "Top Exposición.buyer_count",
+              "nativeQueryRef": "buyer_count"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Top Exposición"
+                    }
+                  },
+                  "Property": "award_amount_pen"
+                }
+              },
+              "queryRef": "Top Exposición.award_amount_pen",
+              "nativeQueryRef": "award_amount_pen"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Top Exposición"
+                    }
+                  },
+                  "Property": "top_buyer_share_pct"
+                }
+              },
+              "queryRef": "Top Exposición.top_buyer_share_pct",
+              "nativeQueryRef": "top_buyer_share_pct"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Top Exposición"
+                    }
+                  },
+                  "Property": "top_category_share_pct"
+                }
+              },
+              "queryRef": "Top Exposición.top_category_share_pct",
+              "nativeQueryRef": "top_category_share_pct"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Top Exposición"
+                    }
+                  },
+                  "Property": "score_baseline"
+                }
+              },
+              "queryRef": "Top Exposición.score_baseline",
+              "nativeQueryRef": "score_baseline"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "columnHeaders": [
+        {
+          "properties": {
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'growToFit'"
+                }
+              }
+            },
+            "autoSizeColumnWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#17324D'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Dependencia'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#17324D'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#D5DFE8'"
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "6D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

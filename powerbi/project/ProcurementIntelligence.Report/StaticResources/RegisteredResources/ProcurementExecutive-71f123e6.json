@@ -1,0 +1,52 @@
+{
+  "name": "ProcurementExecutive-71f123e6.json",
+  "dataColors": [
+    "#0B6E75",
+    "#E98732",
+    "#2D5F8B",
+    "#6A8E3A",
+    "#8A5A8C",
+    "#D1A13A"
+  ],
+  "good": "#2E7D32",
+  "neutral": "#D1A13A",
+  "bad": "#C62828",
+  "maximum": "#0B6E75",
+  "center": "#F3C969",
+  "minimum": "#D95D39",
+  "foreground": "#17324D",
+  "foregroundNeutralSecondary": "#66788A",
+  "background": "#F4F7FA",
+  "secondaryBackground": "#FFFFFF",
+  "tableAccent": "#0B6E75",
+  "textClasses": {
+    "title": {
+      "fontFace": "Segoe UI Semibold",
+      "color": "#17324D"
+    },
+    "header": {
+      "fontFace": "Segoe UI Semibold",
+      "color": "#17324D"
+    },
+    "label": {
+      "fontFace": "Segoe UI",
+      "color": "#415466"
+    },
+    "callout": {
+      "fontFace": "Segoe UI Semibold",
+      "color": "#0B6E75"
+    }
+  },
+  "visualStyles": {
+    "tableEx": {
+      "*": {
+        "columnHeaders": [
+          {
+            "autoSizeColumnWidth": true,
+            "columnAdjustment": "growToFit"
+          }
+        ]
+      }
+    }
+  }
+}

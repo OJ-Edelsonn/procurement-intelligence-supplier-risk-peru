@@ -1,0 +1,158 @@
+powerbi:
+  schema_version: "1.0"
+  project_version: procurement-bi-pilot-v1
+  project_name: ProcurementIntelligence
+  source_period: "2026-07"
+  server: localhost\SQLEXPRESS
+  database: ProcurementIntelligence
+  storage_mode: import
+  desktop_minimum_version: 2.157.879.0
+  ddl: sql/powerbi/001_bi_semantic_layer.sql
+  project_directory: powerbi/project
+  semantic_load_output: reports/powerbi/phase14_semantic_layer_load.json
+  validation_output: reports/powerbi/phase14_powerbi_validation.json
+  upstream_gates:
+    phase10: reports/kpis/oece_ocds_seace_v3_2026_07_kpi_summary.json
+    phase11: reports/concentration/oece_ocds_seace_v3_2026_07_market_concentration.json
+    phase12: reports/opportunity/oece_ocds_seace_v3_2026_07_opportunity_score.json
+    phase13: reports/supplier_exposure/oece_ocds_seace_v3_2026_07_supplier_exposure.json
+  score_inputs:
+    market_opportunity_score: reports/opportunity/oece_ocds_seace_v3_2026_07_opportunity_score.csv
+    supplier_exposure_score: reports/supplier_exposure/oece_ocds_seace_v3_2026_07_supplier_exposure.csv
+  policies:
+    - Amounts from different fact grains are displayed separately and never added.
+    - Every page displays the active source period and analytical universe.
+    - Opportunity Score is prioritization evidence, not a sales forecast.
+    - Supplier Exposure is relative operational/commercial exposure, not legal, credit or fraud risk.
+    - Geographic Intelligence is omitted until a governed UBIGEO dimension exists.
+
+tables:
+  - model_name: Resumen Ejecutivo
+    source_object: vw_executive_overview
+    columns:
+      source_period: string
+      process_count: int64
+      tender_amount_pen: double
+      active_buyers: int64
+      award_count: int64
+      award_amount_pen: double
+      awarded_suppliers: int64
+      contract_count: int64
+      contract_amount_pen: double
+      eligible_markets: int64
+      scored_suppliers: int64
+    measures:
+      - {name: Procesos, expression: "MAX ( 'Resumen Ejecutivo'[process_count] )", format: "#,0"}
+      - {name: Monto Licitado PEN, expression: "MAX ( 'Resumen Ejecutivo'[tender_amount_pen] )", scale: 1000000, format: '"S/ " #,0.0 " M"'}
+      - {name: Compradores Activos, expression: "MAX ( 'Resumen Ejecutivo'[active_buyers] )", format: "#,0"}
+      - {name: Adjudicaciones, expression: "MAX ( 'Resumen Ejecutivo'[award_count] )", format: "#,0"}
+      - {name: Monto Adjudicado PEN, expression: "MAX ( 'Resumen Ejecutivo'[award_amount_pen] )", scale: 1000000, format: '"S/ " #,0.0 " M"'}
+      - {name: Proveedores Adjudicados, expression: "MAX ( 'Resumen Ejecutivo'[awarded_suppliers] )", format: "#,0"}
+      - {name: Contratos, expression: "MAX ( 'Resumen Ejecutivo'[contract_count] )", format: "#,0"}
+      - {name: Monto Contractual PEN, expression: "MAX ( 'Resumen Ejecutivo'[contract_amount_pen] )", scale: 1000000, format: '"S/ " #,0.0 " M"'}
+      - {name: Mercados Elegibles, expression: "MAX ( 'Resumen Ejecutivo'[eligible_markets] )", format: "#,0"}
+      - {name: Proveedores Puntuados, expression: "MAX ( 'Resumen Ejecutivo'[scored_suppliers] )", format: "#,0"}
+  - model_name: Actividad Mensual
+    source_object: vw_monthly_activity
+    columns: {year_month: string, process_count: int64, tender_amount_pen: double, award_count: int64, award_amount_pen: double, contract_count: int64, contract_amount_pen: double}
+    measures:
+      - {name: Procesos Mensuales, expression: "SUM ( 'Actividad Mensual'[process_count] )", format: "#,0"}
+      - {name: Monto Licitado Mensual PEN, expression: "SUM ( 'Actividad Mensual'[tender_amount_pen] )", scale: 1000000, format: '"S/ " #,0.0 " M"'}
+      - {name: Monto Adjudicado Mensual PEN, expression: "SUM ( 'Actividad Mensual'[award_amount_pen] )", scale: 1000000, format: '"S/ " #,0.0 " M"'}
+      - {name: Monto Contractual Mensual PEN, expression: "SUM ( 'Actividad Mensual'[contract_amount_pen] )", scale: 1000000, format: '"S/ " #,0.0 " M"'}
+  - model_name: Compradores
+    source_object: vw_buyer_summary
+    columns: {buyer_key: int64, buyer_name: string, department_name: string, process_count: int64, tender_amount_pen: double, award_count: int64, award_amount_pen: double, contract_count: int64, contract_amount_pen: double}
+    measures:
+      - {name: Total Compradores, expression: "COUNTROWS ( 'Compradores' )", format: "#,0"}
+      - {name: Monto Licitado Compradores PEN, expression: "SUM ( 'Compradores'[tender_amount_pen] )", scale: 1000000, format: '"S/ " #,0.0 " M"'}
+  - model_name: Top Compradores
+    source_object: vw_top_buyers
+    columns: {buyer_key: int64, buyer_name: string, department_name: string, process_count: int64, tender_amount_pen: double, award_count: int64, award_amount_pen: double, contract_count: int64, contract_amount_pen: double}
+    measures:
+      - {name: Monto Licitado Top PEN, expression: "SUM ( 'Top Compradores'[tender_amount_pen] )", scale: 1000000, format: '"S/ " #,0.0 " M"'}
+  - model_name: Proveedores
+    source_object: vw_supplier_summary
+    columns: {supplier_key: int64, supplier_name: string, award_count: int64, buyer_count: int64, award_amount_pen: double, contract_count: int64, contract_amount_pen: double}
+    measures:
+      - {name: Total Proveedores, expression: "COUNTROWS ( 'Proveedores' )", format: "#,0"}
+      - {name: Monto Adjudicado Proveedores PEN, expression: "SUM ( 'Proveedores'[award_amount_pen] )", scale: 1000000, format: '"S/ " #,0.0 " M"'}
+  - model_name: Top Proveedores
+    source_object: vw_top_suppliers
+    columns: {supplier_key: int64, supplier_name: string, award_count: int64, buyer_count: int64, award_amount_pen: double, contract_count: int64, contract_amount_pen: double}
+    measures:
+      - {name: Monto Adjudicado Top PEN, expression: "SUM ( 'Top Proveedores'[award_amount_pen] )", scale: 1000000, format: '"S/ " #,0.0 " M"'}
+  - model_name: Categorías
+    source_object: vw_category_summary
+    columns: {category_key: int64, classification_code: string, classification_description: string, award_item_count: int64, buyer_count: int64, supplier_count: int64, award_item_amount_pen: double}
+  - model_name: Top Categorías
+    source_object: vw_top_categories
+    columns: {category_key: int64, classification_code: string, classification_description: string, award_item_count: int64, buyer_count: int64, supplier_count: int64, award_item_amount_pen: double}
+    measures:
+      - {name: Monto Ítems Adjudicados Top PEN, expression: "SUM ( 'Top Categorías'[award_item_amount_pen] )", scale: 1000000, format: '"S/ " #,0.0 " M"'}
+  - model_name: Oportunidad de Mercado
+    source_object: market_opportunity_score
+    columns: {category_key: int64, classification_code: string, classification_description: string, award_item_count: int64, buyer_count: int64, supplier_count: int64, total_category_amount_pen: double, attributable_amount_pen: double, attributable_amount_coverage_pct: double, top1_share_pct: double, top3_share_pct: double, top5_share_pct: double, top10_share_pct: double, hhi: double, effective_supplier_count: double, is_analysis_eligible: boolean, average_ticket: double, component_market_size: double, component_frequency: double, component_buyer_breadth: double, component_average_ticket: double, component_market_openness: double, score_baseline: double, rank_baseline: int64, score_demand_heavy: double, rank_demand_heavy: int64, score_accessibility_heavy: double, rank_accessibility_heavy: int64, score_balanced_equal: double, rank_balanced_equal: int64, opportunity_band: string, scenario_score_range: double, maximum_absolute_rank_shift: int64}
+    measures:
+      - {name: Mercados Puntuados, expression: "COUNTROWS ( 'Oportunidad de Mercado' )", format: "#,0"}
+      - {name: Opportunity Score Máximo, expression: "MAX ( 'Oportunidad de Mercado'[score_baseline] )", format: "0.0"}
+      - {name: Monto Mercados PEN, expression: "SUM ( 'Oportunidad de Mercado'[total_category_amount_pen] )", scale: 1000000, format: '"S/ " #,0.0 " M"'}
+  - model_name: Top Oportunidades
+    source_object: vw_top_market_opportunity
+    columns: {classification_code: string, classification_description: string, total_category_amount_pen: double, buyer_count: int64, supplier_count: int64, hhi: double, score_baseline: double, rank_baseline: int64}
+    measures:
+      - {name: Opportunity Score Top, expression: "MAX ( 'Top Oportunidades'[score_baseline] )", format: "0.0"}
+  - model_name: Exposición de Proveedor
+    source_object: supplier_exposure_score
+    columns: {supplier_key: int64, supplier_name: string, award_count: int64, buyer_count: int64, award_amount_pen: double, average_award_ticket_pen: double, known_buyer_amount_pen: double, top_buyer_share_pct: double, award_hhi: double, award_item_count: int64, award_item_amount_pen: double, known_category_item_amount_pen: double, category_count: int64, top_category_share_pct: double, contract_count: int64, contract_amount_pen: double, known_buyer_amount_coverage_pct: double, known_category_item_amount_coverage_pct: double, effective_award_count: double, is_score_eligible: boolean, component_award_amount_materiality: double, component_buyer_dependency: double, component_category_dependency: double, component_award_concentration: double, component_limited_buyer_breadth: double, score_baseline: double, rank_baseline: int64, score_dependency_heavy: double, rank_dependency_heavy: int64, score_materiality_heavy: double, rank_materiality_heavy: int64, score_balanced_equal: double, rank_balanced_equal: int64, exposure_band: string, maximum_absolute_rank_shift: int64, scenario_score_range: double}
+    measures:
+      - {name: Proveedores Evaluados, expression: "COUNTROWS ( 'Exposición de Proveedor' )", format: "#,0"}
+      - {name: Exposure Score Máximo, expression: "MAX ( 'Exposición de Proveedor'[score_baseline] )", format: "0.0"}
+      - {name: Monto Exposición PEN, expression: "SUM ( 'Exposición de Proveedor'[award_amount_pen] )", scale: 1000000, format: '"S/ " #,0.0 " M"'}
+  - model_name: Top Exposición
+    source_object: vw_top_supplier_exposure
+    columns: {supplier_key: int64, supplier_name: string, award_count: int64, buyer_count: int64, award_amount_pen: double, top_buyer_share_pct: double, top_category_share_pct: double, score_baseline: double, rank_baseline: int64}
+    measures:
+      - {name: Exposure Score Top, expression: "MAX ( 'Top Exposición'[score_baseline] )", format: "0.0"}
+
+pages:
+  - page_id: executive_overview
+    display_name: Resumen Ejecutivo
+    title: Procurement Intelligence — Resumen Ejecutivo
+    subtitle: "Corte: 2026-07 | Fuente oficial OECE/SEACE | Montos por grano, no aditivos entre hechos"
+    card: {table: Resumen Ejecutivo, measures: [Procesos, Monto Licitado PEN, Compradores Activos, Adjudicaciones, Monto Adjudicado PEN, Proveedores Adjudicados]}
+    chart: {type: lineChart, table: Actividad Mensual, category: year_month, measures: [Monto Licitado Mensual PEN, Monto Adjudicado Mensual PEN], title: Actividad monetaria mensual}
+    table: {table: Top Categorías, columns: [classification_code, classification_description, award_item_amount_pen, buyer_count, supplier_count], title: Top 10 categorías por monto de ítems adjudicados}
+    note: "Universo piloto de un solo periodo fuente. No se muestran crecimiento ni comparaciones interanuales."
+  - page_id: market_opportunity
+    display_name: Oportunidad de Mercado
+    title: B2G Market Opportunity
+    subtitle: "87 mercados elegibles | Score transparente 0–100 | No es pronóstico de ventas"
+    card: {table: Oportunidad de Mercado, measures: [Mercados Puntuados, Opportunity Score Máximo, Monto Mercados PEN]}
+    chart: {type: clusteredBarChart, table: Top Oportunidades, category: classification_description, measures: [Opportunity Score Top], title: Top 10 mercados por Opportunity Score}
+    table: {table: Top Oportunidades, columns: [rank_baseline, classification_code, classification_description, total_category_amount_pen, buyer_count, supplier_count, hhi, score_baseline], title: Evidencia de oportunidad y concentración}
+    note: "El ranking prioriza investigación comercial. La posición depende de la población, los pesos y el periodo observado."
+  - page_id: supplier_intelligence
+    display_name: Supplier Intelligence
+    title: Supplier Intelligence
+    subtitle: "Participación adjudicada y diversificación observada | Atribución monetaria solo con proveedor único"
+    card: {table: Proveedores, measures: [Total Proveedores, Monto Adjudicado Proveedores PEN]}
+    chart: {type: clusteredBarChart, table: Top Proveedores, category: supplier_name, measures: [Monto Adjudicado Top PEN], title: Top 10 proveedores por monto adjudicado}
+    table: {table: Top Proveedores, columns: [supplier_name, award_count, buyer_count, award_amount_pen, contract_count, contract_amount_pen], title: Resumen de adjudicaciones y contratos}
+    note: "Los montos adjudicados y contractuales se presentan separados; sumarlos duplicaría valor entre hechos."
+  - page_id: supplier_exposure
+    display_name: Supplier Exposure
+    title: Supplier Operational & Commercial Exposure
+    subtitle: "179 proveedores elegibles | Indicador relativo con tres escenarios de sensibilidad"
+    card: {table: Exposición de Proveedor, measures: [Proveedores Evaluados, Exposure Score Máximo, Monto Exposición PEN]}
+    chart: {type: clusteredBarChart, table: Top Exposición, category: supplier_name, measures: [Exposure Score Top], title: Top 10 exposición relativa observada}
+    table: {table: Top Exposición, columns: [rank_baseline, supplier_name, award_count, buyer_count, award_amount_pen, top_buyer_share_pct, top_category_share_pct, score_baseline], title: Dependencia, materialidad y score}
+    note: "El indicador no constituye una calificación crediticia, evaluación legal, acusación de irregularidad ni predicción de fraude."
+  - page_id: buyer_intelligence
+    display_name: Buyer Intelligence
+    title: Buyer Intelligence
+    subtitle: "Entidades compradoras | Frecuencia, monto y contexto territorial no homologado"
+    card: {table: Compradores, measures: [Total Compradores, Monto Licitado Compradores PEN]}
+    chart: {type: clusteredBarChart, table: Top Compradores, category: buyer_name, measures: [Monto Licitado Top PEN], title: Top 10 compradores por monto licitado}
+    table: {table: Top Compradores, columns: [buyer_name, department_name, process_count, tender_amount_pen, award_count, award_amount_pen, contract_count], title: Actividad por entidad compradora}
+    note: "La ubicación es texto crudo del publicador; no se habilita una página geográfica sin dimensión UBIGEO gobernada."

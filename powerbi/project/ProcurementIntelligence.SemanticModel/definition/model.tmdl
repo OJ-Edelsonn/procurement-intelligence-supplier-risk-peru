@@ -1,0 +1,25 @@
+model Model
+	culture: es-PE
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-PE
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["Resumen Ejecutivo","Actividad Mensual","Compradores","Top Compradores","Proveedores","Top Proveedores","Categorías","Top Categorías","Oportunidad de Mercado","Top Oportunidades","Exposición de Proveedor","Top Exposición"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table 'Resumen Ejecutivo'
+ref table 'Actividad Mensual'
+ref table Compradores
+ref table 'Top Compradores'
+ref table Proveedores
+ref table 'Top Proveedores'
+ref table Categorías
+ref table 'Top Categorías'
+ref table 'Oportunidad de Mercado'
+ref table 'Top Oportunidades'
+ref table 'Exposición de Proveedor'
+ref table 'Top Exposición'
+

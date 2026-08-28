@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0",
+  "generated_at_utc": "2026-08-25T02:12:37.405082+00:00",
+  "scope": "powerbi_semantic_sql_layer",
+  "source": {
+    "config": "config/powerbi_dashboard.yml",
+    "config_sha256": "4fdf622c6f31b5a6964995325dc01f4f8243695a6ff9c6bdd9c37cfccaa6ca90",
+    "ddl": "sql/powerbi/001_bi_semantic_layer.sql",
+    "ddl_sha256": "44e67725c59aa59e1da7995ec18c53e11fdea51235afdd538ef33bdf1eeef49f",
+    "upstream_gates": [
+      {
+        "phase": "phase10",
+        "path": "reports/kpis/oece_ocds_seace_v3_2026_07_kpi_summary.json",
+        "sha256": "6e932bc8be4415364e9da23ce45058636699d895f394195f5f79f3925662f5bf",
+        "status": "PASS"
+      },
+      {
+        "phase": "phase11",
+        "path": "reports/concentration/oece_ocds_seace_v3_2026_07_market_concentration.json",
+        "sha256": "e3c0940749242ffecdfa1a2f9479e31547d84a6b3912d7e127912efa4be05afa",
+        "status": "PASS"
+      },
+      {
+        "phase": "phase12",
+        "path": "reports/opportunity/oece_ocds_seace_v3_2026_07_opportunity_score.json",
+        "sha256": "331d5d22de1f9488b66c1e438cf4501e54c47fc3fc4e737fd0969c3239040b51",
+        "status": "PASS_PILOT"
+      },
+      {
+        "phase": "phase13",
+        "path": "reports/supplier_exposure/oece_ocds_seace_v3_2026_07_supplier_exposure.json",
+        "sha256": "c10a75468450e7efc949b3b8cee38c62fd9b698e0ccac60b147be17ce4460118",
+        "status": "PASS_LIMITED"
+      }
+    ],
+    "score_inputs": [
+      {
+        "table": "market_opportunity_score",
+        "source": "reports/opportunity/oece_ocds_seace_v3_2026_07_opportunity_score.csv",
+        "rows": 87,
+        "sha256": "75e0f9b5b1a681cfa7791f8406fccbe5229c0fff63cc436807bbcd2b1c2dfb3f"
+      },
+      {
+        "table": "supplier_exposure_score",
+        "source": "reports/supplier_exposure/oece_ocds_seace_v3_2026_07_supplier_exposure.csv",
+        "rows": 179,
+        "sha256": "617a4841b0c67c0b8a96a6ba6be1cd93382ef038abb701edbca758a671780651"
+      }
+    ],
+    "server_alias": "localhost\\SQLEXPRESS",
+    "database": "ProcurementIntelligence"
+  },
+  "summary": {
+    "status": "PASS",
+    "tables": 3,
+    "views": 10,
+    "score_rows_loaded": 266,
+    "query_surfaces": 12,
+    "validations_passed": 4,
+    "validations_failed": 0,
+    "duration_seconds": 3.0271
+  },
+  "analysis": {
+    "executive_overview": {
+      "source_period": "2026-07",
+      "process_count": 6452,
+      "tender_amount_pen": "6924924015.38000000000000",
+      "active_buyers": 1450,
+      "award_count": 3397,
+      "award_amount_pen": "2375748188.20623342318763",
+      "awarded_suppliers": 2960,
+      "contract_count": 1119,
+      "contract_amount_pen": "652169385.66792150846161",
+      "eligible_markets": 87,
+      "scored_suppliers": 179
+    },
+    "loaded_rows": {
+      "market_opportunity_score": 87,
+      "supplier_exposure_score": 179
+    },
+    "query_surface_rows": {
+      "vw_executive_overview": 1,
+      "vw_monthly_activity": 7,
+      "vw_buyer_summary": 1450,
+      "vw_top_buyers": 10,
+      "vw_supplier_summary": 2960,
+      "vw_top_suppliers": 10,
+      "vw_category_summary": 772,
+      "vw_top_categories": 10,
+      "market_opportunity_score": 87,
+      "vw_top_market_opportunity": 10,
+      "supplier_exposure_score": 179,
+      "vw_top_supplier_exposure": 10
+    },
+    "audit_rows": [
+      {
+        "artifact_name": "market_opportunity_score",
+        "source_sha256": "75e0f9b5b1a681cfa7791f8406fccbe5229c0fff63cc436807bbcd2b1c2dfb3f",
+        "source_rows": 87
+      },
+      {
+        "artifact_name": "supplier_exposure_score",
+        "source_sha256": "617a4841b0c67c0b8a96a6ba6be1cd93382ef038abb701edbca758a671780651",
+        "source_rows": 179
+      }
+    ],
+    "validations": [
+      {
+        "rule": "score_rows_reconciled",
+        "status": "PASS"
+      },
+      {
+        "rule": "semantic_objects_created",
+        "status": "PASS"
+      },
+      {
+        "rule": "executive_score_counts",
+        "status": "PASS"
+      },
+      {
+        "rule": "all_query_surfaces_nonempty",
+        "status": "PASS"
+      }
+    ]
+  }
+}
