@@ -1,5 +1,9 @@
 # Procurement Intelligence & Supplier Risk — Perú
 
+[![CI](https://github.com/OJ-Edelsonn/procurement-intelligence-supplier-risk-peru/actions/workflows/ci.yml/badge.svg)](https://github.com/OJ-Edelsonn/procurement-intelligence-supplier-risk-peru/actions/workflows/ci.yml)
+[![Python 3.11](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Solución end-to-end de Data/BI para analizar contratación pública peruana, inteligencia comercial y exposición a proveedores usando datos abiertos oficiales de OECE/SEACE.
 
 > Estado: Fases 15 y 16 completadas sin depender del acabado visual. El pipeline automatizado ejecutó 7 etapas, reutilizó 5 evidencias aprobadas y terminó con 0 fallos en 477.81 segundos. Power BI tiene 5 páginas funcionales y queda pendiente de formato y validación visual final.
@@ -64,7 +68,7 @@ requirements.txt            Dependencias de ejecución
 requirements-dev.txt        Herramientas de desarrollo y análisis
 ```
 
-La carpeta Power BI se incorporará cuando contenga artefactos reales. Los datos crudos, archivos locales de SQL Server y `.pbix` no se versionan en Git.
+La carpeta `powerbi/` contiene un proyecto PBIP versionable y la definición de su capa semántica; el `.pbix`, la caché local, los datos crudos y los archivos locales de SQL Server no se versionan en Git.
 
 ## Reproducir la ingesta piloto
 

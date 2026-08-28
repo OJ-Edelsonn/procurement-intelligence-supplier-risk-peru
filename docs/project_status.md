@@ -21,9 +21,18 @@ Fecha de corte documental: 2026-08-28.
 | 14 | Power BI | Funcional, cierre diferido | 5 páginas pobladas; formato y QA visual pendientes |
 | 15 | Automatización | Completa para el pipeline core | `reports/automation/phase15_pipeline_run.json` |
 | 16 | Benchmark y resultados | Completa sin timing final de Power BI | `reports/benchmark/phase16_benchmark.json` |
-| 17 | Documentación | Avanzada, cierre diferido | Falta incorporar el dashboard congelado y sus capturas finales |
-| 18 | GitHub final | Preparación pendiente | Requiere cerrar Fase 14 y revisión pública final |
-| 19 | CV, LinkedIn y entrevistas | Preparación pendiente | Debe usar únicamente métricas verificadas |
+| 17 | Documentación | Núcleo completo, cierre visual diferido | Falta incorporar el dashboard congelado y sus capturas finales |
+| 18 | GitHub final | Preparación técnica completa, publicación diferida | CI, plantilla de PR, licencia, cita y checklist listos; requiere cerrar Fase 14 |
+| 19 | CV, LinkedIn y entrevistas | Borrador verificable completo, cierre diferido | `docs/career/portfolio_and_interview_draft.md`; falta añadir el enlace y las capturas finales |
+
+## Validación del cierre técnico independiente
+
+- Suite local: 113 pruebas aprobadas.
+- CI en GitHub: aprobado sobre el PR borrador de integración.
+- Registro documental: sincronizado con su configuración canónica.
+- Enlaces de fuentes: 20/20 accesibles el 2026-08-28.
+- Pipeline core observado: 7 etapas ejecutadas, 5 evidencias reutilizadas, 0 fallos.
+- Publicación final: deliberadamente no realizada mientras la Fase 14 continúe en QA visual.
 
 ## Pendiente que depende de Power BI
 
@@ -36,4 +45,3 @@ Fecha de corte documental: 2026-08-28.
 7. Completar la guía visual, README y publicación final.
 
 La ausencia de estos puntos no bloquea la reproducción de RAW → Silver → SQL → analítica, pero sí bloquea declarar terminado y publicado el proyecto completo.
-
