@@ -1,0 +1,2 @@
+reports/opportunity/*.csv -text -diff
+reports/supplier_exposure/*.csv -text -diff

@@ -2,7 +2,7 @@ name: ci
 
 on:
   push:
-    branches: [main, "codex/**"]
+    branches: [main]
   pull_request:
 
 permissions:
@@ -31,4 +31,3 @@ jobs:
         env:
           DATA_ROOT: ${{ runner.temp }}/procurement-data
         run: python -m procurement_intelligence.automation.run_pipeline --dry-run --report reports/generated/ci_pipeline_dry_run.json
-
