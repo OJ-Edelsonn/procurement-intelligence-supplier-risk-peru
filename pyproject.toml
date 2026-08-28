@@ -30,6 +30,7 @@ run-supplier-exposure = "procurement_intelligence.analytics.run_supplier_exposur
 deploy-powerbi-semantic = "procurement_intelligence.powerbi.deploy_semantic_layer:main"
 build-powerbi-project = "procurement_intelligence.powerbi.build_project:main"
 run-procurement-pipeline = "procurement_intelligence.automation.run_pipeline:main"
+run-procurement-benchmark = "procurement_intelligence.benchmark.run_benchmark:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
