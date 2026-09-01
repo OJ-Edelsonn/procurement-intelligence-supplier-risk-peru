@@ -10,5 +10,4 @@ Publicar tiempos observados, volúmenes, calidad, compresión, métricas de nego
 
 ## Consecuencias
 
-Se pueden comunicar resultados verificables del sistema, pero no horas ahorradas, reducción porcentual, adopción empresarial ni impacto comercial realizado. El benchmark final incorporará Power BI cuando el dashboard esté congelado.
-
+Se pueden comunicar resultados verificables del sistema, incluido el refresco final de Power BI de 200 segundos, pero no horas ahorradas, reducción porcentual, adopción empresarial ni impacto comercial realizado. La medición de Power BI es una observación local única y no un SLA.

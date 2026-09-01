@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "9e81ebeb9447961be549",
   "position": {
     "x": 630,
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Top Exposición.rank_baseline",
-              "nativeQueryRef": "rank_baseline"
+              "nativeQueryRef": "Posición",
+              "displayName": "Posición"
             },
             {
               "field": {
@@ -41,77 +42,8 @@
                 }
               },
               "queryRef": "Top Exposición.supplier_name",
-              "nativeQueryRef": "supplier_name"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Top Exposición"
-                    }
-                  },
-                  "Property": "award_count"
-                }
-              },
-              "queryRef": "Top Exposición.award_count",
-              "nativeQueryRef": "award_count"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Top Exposición"
-                    }
-                  },
-                  "Property": "buyer_count"
-                }
-              },
-              "queryRef": "Top Exposición.buyer_count",
-              "nativeQueryRef": "buyer_count"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Top Exposición"
-                    }
-                  },
-                  "Property": "award_amount_pen"
-                }
-              },
-              "queryRef": "Top Exposición.award_amount_pen",
-              "nativeQueryRef": "award_amount_pen"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Top Exposición"
-                    }
-                  },
-                  "Property": "top_buyer_share_pct"
-                }
-              },
-              "queryRef": "Top Exposición.top_buyer_share_pct",
-              "nativeQueryRef": "top_buyer_share_pct"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Top Exposición"
-                    }
-                  },
-                  "Property": "top_category_share_pct"
-                }
-              },
-              "queryRef": "Top Exposición.top_category_share_pct",
-              "nativeQueryRef": "top_category_share_pct"
+              "nativeQueryRef": "Proveedor",
+              "displayName": "Proveedor"
             },
             {
               "field": {
@@ -125,10 +57,73 @@
                 }
               },
               "queryRef": "Top Exposición.score_baseline",
-              "nativeQueryRef": "score_baseline"
+              "nativeQueryRef": "Score",
+              "displayName": "Score"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Top Exposición"
+                    }
+                  },
+                  "Property": "buyer_count"
+                }
+              },
+              "queryRef": "Top Exposición.buyer_count",
+              "nativeQueryRef": "Compradores",
+              "displayName": "Compradores"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Top Exposición"
+                    }
+                  },
+                  "Property": "top_buyer_share_pct"
+                }
+              },
+              "queryRef": "Top Exposición.top_buyer_share_pct",
+              "nativeQueryRef": "Top comprador (%)",
+              "displayName": "Top comprador (%)"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Top Exposición"
+                    }
+                  },
+                  "Property": "top_category_share_pct"
+                }
+              },
+              "queryRef": "Top Exposición.top_category_share_pct",
+              "nativeQueryRef": "Top categoría (%)",
+              "displayName": "Top categoría (%)"
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Top Exposición"
+                  }
+                },
+                "Property": "rank_baseline"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
       }
     },
     "objects": {
@@ -173,6 +168,22 @@
             }
           }
         }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "254.5556513457399D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Top Exposición.supplier_name"
+          }
+        }
       ]
     },
     "visualContainerObjects": {
@@ -189,7 +200,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Dependencia'"
+                  "Value": "'Detalle de dependencia observada'"
                 }
               }
             },
@@ -277,5 +288,93 @@
         }
       ]
     }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "e724ffdb7415c48a22a1",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Top Exposición"
+              }
+            },
+            "Property": "rank_baseline"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "0816dadc47945f76617a",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Top Exposición"
+              }
+            },
+            "Property": "supplier_name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "4ac8de0861a41815ecf0",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Top Exposición"
+              }
+            },
+            "Property": "buyer_count"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "055711ace5fbf6baf22a",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Top Exposición"
+              }
+            },
+            "Property": "top_buyer_share_pct"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "c71eaa826acb4726eb36",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Top Exposición"
+              }
+            },
+            "Property": "top_category_share_pct"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "d345a6b5ef9ca77a9b59",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Top Exposición"
+              }
+            },
+            "Property": "score_baseline"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

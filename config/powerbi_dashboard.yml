@@ -122,35 +122,35 @@ pages:
     subtitle: "Corte: 2026-07 | Fuente oficial OECE/SEACE | Montos por grano, no aditivos entre hechos"
     card: {table: Resumen Ejecutivo, measures: [Procesos, Monto Licitado PEN, Compradores Activos, Adjudicaciones, Monto Adjudicado PEN, Proveedores Adjudicados]}
     chart: {type: lineChart, table: Actividad Mensual, category: year_month, measures: [Monto Licitado Mensual PEN, Monto Adjudicado Mensual PEN], title: Actividad monetaria mensual}
-    table: {table: Top Categorías, columns: [classification_code, classification_description, award_item_amount_pen, buyer_count, supplier_count], title: Top 10 categorías por monto de ítems adjudicados}
+    table: {table: Top Categorías, columns: [classification_code, classification_description, award_item_amount_pen, buyer_count, supplier_count], title: Top 10 categorías por monto adjudicado}
     note: "Universo piloto de un solo periodo fuente. No se muestran crecimiento ni comparaciones interanuales."
   - page_id: market_opportunity
     display_name: Oportunidad de Mercado
-    title: B2G Market Opportunity
+    title: Oportunidad de Mercado B2G
     subtitle: "87 mercados elegibles | Score transparente 0–100 | No es pronóstico de ventas"
     card: {table: Oportunidad de Mercado, measures: [Mercados Puntuados, Opportunity Score Máximo, Monto Mercados PEN]}
-    chart: {type: clusteredBarChart, table: Top Oportunidades, category: classification_description, measures: [Opportunity Score Top], title: Top 10 mercados por Opportunity Score}
-    table: {table: Top Oportunidades, columns: [rank_baseline, classification_code, classification_description, total_category_amount_pen, buyer_count, supplier_count, hhi, score_baseline], title: Evidencia de oportunidad y concentración}
+    chart: {type: clusteredBarChart, table: Top Oportunidades, category: classification_description, measures: [Opportunity Score Top], title: Top 10 mercados por score de oportunidad}
+    table: {table: Top Oportunidades, columns: [rank_baseline, classification_code, classification_description, total_category_amount_pen, buyer_count, supplier_count, hhi, score_baseline], title: Detalle de oportunidad y concentración}
     note: "El ranking prioriza investigación comercial. La posición depende de la población, los pesos y el periodo observado."
   - page_id: supplier_intelligence
-    display_name: Supplier Intelligence
-    title: Supplier Intelligence
+    display_name: Inteligencia de Proveedores
+    title: Inteligencia de Proveedores
     subtitle: "Participación adjudicada y diversificación observada | Atribución monetaria solo con proveedor único"
     card: {table: Proveedores, measures: [Total Proveedores, Monto Adjudicado Proveedores PEN]}
     chart: {type: clusteredBarChart, table: Top Proveedores, category: supplier_name, measures: [Monto Adjudicado Top PEN], title: Top 10 proveedores por monto adjudicado}
-    table: {table: Top Proveedores, columns: [supplier_name, award_count, buyer_count, award_amount_pen, contract_count, contract_amount_pen], title: Resumen de adjudicaciones y contratos}
+    table: {table: Top Proveedores, columns: [supplier_name, award_count, buyer_count, award_amount_pen, contract_count, contract_amount_pen], title: Adjudicaciones y contratos por proveedor}
     note: "Los montos adjudicados y contractuales se presentan separados; sumarlos duplicaría valor entre hechos."
   - page_id: supplier_exposure
-    display_name: Supplier Exposure
-    title: Supplier Operational & Commercial Exposure
+    display_name: Exposición de Proveedores
+    title: Exposición Operativa y Comercial de Proveedores
     subtitle: "179 proveedores elegibles | Indicador relativo con tres escenarios de sensibilidad"
     card: {table: Exposición de Proveedor, measures: [Proveedores Evaluados, Exposure Score Máximo, Monto Exposición PEN]}
     chart: {type: clusteredBarChart, table: Top Exposición, category: supplier_name, measures: [Exposure Score Top], title: Top 10 exposición relativa observada}
-    table: {table: Top Exposición, columns: [rank_baseline, supplier_name, award_count, buyer_count, award_amount_pen, top_buyer_share_pct, top_category_share_pct, score_baseline], title: Dependencia, materialidad y score}
+    table: {table: Top Exposición, columns: [rank_baseline, supplier_name, award_count, buyer_count, award_amount_pen, top_buyer_share_pct, top_category_share_pct, score_baseline], title: Detalle de dependencia observada}
     note: "El indicador no constituye una calificación crediticia, evaluación legal, acusación de irregularidad ni predicción de fraude."
   - page_id: buyer_intelligence
-    display_name: Buyer Intelligence
-    title: Buyer Intelligence
+    display_name: Inteligencia de Compradores
+    title: Inteligencia de Compradores
     subtitle: "Entidades compradoras | Frecuencia, monto y contexto territorial no homologado"
     card: {table: Compradores, measures: [Total Compradores, Monto Licitado Compradores PEN]}
     chart: {type: clusteredBarChart, table: Top Compradores, category: buyer_name, measures: [Monto Licitado Top PEN], title: Top 10 compradores por monto licitado}

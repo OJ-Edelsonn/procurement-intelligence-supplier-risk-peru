@@ -1,6 +1,6 @@
 # Borrador de portafolio, CV e entrevista
 
-Este documento puede utilizarse antes del cierre visual, pero debe actualizarse con capturas y enlace final después de completar Power BI.
+El cierre visual y las capturas de Power BI están disponibles en el repositorio. Después de publicar solo falta incorporar el enlace público definitivo.
 
 ## Bullets de CV en español
 
@@ -43,4 +43,3 @@ No se puede afirmar todavía: no se midió una ejecución manual comparable. Sí
 ### ¿Qué mejorarías para producción?
 
 Incorporaría historia incremental, secretos administrados, orquestación programada, monitoreo, pruebas de carga, una dimensión UBIGEO oficial, actualización controlada de Power BI Service y políticas de retención. Antes mediría volumen y frecuencia para justificar cada componente.
-

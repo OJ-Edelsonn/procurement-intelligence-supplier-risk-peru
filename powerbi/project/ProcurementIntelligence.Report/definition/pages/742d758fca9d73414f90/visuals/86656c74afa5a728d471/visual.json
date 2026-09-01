@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "86656c74afa5a728d471",
   "position": {
     "x": 24,
@@ -19,15 +19,14 @@
               {
                 "textRuns": [
                   {
-                    "value": "B2G Market Opportunity",
+                    "value": "Oportunidad de Mercado B2G",
                     "textStyle": {
                       "fontFamily": "Segoe UI Semibold",
                       "fontSize": "23px",
-                      "color": "#17324D"
+                      "color": "#17324d"
                     }
                   }
-                ],
-                "horizontalTextAlignment": "left"
+                ]
               }
             ]
           }

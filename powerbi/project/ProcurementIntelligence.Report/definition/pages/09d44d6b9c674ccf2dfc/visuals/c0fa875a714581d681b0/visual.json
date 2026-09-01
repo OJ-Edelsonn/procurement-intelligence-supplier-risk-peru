@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "c0fa875a714581d681b0",
   "position": {
     "x": 630,
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Top Compradores.buyer_name",
-              "nativeQueryRef": "buyer_name"
+              "nativeQueryRef": "Entidad compradora",
+              "displayName": "Entidad compradora"
             },
             {
               "field": {
@@ -41,7 +42,8 @@
                 }
               },
               "queryRef": "Top Compradores.department_name",
-              "nativeQueryRef": "department_name"
+              "nativeQueryRef": "Departamento",
+              "displayName": "Departamento"
             },
             {
               "field": {
@@ -55,66 +57,43 @@
                 }
               },
               "queryRef": "Top Compradores.process_count",
-              "nativeQueryRef": "process_count"
+              "nativeQueryRef": "Procesos",
+              "displayName": "Procesos"
             },
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
                       "Entity": "Top Compradores"
                     }
                   },
-                  "Property": "tender_amount_pen"
+                  "Property": "Monto Licitado Top PEN"
                 }
               },
-              "queryRef": "Top Compradores.tender_amount_pen",
-              "nativeQueryRef": "tender_amount_pen"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Top Compradores"
-                    }
-                  },
-                  "Property": "award_count"
-                }
-              },
-              "queryRef": "Top Compradores.award_count",
-              "nativeQueryRef": "award_count"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Top Compradores"
-                    }
-                  },
-                  "Property": "award_amount_pen"
-                }
-              },
-              "queryRef": "Top Compradores.award_amount_pen",
-              "nativeQueryRef": "award_amount_pen"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Top Compradores"
-                    }
-                  },
-                  "Property": "contract_count"
-                }
-              },
-              "queryRef": "Top Compradores.contract_count",
-              "nativeQueryRef": "contract_count"
+              "queryRef": "Top Compradores.Monto Licitado Top PEN",
+              "nativeQueryRef": "Monto (S/ M)",
+              "displayName": "Monto (S/ M)"
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Top Compradores"
+                  }
+                },
+                "Property": "Monto Licitado Top PEN"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
       }
     },
     "objects": {
@@ -154,6 +133,35 @@
                       "Value": "'#17324D'"
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "397.76024302350777D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Top Compradores.buyer_name"
+          }
+        }
+      ],
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }
@@ -263,5 +271,65 @@
         }
       ]
     }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "3f0182966343acc00ac0",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Top Compradores"
+              }
+            },
+            "Property": "buyer_name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "ef55cb86c29eb54a9fa8",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Top Compradores"
+              }
+            },
+            "Property": "department_name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "4b55aeaa708e38b8aaba",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Top Compradores"
+              }
+            },
+            "Property": "process_count"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "34ceccdb9447bcca4c26",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Top Compradores"
+              }
+            },
+            "Property": "Monto Licitado Top PEN"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "817aeddf61bd023be542",
   "position": {
     "x": 24,
@@ -19,15 +19,14 @@
               {
                 "textRuns": [
                   {
-                    "value": "Supplier Intelligence",
+                    "value": "Inteligencia de Proveedores",
                     "textStyle": {
                       "fontFamily": "Segoe UI Semibold",
                       "fontSize": "23px",
-                      "color": "#17324D"
+                      "color": "#17324d"
                     }
                   }
-                ],
-                "horizontalTextAlignment": "left"
+                ]
               }
             ]
           }

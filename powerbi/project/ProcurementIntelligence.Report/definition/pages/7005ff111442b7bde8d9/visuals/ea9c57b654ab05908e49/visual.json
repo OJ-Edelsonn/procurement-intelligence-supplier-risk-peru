@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "ea9c57b654ab05908e49",
   "position": {
     "x": 630,
@@ -23,39 +23,27 @@
                       "Entity": "Top Categorías"
                     }
                   },
-                  "Property": "classification_code"
-                }
-              },
-              "queryRef": "Top Categorías.classification_code",
-              "nativeQueryRef": "classification_code"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Top Categorías"
-                    }
-                  },
                   "Property": "classification_description"
                 }
               },
               "queryRef": "Top Categorías.classification_description",
-              "nativeQueryRef": "classification_description"
+              "nativeQueryRef": "Categoría",
+              "displayName": "Categoría"
             },
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
                       "Entity": "Top Categorías"
                     }
                   },
-                  "Property": "award_item_amount_pen"
+                  "Property": "Monto Ítems Adjudicados Top PEN"
                 }
               },
-              "queryRef": "Top Categorías.award_item_amount_pen",
-              "nativeQueryRef": "award_item_amount_pen"
+              "queryRef": "Top Categorías.Monto Ítems Adjudicados Top PEN",
+              "nativeQueryRef": "Monto (S/ M)",
+              "displayName": "Monto (S/ M)"
             },
             {
               "field": {
@@ -69,7 +57,8 @@
                 }
               },
               "queryRef": "Top Categorías.buyer_count",
-              "nativeQueryRef": "buyer_count"
+              "nativeQueryRef": "Compradores",
+              "displayName": "Compradores"
             },
             {
               "field": {
@@ -83,10 +72,28 @@
                 }
               },
               "queryRef": "Top Categorías.supplier_count",
-              "nativeQueryRef": "supplier_count"
+              "nativeQueryRef": "Proveedores",
+              "displayName": "Proveedores"
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Top Categorías"
+                  }
+                },
+                "Property": "Monto Ítems Adjudicados Top PEN"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
       }
     },
     "objects": {
@@ -128,7 +135,132 @@
                   }
                 }
               }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
             }
+          }
+        }
+      ],
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "grid": [
+        {
+          "properties": {
+            "gridHorizontalWeight": {
+              "expr": {
+                "Literal": {
+                  "Value": "3D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "355.3446111655289D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Top Categorías.classification_description"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "86.20571049116924D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Top Categorías.buyer_count"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "81.51113394408772D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Top Categorías.supplier_count"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "87.6119829527444D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Top Categorías.Monto Ítems Adjudicados Top PEN"
           }
         }
       ]
@@ -147,7 +279,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Top 10 categorías por monto de ítems adjudicados'"
+                  "Value": "'Top 10 categorías por monto adjudicado'"
                 }
               }
             },
@@ -235,5 +367,65 @@
         }
       ]
     }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "a2eeb3cbb74272d79612",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Top Categorías"
+              }
+            },
+            "Property": "classification_description"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "2c89feb6a757d1bb281e",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Top Categorías"
+              }
+            },
+            "Property": "buyer_count"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "12f4d36e21652fbbc463",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Top Categorías"
+              }
+            },
+            "Property": "supplier_count"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "222f09713942b43fe8e1",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Top Categorías"
+              }
+            },
+            "Property": "Monto Ítems Adjudicados Top PEN"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

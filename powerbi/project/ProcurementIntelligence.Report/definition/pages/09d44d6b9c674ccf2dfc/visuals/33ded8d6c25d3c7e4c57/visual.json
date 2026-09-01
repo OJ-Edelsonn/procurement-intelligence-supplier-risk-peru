@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "33ded8d6c25d3c7e4c57",
   "position": {
     "x": 24,
@@ -19,15 +19,14 @@
               {
                 "textRuns": [
                   {
-                    "value": "Buyer Intelligence",
+                    "value": "Inteligencia de Compradores",
                     "textStyle": {
                       "fontFamily": "Segoe UI Semibold",
                       "fontSize": "23px",
-                      "color": "#17324D"
+                      "color": "#17324d"
                     }
                   }
-                ],
-                "horizontalTextAlignment": "left"
+                ]
               }
             ]
           }

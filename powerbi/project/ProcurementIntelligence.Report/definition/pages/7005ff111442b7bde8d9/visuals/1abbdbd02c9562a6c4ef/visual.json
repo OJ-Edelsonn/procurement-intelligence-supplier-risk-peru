@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "1abbdbd02c9562a6c4ef",
   "position": {
     "x": 24,
@@ -46,7 +46,8 @@
                 }
               },
               "queryRef": "Actividad Mensual.Monto Licitado Mensual PEN",
-              "nativeQueryRef": "Monto Licitado Mensual PEN"
+              "nativeQueryRef": "Monto licitado",
+              "displayName": "Monto licitado"
             },
             {
               "field": {
@@ -60,7 +61,8 @@
                 }
               },
               "queryRef": "Actividad Mensual.Monto Adjudicado Mensual PEN",
-              "nativeQueryRef": "Monto Adjudicado Mensual PEN"
+              "nativeQueryRef": "Monto adjudicado",
+              "displayName": "Monto adjudicado"
             }
           ]
         }
@@ -119,6 +121,20 @@
               "expr": {
                 "Literal": {
                   "Value": "'dotted'"
+                }
+              }
+            },
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            },
+            "labelPrecision": {
+              "expr": {
+                "Literal": {
+                  "Value": "0L"
                 }
               }
             }
@@ -228,5 +244,51 @@
         }
       ]
     }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "36399715f5ec42af70a3",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Actividad Mensual"
+              }
+            },
+            "Property": "year_month"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "bc055e166647a04cc4b2",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Actividad Mensual"
+              }
+            },
+            "Property": "Monto Licitado Mensual PEN"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "1d7691a7e4fd76f07d0d",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Actividad Mensual"
+              }
+            },
+            "Property": "Monto Adjudicado Mensual PEN"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

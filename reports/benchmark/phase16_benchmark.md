@@ -20,6 +20,7 @@
 | Concentración de mercado | 17.8820 | `reports/concentration/oece_ocds_seace_v3_2026_07_market_concentration.json` |
 | Opportunity Score | 14.0990 | `reports/opportunity/oece_ocds_seace_v3_2026_07_opportunity_score.json` |
 | Supplier Exposure Score | 111.2510 | `reports/supplier_exposure/oece_ocds_seace_v3_2026_07_supplier_exposure.json` |
+| Actualización final de Power BI | 200.0000 | `reports/powerbi/phase14_powerbi_validation.json` |
 
 La suma de componentes procede de ejecuciones documentadas distintas y no se presenta como una única corrida end-to-end.
 
@@ -27,9 +28,9 @@ La suma de componentes procede de ejecuciones documentadas distintas y no se pre
 
 | Consulta | Filas | Mediana ms | p95 ms |
 |---|---:|---:|---:|
-| Resumen ejecutivo DW | 1 | 207.5345 | 253.1050 |
-| Ranking de proveedores | 20 | 66.0369 | 68.4676 |
-| Concentración por categoría | 772 | 385.0194 | 388.2884 |
+| Resumen ejecutivo DW | 1 | 116.7365 | 117.5650 |
+| Ranking de proveedores | 20 | 29.3226 | 33.6775 |
+| Concentración por categoría | 772 | 215.1486 | 228.4843 |
 
 ## Resultados cuantitativos
 
@@ -52,6 +53,9 @@ La suma de componentes procede de ejecuciones documentadas distintas y no se pre
 | Mercados analizados | 772 | markets |
 | Mercados puntuados | 87 | markets |
 | Proveedores puntuados | 179 | suppliers |
+| Páginas Power BI validadas | 5 | pages |
+| Visuales Power BI validados | 30 | visuals |
+| Capturas finales Power BI | 5 | screenshots |
 
 ## Interpretación responsable
 

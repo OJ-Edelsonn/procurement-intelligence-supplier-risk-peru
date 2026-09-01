@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "358d3072c3ff65505341",
   "position": {
     "x": 24,
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Proveedores.Total Proveedores",
-              "nativeQueryRef": "Total Proveedores"
+              "nativeQueryRef": "Proveedores adjudicados",
+              "displayName": "Proveedores adjudicados"
             },
             {
               "field": {
@@ -41,7 +42,8 @@
                 }
               },
               "queryRef": "Proveedores.Monto Adjudicado Proveedores PEN",
-              "nativeQueryRef": "Monto Adjudicado Proveedores PEN"
+              "nativeQueryRef": "Monto adjudicado",
+              "displayName": "Monto adjudicado"
             }
           ]
         }
@@ -95,6 +97,34 @@
           },
           "selector": {
             "id": "default"
+          }
+        },
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Proveedores.Total Proveedores"
+          }
+        },
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Proveedores.Monto Adjudicado Proveedores PEN"
           }
         }
       ],
@@ -217,5 +247,37 @@
         }
       ]
     }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "d45457ada6d68d9f95df",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Proveedores"
+              }
+            },
+            "Property": "Total Proveedores"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "0db81cdab7f5c7a902ae",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Proveedores"
+              }
+            },
+            "Property": "Monto Adjudicado Proveedores PEN"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

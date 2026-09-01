@@ -333,7 +333,7 @@ def run_benchmark(
             "Component timings were captured in different governed runs and are not one end-to-end elapsed time.",
             "SQL latency is specific to the local workstation, SQL Server Express instance, cache state and concurrent workload.",
             "No measured manual baseline exists, so time saved and percentage reduction are intentionally not calculated.",
-            "Power BI visual formatting and final refresh timing remain deferred until the dashboard is frozen.",
+            "Power BI refresh timing is one manually timed local observation on the frozen dashboard, not an SLA.",
         ],
     }
     json_path = output or root / str(settings["output_json"])
@@ -376,4 +376,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

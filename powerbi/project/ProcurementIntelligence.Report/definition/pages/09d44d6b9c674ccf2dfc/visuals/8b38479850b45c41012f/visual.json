@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "8b38479850b45c41012f",
   "position": {
     "x": 24,
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Compradores.Total Compradores",
-              "nativeQueryRef": "Total Compradores"
+              "nativeQueryRef": "Compradores activos",
+              "displayName": "Compradores activos"
             },
             {
               "field": {
@@ -41,7 +42,8 @@
                 }
               },
               "queryRef": "Compradores.Monto Licitado Compradores PEN",
-              "nativeQueryRef": "Monto Licitado Compradores PEN"
+              "nativeQueryRef": "Monto licitado",
+              "displayName": "Monto licitado"
             }
           ]
         }
@@ -95,6 +97,34 @@
           },
           "selector": {
             "id": "default"
+          }
+        },
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Compradores.Total Compradores"
+          }
+        },
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Compradores.Monto Licitado Compradores PEN"
           }
         }
       ],
@@ -217,5 +247,37 @@
         }
       ]
     }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "0cc018d45d46544ce29e",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Compradores"
+              }
+            },
+            "Property": "Total Compradores"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "1390696afe933c027fce",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Compradores"
+              }
+            },
+            "Property": "Monto Licitado Compradores PEN"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

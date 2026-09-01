@@ -6,7 +6,7 @@
 
 Solución end-to-end de Data/BI para analizar contratación pública peruana, inteligencia comercial y exposición a proveedores usando datos abiertos oficiales de OECE/SEACE.
 
-> Estado: Fases 15 y 16 completadas sin depender del acabado visual. El pipeline automatizado ejecutó 7 etapas, reutilizó 5 evidencias aprobadas y terminó con 0 fallos en 477.81 segundos. Power BI tiene 5 páginas funcionales y queda pendiente de formato y validación visual final.
+> Estado: solución técnica completa y validada. El pipeline automatizado ejecutó 7 etapas, reutilizó 5 evidencias aprobadas y terminó con 0 fallos en 477.81 segundos. Power BI cerró con 5 páginas, 30 visuales, actualización final exitosa en 200 segundos y validación `PASS`.
 
 ## Problema de negocio
 
@@ -39,7 +39,36 @@ OECE/SEACE -> RAW inmutable -> Python (calidad) -> Parquet tipado
 
 La especificación de capas, granos, linaje, modelo dimensional y puertas de calidad está en [docs/architecture/phase3_target_architecture.md](docs/architecture/phase3_target_architecture.md).
 
-El estado exacto por fase, incluidos los pendientes de Power BI, está en [docs/project_status.md](docs/project_status.md).
+El estado exacto por fase y los pendientes de publicación están en [docs/project_status.md](docs/project_status.md).
+
+## Dashboard Power BI
+
+La Fase 14 publica cinco páginas en un proyecto PBIP versionable. Los KPI muestran unidades explícitas, los rankings conservan el orden de negocio y cada página comunica las limitaciones del único periodo observado.
+
+![Resumen Ejecutivo](reports/powerbi/screenshots/Resumen%20Ejecutivo.png)
+
+<details>
+<summary>Ver las otras cuatro páginas</summary>
+
+### Oportunidad de Mercado
+
+![Oportunidad de Mercado](reports/powerbi/screenshots/Oportunidad%20de%20Mercado.png)
+
+### Inteligencia de Proveedores
+
+![Inteligencia de Proveedores](reports/powerbi/screenshots/Supplier%20Intelligence.png)
+
+### Exposición de Proveedores
+
+![Exposición de Proveedores](reports/powerbi/screenshots/Supplier%20Exposure.png)
+
+### Inteligencia de Compradores
+
+![Inteligencia de Compradores](reports/powerbi/screenshots/Buyer%20Intelligence.png)
+
+</details>
+
+La evidencia reproducible está en [la validación final de Power BI](reports/powerbi/phase14_powerbi_validation.json) y en [el resultado documentado de la Fase 14](docs/results/phase14_powerbi_status.md).
 
 ## Preparación local
 

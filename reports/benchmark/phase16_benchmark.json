@@ -1,19 +1,19 @@
 {
   "schema_version": "1.0",
-  "generated_at_utc": "2026-08-28T05:55:41.257394+00:00",
+  "generated_at_utc": "2026-09-01T01:39:17.521105+00:00",
   "scope": {
     "source_id": "oece_ocds_seace_v3",
     "source_period": "2026-07",
     "snapshot_date": "2026-08-19",
     "benchmark_config": "config/benchmark.yml",
-    "benchmark_config_sha256": "aab11de658a63d057269733eee5486896be37f56b4e6059ba8c6a220305014d0",
+    "benchmark_config_sha256": "5474e5cf36caf41dc2a8995a9ea1c47f9e0b8a1a3fad0ee983cf59464cccd5c1",
     "pipeline_report": "reports/automation/phase15_pipeline_run.json",
     "pipeline_report_sha256": "af278df3ecfad63ed06d26b7efb7df26f830df805b5b8ab96160f6f505e11d61"
   },
   "summary": {
     "status": "PASS",
-    "runtime_metrics": 10,
-    "outcome_metrics": 17,
+    "runtime_metrics": 11,
+    "outcome_metrics": 20,
     "sql_queries_benchmarked": 3,
     "automated_run_seconds": 477.8074,
     "steps_executed": 7,
@@ -21,7 +21,7 @@
     "steps_failed": 0,
     "manual_baseline_status": "NOT_AVAILABLE",
     "time_savings_claimed": false,
-    "benchmark_duration_seconds": 4.7208
+    "benchmark_duration_seconds": 2.8582
   },
   "runtime_evidence": [
     {
@@ -103,13 +103,21 @@
       "unit": "seconds",
       "source_artifact": "reports/supplier_exposure/oece_ocds_seace_v3_2026_07_supplier_exposure.json",
       "source_sha256": "d44a90f4bafa51bac5f7d3708e8674939fe2aae0b2ec7c676a455fab2fa10983"
+    },
+    {
+      "metric_id": "powerbi_refresh_seconds",
+      "label": "Actualización final de Power BI",
+      "value": 200.0,
+      "unit": "seconds",
+      "source_artifact": "reports/powerbi/phase14_powerbi_validation.json",
+      "source_sha256": "c95009e04570c0bd33296d92507a056bca02ad6f3ee8834a94d4b78210db81bf"
     }
   ],
-  "runtime_component_sum_seconds": 763.1773,
+  "runtime_component_sum_seconds": 963.1773,
   "sql_environment": {
     "database": "ProcurementIntelligence",
     "database_size_bytes": 1291845632,
-    "connection_seconds": 0.5942
+    "connection_seconds": 0.4183
   },
   "sql_benchmarks": [
     {
@@ -120,15 +128,15 @@
       "warmups": 1,
       "repeats": 3,
       "result_rows": 1,
-      "min_ms": 196.8772,
-      "median_ms": 207.5345,
-      "mean_ms": 220.86,
-      "p95_ms": 253.105,
-      "max_ms": 258.1684,
+      "min_ms": 115.8148,
+      "median_ms": 116.7365,
+      "mean_ms": 116.7361,
+      "p95_ms": 117.565,
+      "max_ms": 117.657,
       "samples_ms": [
-        196.8772,
-        207.5345,
-        258.1684
+        115.8148,
+        116.7365,
+        117.657
       ]
     },
     {
@@ -139,15 +147,15 @@
       "warmups": 1,
       "repeats": 3,
       "result_rows": 20,
-      "min_ms": 62.7106,
-      "median_ms": 66.0369,
-      "mean_ms": 65.8284,
-      "p95_ms": 68.4676,
-      "max_ms": 68.7377,
+      "min_ms": 28.3721,
+      "median_ms": 29.3226,
+      "mean_ms": 30.6187,
+      "p95_ms": 33.6775,
+      "max_ms": 34.1614,
       "samples_ms": [
-        68.7377,
-        66.0369,
-        62.7106
+        28.3721,
+        34.1614,
+        29.3226
       ]
     },
     {
@@ -158,15 +166,15 @@
       "warmups": 1,
       "repeats": 3,
       "result_rows": 772,
-      "min_ms": 368.3656,
-      "median_ms": 385.0194,
-      "mean_ms": 380.6789,
-      "p95_ms": 388.2884,
-      "max_ms": 388.6516,
+      "min_ms": 214.372,
+      "median_ms": 215.1486,
+      "mean_ms": 219.8289,
+      "p95_ms": 228.4843,
+      "max_ms": 229.966,
       "samples_ms": [
-        368.3656,
-        385.0194,
-        388.6516
+        229.966,
+        214.372,
+        215.1486
       ]
     }
   ],
@@ -306,12 +314,36 @@
       "unit": "suppliers",
       "source_artifact": "reports/supplier_exposure/oece_ocds_seace_v3_2026_07_supplier_exposure.json",
       "source_sha256": "d44a90f4bafa51bac5f7d3708e8674939fe2aae0b2ec7c676a455fab2fa10983"
+    },
+    {
+      "metric_id": "powerbi_pages",
+      "label": "Páginas Power BI validadas",
+      "value": 5,
+      "unit": "pages",
+      "source_artifact": "reports/powerbi/phase14_powerbi_validation.json",
+      "source_sha256": "c95009e04570c0bd33296d92507a056bca02ad6f3ee8834a94d4b78210db81bf"
+    },
+    {
+      "metric_id": "powerbi_visuals",
+      "label": "Visuales Power BI validados",
+      "value": 30,
+      "unit": "visuals",
+      "source_artifact": "reports/powerbi/phase14_powerbi_validation.json",
+      "source_sha256": "c95009e04570c0bd33296d92507a056bca02ad6f3ee8834a94d4b78210db81bf"
+    },
+    {
+      "metric_id": "powerbi_screenshots",
+      "label": "Capturas finales Power BI",
+      "value": 5,
+      "unit": "screenshots",
+      "source_artifact": "reports/powerbi/phase14_powerbi_validation.json",
+      "source_sha256": "c95009e04570c0bd33296d92507a056bca02ad6f3ee8834a94d4b78210db81bf"
     }
   ],
   "limitations": [
     "Component timings were captured in different governed runs and are not one end-to-end elapsed time.",
     "SQL latency is specific to the local workstation, SQL Server Express instance, cache state and concurrent workload.",
     "No measured manual baseline exists, so time saved and percentage reduction are intentionally not calculated.",
-    "Power BI visual formatting and final refresh timing remain deferred until the dashboard is frozen."
+    "Power BI refresh timing is one manually timed local observation on the frozen dashboard, not an SLA."
   ]
 }

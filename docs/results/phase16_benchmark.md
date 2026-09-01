@@ -7,7 +7,7 @@
 | Estado | `PASS` |
 | Corrida automatizada observada | 477.8074 s |
 | Consultas SQL medidas | 3 |
-| Métricas cuantitativas publicadas | 17 |
+| Métricas cuantitativas publicadas | 20 |
 | Filas RAW | 231,123 |
 | Filas Silver | 231,113 |
 | Filas en cuarentena | 10 |
@@ -15,16 +15,18 @@
 | Monto licitado analizado | S/ 6,924,924,015.38 |
 | Mercados puntuados | 87 |
 | Proveedores puntuados | 179 |
+| Actualización final de Power BI | 200 s |
+| Páginas/visuales Power BI validados | 5 / 30 |
 
 ## Latencia SQL local
 
 | Consulta | Mediana | p95 |
 |---|---:|---:|
-| Resumen ejecutivo DW | 207.5345 ms | 253.1050 ms |
-| Ranking de proveedores | 66.0369 ms | 68.4676 ms |
-| Concentración por categoría | 385.0194 ms | 388.2884 ms |
+| Resumen ejecutivo DW | 116.7365 ms | 117.5650 ms |
+| Ranking de proveedores | 29.3226 ms | 33.6775 ms |
+| Concentración por categoría | 215.1486 ms | 228.4843 ms |
 
-Estas cifras no son un SLA. Dependen del equipo, SQL Server Express, caché y carga concurrente de la ejecución del 2026-08-28.
+Estas cifras no son un SLA. Dependen del equipo, SQL Server Express, caché y carga concurrente de la ejecución final del 2026-08-31.
 
 ## Declaración responsable
 
@@ -37,5 +39,4 @@ No existe una línea base manual comparable. En consecuencia, el proyecto no afi
 - `reports/benchmark/phase16_benchmark.md`.
 - `src/procurement_intelligence/benchmark/run_benchmark.py`.
 
-El tiempo de actualización final de Power BI queda pendiente hasta congelar el dashboard.
-
+La actualización final del dashboard congelado se observó una vez en el equipo local y tardó 200 segundos. Es evidencia de esta ejecución, no un SLA.

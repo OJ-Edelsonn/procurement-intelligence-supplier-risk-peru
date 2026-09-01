@@ -9,22 +9,22 @@
 
 ## Ingeniería
 
-- [x] Suite completa en verde local y en CI (113 pruebas).
+- [x] Suite completa en verde local (116 pruebas); CI previo aprobado y nueva ejecución requerida al publicar la rama final.
 - [x] Pipeline estándar termina sin fallos.
 - [x] Benchmark regenerado después de la corrida definitiva.
 - [x] Instalación y pruebas reproducidas en un runner Linux limpio mediante CI.
 
 ## Power BI
 
-- [ ] Unidades, etiquetas, encabezados, filtros e interacciones revisados.
-- [ ] Actualización final completada y cronometrada.
-- [ ] Cinco capturas definitivas incorporadas.
-- [ ] Validación `phase14_powerbi_validation.json` en `PASS`.
+- [x] Unidades, etiquetas, encabezados, filtros e interacciones revisados.
+- [x] Actualización final completada y cronometrada: 200 segundos.
+- [x] Cinco capturas definitivas incorporadas.
+- [x] Validación `phase14_powerbi_validation.json` en `PASS`.
 - [ ] Archivo publicado o enlace documentado sin exponer credenciales.
 
 ## Portafolio
 
-- [ ] README incluye arquitectura, resultados, capturas y pasos de reproducción.
+- [x] README incluye arquitectura, resultados, capturas y pasos de reproducción.
 - [x] Licencias de código y datos se distinguen claramente.
 - [x] Bullets de CV coinciden con artefactos versionados.
 - [x] No se afirma ahorro manual, ventas, adopción ni impacto no observado.

@@ -297,7 +297,7 @@ La Fase 13 puntúa 179 proveedores con evidencia suficiente mediante materialida
 
 ### Capa de presentación en Fase 14
 
-La Fase 14 materializa un esquema semántico `bi` y un proyecto PBIP en modo Import. Las cinco páginas consumen exclusivamente superficies SQL gobernadas. El modelo funciona y actualiza; el cierre visual se difiere hasta completar formato, interacciones y QA manual.
+La Fase 14 materializa un esquema semántico `bi` y un proyecto PBIP en modo Import. Las cinco páginas consumen exclusivamente superficies SQL gobernadas. El cierre final revisó formato, unidades, encabezados, ordenamientos y legibilidad; la actualización completa tardó 200 segundos y la validación terminó `PASS` con cinco capturas versionadas.
 
 ### Automatización en Fase 15
 

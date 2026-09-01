@@ -23,3 +23,5 @@ ref table 'Top Oportunidades'
 ref table 'Exposición de Proveedor'
 ref table 'Top Exposición'
 
+ref cultureInfo es-PE
+

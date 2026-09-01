@@ -22,6 +22,7 @@ runtime_evidence:
   - {metric_id: concentration_seconds, label: Concentración de mercado, artifact: reports/concentration/oece_ocds_seace_v3_2026_07_market_concentration.json, value_path: summary.duration_seconds, unit: seconds}
   - {metric_id: opportunity_seconds, label: Opportunity Score, artifact: reports/opportunity/oece_ocds_seace_v3_2026_07_opportunity_score.json, value_path: summary.duration_seconds, unit: seconds}
   - {metric_id: exposure_seconds, label: Supplier Exposure Score, artifact: reports/supplier_exposure/oece_ocds_seace_v3_2026_07_supplier_exposure.json, value_path: summary.duration_seconds, unit: seconds}
+  - {metric_id: powerbi_refresh_seconds, label: Actualización final de Power BI, artifact: reports/powerbi/phase14_powerbi_validation.json, value_path: summary.refresh_duration_seconds, unit: seconds}
 
 outcome_metrics:
   - {metric_id: raw_tables, label: Tablas RAW perfiladas, artifact: reports/profiling/oece_ocds_seace_v3_2026_07_summary.json, value_path: summary.table_count, unit: tables}
@@ -41,9 +42,11 @@ outcome_metrics:
   - {metric_id: markets_analyzed, label: Mercados analizados, artifact: reports/concentration/oece_ocds_seace_v3_2026_07_market_concentration.json, value_path: summary.markets_analyzed, unit: markets}
   - {metric_id: eligible_markets, label: Mercados puntuados, artifact: reports/opportunity/oece_ocds_seace_v3_2026_07_opportunity_score.json, value_path: summary.eligible_markets_scored, unit: markets}
   - {metric_id: suppliers_scored, label: Proveedores puntuados, artifact: reports/supplier_exposure/oece_ocds_seace_v3_2026_07_supplier_exposure.json, value_path: summary.eligible_suppliers_scored, unit: suppliers}
+  - {metric_id: powerbi_pages, label: Páginas Power BI validadas, artifact: reports/powerbi/phase14_powerbi_validation.json, value_path: summary.pages, unit: pages}
+  - {metric_id: powerbi_visuals, label: Visuales Power BI validados, artifact: reports/powerbi/phase14_powerbi_validation.json, value_path: summary.visuals, unit: visuals}
+  - {metric_id: powerbi_screenshots, label: Capturas finales Power BI, artifact: reports/powerbi/phase14_powerbi_validation.json, value_path: summary.screenshots, unit: screenshots}
 
 sql_queries:
   - {metric_id: sql_overview_latency, label: Resumen ejecutivo DW, sql: sql/analytics/phase9_overview.sql}
   - {metric_id: sql_supplier_kpi_latency, label: Ranking de proveedores, sql: sql/analytics/phase10_supplier_kpis.sql}
   - {metric_id: sql_concentration_latency, label: Concentración por categoría, sql: sql/analytics/phase11_category_concentration.sql}
-

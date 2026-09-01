@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "03ed50535e24450fe58b",
   "position": {
     "x": 24,
@@ -126,7 +126,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Top 10 mercados por Opportunity Score'"
+                  "Value": "'Top 10 mercados por score de oportunidad'"
                 }
               }
             },
@@ -214,5 +214,37 @@
         }
       ]
     }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "502962e114cc29003630",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Top Oportunidades"
+              }
+            },
+            "Property": "classification_description"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "d6209e77f771ed9e3c44",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Top Oportunidades"
+              }
+            },
+            "Property": "Opportunity Score Top"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

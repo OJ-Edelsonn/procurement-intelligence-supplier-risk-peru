@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "599a60c833d7f470cd57",
   "position": {
     "x": 630,
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Top Proveedores.supplier_name",
-              "nativeQueryRef": "supplier_name"
+              "nativeQueryRef": "Proveedor",
+              "displayName": "Proveedor"
             },
             {
               "field": {
@@ -41,7 +42,8 @@
                 }
               },
               "queryRef": "Top Proveedores.award_count",
-              "nativeQueryRef": "award_count"
+              "nativeQueryRef": "Adjudicaciones",
+              "displayName": "Adjudicaciones"
             },
             {
               "field": {
@@ -55,21 +57,23 @@
                 }
               },
               "queryRef": "Top Proveedores.buyer_count",
-              "nativeQueryRef": "buyer_count"
+              "nativeQueryRef": "Compradores",
+              "displayName": "Compradores"
             },
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
                       "Entity": "Top Proveedores"
                     }
                   },
-                  "Property": "award_amount_pen"
+                  "Property": "Monto Adjudicado Top PEN"
                 }
               },
-              "queryRef": "Top Proveedores.award_amount_pen",
-              "nativeQueryRef": "award_amount_pen"
+              "queryRef": "Top Proveedores.Monto Adjudicado Top PEN",
+              "nativeQueryRef": "Monto (S/ M)",
+              "displayName": "Monto (S/ M)"
             },
             {
               "field": {
@@ -83,24 +87,28 @@
                 }
               },
               "queryRef": "Top Proveedores.contract_count",
-              "nativeQueryRef": "contract_count"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Top Proveedores"
-                    }
-                  },
-                  "Property": "contract_amount_pen"
-                }
-              },
-              "queryRef": "Top Proveedores.contract_amount_pen",
-              "nativeQueryRef": "contract_amount_pen"
+              "nativeQueryRef": "Contratos",
+              "displayName": "Contratos"
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Top Proveedores"
+                  }
+                },
+                "Property": "Monto Adjudicado Top PEN"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
       }
     },
     "objects": {
@@ -145,6 +153,19 @@
             }
           }
         }
+      ],
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "visualContainerObjects": {
@@ -161,7 +182,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Resumen de adjudicaciones y contratos'"
+                  "Value": "'Adjudicaciones y contratos por proveedor'"
                 }
               }
             },
@@ -249,5 +270,79 @@
         }
       ]
     }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "7d1fb304458c4817b913",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Top Proveedores"
+              }
+            },
+            "Property": "supplier_name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "d1c2abea895f4bb7ccdb",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Top Proveedores"
+              }
+            },
+            "Property": "award_count"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "40a8820344c0ea72d3f9",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Top Proveedores"
+              }
+            },
+            "Property": "buyer_count"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "86d3a50462d79af956a2",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Top Proveedores"
+              }
+            },
+            "Property": "contract_count"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "caf4e928296859127b9e",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Top Proveedores"
+              }
+            },
+            "Property": "Monto Adjudicado Top PEN"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

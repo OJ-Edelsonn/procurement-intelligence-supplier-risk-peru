@@ -28,5 +28,4 @@ Los conteos, montos y porcentajes se extraen por ruta o identificador desde prof
 
 ## Límites de interpretación
 
-El benchmark caracteriza un equipo local y SQL Server Express bajo su carga concreta. No representa capacidad de producción, concurrencia empresarial ni SLA. El tiempo final de actualización de Power BI se añadirá cuando el dashboard quede congelado.
-
+El benchmark caracteriza un equipo local y SQL Server Express bajo su carga concreta. No representa capacidad de producción, concurrencia empresarial ni SLA. El dashboard congelado registró una actualización final manualmente cronometrada de 200 segundos; se conserva como una observación local única, no como compromiso de rendimiento.

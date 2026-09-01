@@ -15,8 +15,8 @@ from procurement_intelligence.benchmark.run_benchmark import (
 
 def test_repository_benchmark_contract_is_valid() -> None:
     config = load_benchmark_config(Path("config/benchmark.yml"))
-    assert len(config["runtime_evidence"]) == 10
-    assert len(config["outcome_metrics"]) == 17
+    assert len(config["runtime_evidence"]) == 11
+    assert len(config["outcome_metrics"]) == 20
     assert len(config["sql_queries"]) == 3
     assert config["benchmark"]["sql_repeats"] == 3
 
@@ -55,4 +55,3 @@ def test_duplicate_metric_ids_are_rejected(tmp_path: Path) -> None:
     path.write_text(yaml.safe_dump(config), encoding="utf-8")
     with pytest.raises(ValueError, match="Duplicate benchmark metric_id"):
         load_benchmark_config(path)
-

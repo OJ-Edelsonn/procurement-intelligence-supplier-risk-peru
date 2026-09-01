@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "770a1e291077894b4487",
   "position": {
     "x": 24,
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Exposición de Proveedor.Proveedores Evaluados",
-              "nativeQueryRef": "Proveedores Evaluados"
+              "nativeQueryRef": "Proveedores evaluados",
+              "displayName": "Proveedores evaluados"
             },
             {
               "field": {
@@ -41,7 +42,8 @@
                 }
               },
               "queryRef": "Exposición de Proveedor.Exposure Score Máximo",
-              "nativeQueryRef": "Exposure Score Máximo"
+              "nativeQueryRef": "Score máximo de exposición",
+              "displayName": "Score máximo de exposición"
             },
             {
               "field": {
@@ -55,7 +57,8 @@
                 }
               },
               "queryRef": "Exposición de Proveedor.Monto Exposición PEN",
-              "nativeQueryRef": "Monto Exposición PEN"
+              "nativeQueryRef": "Monto de exposición",
+              "displayName": "Monto de exposición"
             }
           ]
         }
@@ -231,5 +234,51 @@
         }
       ]
     }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "56859d7b93749cfda4bb",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Exposición de Proveedor"
+              }
+            },
+            "Property": "Proveedores Evaluados"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "718c5d23fe364203f072",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Exposición de Proveedor"
+              }
+            },
+            "Property": "Exposure Score Máximo"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "b023e2dbb473e14ceaa2",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Exposición de Proveedor"
+              }
+            },
+            "Property": "Monto Exposición PEN"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

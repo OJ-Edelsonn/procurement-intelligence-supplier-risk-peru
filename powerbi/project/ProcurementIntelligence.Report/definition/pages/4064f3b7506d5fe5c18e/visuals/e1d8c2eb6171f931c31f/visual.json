@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "e1d8c2eb6171f931c31f",
   "position": {
     "x": 24,
@@ -19,15 +19,14 @@
               {
                 "textRuns": [
                   {
-                    "value": "Supplier Operational & Commercial Exposure",
+                    "value": "Exposición Operativa y Comercial de Proveedores",
                     "textStyle": {
                       "fontFamily": "Segoe UI Semibold",
                       "fontSize": "23px",
-                      "color": "#17324D"
+                      "color": "#17324d"
                     }
                   }
-                ],
-                "horizontalTextAlignment": "left"
+                ]
               }
             ]
           }

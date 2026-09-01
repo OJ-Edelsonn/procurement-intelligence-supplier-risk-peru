@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "ae9afda18d28e43ea76b",
   "position": {
     "x": 24,
@@ -152,6 +152,90 @@
           "selector": {
             "id": "default"
           }
+        },
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Resumen Ejecutivo.Procesos"
+          }
+        },
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Resumen Ejecutivo.Monto Licitado PEN"
+          }
+        },
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Resumen Ejecutivo.Compradores Activos"
+          }
+        },
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Resumen Ejecutivo.Adjudicaciones"
+          }
+        },
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Resumen Ejecutivo.Monto Adjudicado PEN"
+          }
+        },
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Resumen Ejecutivo.Proveedores Adjudicados"
+          }
         }
       ],
       "label": [
@@ -161,6 +245,22 @@
               "expr": {
                 "Literal": {
                   "Value": "10D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ],
+      "smallMultiplesHeader": [
+        {
+          "properties": {
+            "displayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
                 }
               }
             }
@@ -273,5 +373,93 @@
         }
       ]
     }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "a32e513108faadadd6d5",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Resumen Ejecutivo"
+              }
+            },
+            "Property": "Procesos"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "6f13439d3e5195c8b828",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Resumen Ejecutivo"
+              }
+            },
+            "Property": "Monto Licitado PEN"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "92377c7aea988018b1a3",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Resumen Ejecutivo"
+              }
+            },
+            "Property": "Compradores Activos"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "44b20693616849ba2f37",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Resumen Ejecutivo"
+              }
+            },
+            "Property": "Adjudicaciones"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "780d6dfe1891a381863a",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Resumen Ejecutivo"
+              }
+            },
+            "Property": "Monto Adjudicado PEN"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "ac49c68d037d4644e431",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Resumen Ejecutivo"
+              }
+            },
+            "Property": "Proveedores Adjudicados"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

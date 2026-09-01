@@ -1,6 +1,6 @@
 # Estado del proyecto
 
-Fecha de corte documental: 2026-08-28.
+Fecha de corte documental: 2026-08-31.
 
 | Fase | Entregable | Estado | Evidencia principal |
 |---:|---|---|---|
@@ -18,30 +18,29 @@ Fecha de corte documental: 2026-08-28.
 | 11 | Concentración | Completa | `reports/concentration/` |
 | 12 | Opportunity Score | Completa | `reports/opportunity/` |
 | 13 | Supplier Exposure Score | Completa | `reports/supplier_exposure/` |
-| 14 | Power BI | Funcional, cierre diferido | 5 páginas pobladas; formato y QA visual pendientes |
+| 14 | Power BI | Completa | 5 páginas, 30 visuales, 5 capturas y validación final `PASS` |
 | 15 | Automatización | Completa para el pipeline core | `reports/automation/phase15_pipeline_run.json` |
-| 16 | Benchmark y resultados | Completa sin timing final de Power BI | `reports/benchmark/phase16_benchmark.json` |
-| 17 | Documentación | Núcleo completo, cierre visual diferido | Falta incorporar el dashboard congelado y sus capturas finales |
-| 18 | GitHub final | Preparación técnica completa, publicación diferida | CI, plantilla de PR, licencia, cita y checklist listos; requiere cerrar Fase 14 |
-| 19 | CV, LinkedIn y entrevistas | Borrador verificable completo, cierre diferido | `docs/career/portfolio_and_interview_draft.md`; falta añadir el enlace y las capturas finales |
+| 16 | Benchmark y resultados | Completa | Incluye actualización final de Power BI en 200 s |
+| 17 | Documentación | Completa | README, capturas, resultados y evidencia de validación sincronizados |
+| 18 | GitHub final | Preparación técnica completa, publicación pendiente | CI, plantilla de PR, licencia, cita y checklist listos |
+| 19 | CV, LinkedIn y entrevistas | Borrador verificable completo | Capturas disponibles; falta añadir el enlace público después de publicar |
 
 ## Validación del cierre técnico independiente
 
-- Suite local: 113 pruebas aprobadas.
+- Suite local: 116 pruebas aprobadas.
 - CI en GitHub: aprobado sobre el PR borrador de integración.
 - Registro documental: sincronizado con su configuración canónica.
 - Enlaces de fuentes: 20/20 accesibles el 2026-08-28.
 - Pipeline core observado: 7 etapas ejecutadas, 5 evidencias reutilizadas, 0 fallos.
-- Publicación final: deliberadamente no realizada mientras la Fase 14 continúe en QA visual.
+- Power BI: actualización completa en 200 segundos; 8/8 validaciones y 5/5 capturas aprobadas.
+- Publicación final: todavía no realizada; no forma parte de la validación técnica local.
 
-## Pendiente que depende de Power BI
+## Cierre de Power BI
 
-1. Corregir unidades automáticas en tarjetas y ejes.
-2. Mejorar etiquetas truncadas y encabezados técnicos.
-3. Revisar interacciones, filtros, orden y legibilidad.
-4. Ejecutar actualización final y capturar las cinco páginas definitivas.
-5. Generar `reports/powerbi/phase14_powerbi_validation.json` y cerrar la Fase 14.
-6. Añadir al benchmark el tiempo de actualización final del dashboard.
-7. Completar la guía visual, README y publicación final.
+1. Se corrigieron unidades automáticas, etiquetas, encabezados y ordenamientos.
+2. La actualización final contra `localhost\SQLEXPRESS` terminó sin errores en 200 segundos.
+3. Las cinco capturas definitivas tienen al menos 1,364 × 789 píxeles y hashes registrados.
+4. `reports/powerbi/phase14_powerbi_validation.json` terminó `PASS` con 8/8 controles.
+5. El benchmark y el README incorporan la evidencia final.
 
-La ausencia de estos puntos no bloquea la reproducción de RAW → Silver → SQL → analítica, pero sí bloquea declarar terminado y publicado el proyecto completo.
+Quedan fuera del cierre técnico la publicación en Power BI Service, el enlace público, el merge/release de GitHub y la incorporación de ese enlace a los materiales profesionales.
