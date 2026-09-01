@@ -1,0 +1,62 @@
+table Proveedores
+	lineageTag: ce301552-81a9-4340-a207-4ed21360c602
+
+	measure 'Total Proveedores' = COUNTROWS ( 'Proveedores' )
+		formatString: #,0
+		lineageTag: 2bce95a2-1e60-4c31-8b5d-9a0c43d0363a
+
+	measure 'Monto Adjudicado Proveedores PEN' = DIVIDE ( SUM ( 'Proveedores'[award_amount_pen] ), 1000000 )
+		formatString: """S/ "" #,0.0 "" M"""
+		lineageTag: 963a013a-dd61-418a-b3c8-c0d85b86d6a3
+
+	column supplier_key
+		dataType: int64
+		lineageTag: 8bc6ca55-3e7c-46ea-a1fe-4328a5e82c33
+		summarizeBy: none
+		sourceColumn: supplier_key
+
+	column supplier_name
+		dataType: string
+		lineageTag: 05f0558c-ca16-4a7f-8d19-ac55e6384916
+		summarizeBy: none
+		sourceColumn: supplier_name
+
+	column award_count
+		dataType: int64
+		lineageTag: c228dd9c-f445-4cbb-a9f2-b2d0b7c3dff1
+		summarizeBy: none
+		sourceColumn: award_count
+
+	column buyer_count
+		dataType: int64
+		lineageTag: 1f3e75e2-ffe4-42c9-b915-1e2cce1d2be6
+		summarizeBy: none
+		sourceColumn: buyer_count
+
+	column award_amount_pen
+		dataType: double
+		lineageTag: 6ac275a8-06ab-4fcc-bc24-628f904a22fd
+		summarizeBy: none
+		sourceColumn: award_amount_pen
+
+	column contract_count
+		dataType: int64
+		lineageTag: ab1d93e5-4b13-4ebd-a46f-8ba50e578f28
+		summarizeBy: none
+		sourceColumn: contract_count
+
+	column contract_amount_pen
+		dataType: double
+		lineageTag: 8d44b12c-c58a-4c8a-ad2b-5ac76716fdd3
+		summarizeBy: none
+		sourceColumn: contract_amount_pen
+
+	partition Proveedores = m
+		mode: import
+		source =
+				let
+					Source = Sql.Database("localhost\SQLEXPRESS", "ProcurementIntelligence"),
+					Data = Source{[Schema="bi", Item="vw_supplier_summary"]}[Data]
+				in
+					Data
+

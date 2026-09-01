@@ -27,6 +27,11 @@ run-procurement-kpis = "procurement_intelligence.analytics.run_kpis:main"
 run-market-concentration = "procurement_intelligence.analytics.run_market_concentration:main"
 run-opportunity-score = "procurement_intelligence.analytics.run_opportunity_score:main"
 run-supplier-exposure = "procurement_intelligence.analytics.run_supplier_exposure:main"
+deploy-powerbi-semantic = "procurement_intelligence.powerbi.deploy_semantic_layer:main"
+build-powerbi-project = "procurement_intelligence.powerbi.build_project:main"
+validate-powerbi-project = "procurement_intelligence.powerbi.validate_project:main"
+run-procurement-pipeline = "procurement_intelligence.automation.run_pipeline:main"
+run-procurement-benchmark = "procurement_intelligence.benchmark.run_benchmark:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

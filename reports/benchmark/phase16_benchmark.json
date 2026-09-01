@@ -1,0 +1,349 @@
+{
+  "schema_version": "1.0",
+  "generated_at_utc": "2026-09-01T01:39:17.521105+00:00",
+  "scope": {
+    "source_id": "oece_ocds_seace_v3",
+    "source_period": "2026-07",
+    "snapshot_date": "2026-08-19",
+    "benchmark_config": "config/benchmark.yml",
+    "benchmark_config_sha256": "5474e5cf36caf41dc2a8995a9ea1c47f9e0b8a1a3fad0ee983cf59464cccd5c1",
+    "pipeline_report": "reports/automation/phase15_pipeline_run.json",
+    "pipeline_report_sha256": "af278df3ecfad63ed06d26b7efb7df26f830df805b5b8ab96160f6f505e11d61"
+  },
+  "summary": {
+    "status": "PASS",
+    "runtime_metrics": 11,
+    "outcome_metrics": 20,
+    "sql_queries_benchmarked": 3,
+    "automated_run_seconds": 477.8074,
+    "steps_executed": 7,
+    "steps_reused": 5,
+    "steps_failed": 0,
+    "manual_baseline_status": "NOT_AVAILABLE",
+    "time_savings_claimed": false,
+    "benchmark_duration_seconds": 2.8582
+  },
+  "runtime_evidence": [
+    {
+      "metric_id": "profiling_seconds",
+      "label": "Perfilado RAW",
+      "value": 45.7273,
+      "unit": "seconds",
+      "source_artifact": "reports/profiling/oece_ocds_seace_v3_2026_07_summary.json",
+      "source_sha256": "75a5326f8b124eb99f34b49f448bcab64dbcb71edb0fdd13f20e24f81629eef9"
+    },
+    {
+      "metric_id": "raw_quality_seconds",
+      "label": "Calidad inicial RAW",
+      "value": 76.7619,
+      "unit": "seconds",
+      "source_artifact": "${DATA_ROOT}/metadata/oece/ocds/seace_v3/2026/07/snapshot_date=2026-08-19/quality_phase4_full.json",
+      "source_sha256": "a1d86f9657ddaaaaefcccf1b6031079162303d89e54a0bb62af2bcbacdf96600"
+    },
+    {
+      "metric_id": "silver_etl_seconds",
+      "label": "ETL Silver",
+      "value": 59.3069,
+      "unit": "seconds",
+      "source_artifact": "reports/etl/oece_ocds_seace_v3_2026_07_etl_summary.json",
+      "source_sha256": "9adc2bb32019d3cc6ca5c4994e88c17f2bc97fad0accfbb8054411762432b5b6"
+    },
+    {
+      "metric_id": "sql_load_seconds",
+      "label": "Construcción y carga SQL",
+      "value": 233.9022,
+      "unit": "seconds",
+      "source_artifact": "reports/sql/oece_ocds_seace_v3_2026_07_sql_server_load.json",
+      "source_sha256": "41b18afa646ae123c37cb0ac8ec1ae1c22cdf16792f3a1740e0241b08100ef3b"
+    },
+    {
+      "metric_id": "sql_validation_seconds",
+      "label": "Validación SQL avanzada",
+      "value": 170.7731,
+      "unit": "seconds",
+      "source_artifact": "reports/sql/oece_ocds_seace_v3_2026_07_phase8_validation.json",
+      "source_sha256": "d94fcdece06f9ee2864360bddd8bb0bbcd5e3a3aedc314c2dcd13a876da29420"
+    },
+    {
+      "metric_id": "eda_seconds",
+      "label": "EDA",
+      "value": 31.2914,
+      "unit": "seconds",
+      "source_artifact": "reports/eda/oece_ocds_seace_v3_2026_07_eda_summary.json",
+      "source_sha256": "eecbfec50a5fdefc6670ead31b13db5840d78c101437c59f27065f0d1e7edc6a"
+    },
+    {
+      "metric_id": "kpi_seconds",
+      "label": "KPIs gobernados",
+      "value": 2.1825,
+      "unit": "seconds",
+      "source_artifact": "reports/kpis/oece_ocds_seace_v3_2026_07_kpi_summary.json",
+      "source_sha256": "9c23623b6794509f300b1978576d853cf300f6183261d36979d9a7fc7b38e56d"
+    },
+    {
+      "metric_id": "concentration_seconds",
+      "label": "Concentración de mercado",
+      "value": 17.882,
+      "unit": "seconds",
+      "source_artifact": "reports/concentration/oece_ocds_seace_v3_2026_07_market_concentration.json",
+      "source_sha256": "3a890158174dc72d0619549323eb32700bab6c03b875fe275245cc17219addb0"
+    },
+    {
+      "metric_id": "opportunity_seconds",
+      "label": "Opportunity Score",
+      "value": 14.099,
+      "unit": "seconds",
+      "source_artifact": "reports/opportunity/oece_ocds_seace_v3_2026_07_opportunity_score.json",
+      "source_sha256": "e26dfc9baedc6161e8a58cd5c64527680c4d73ff466f14820817d85c175ab9bd"
+    },
+    {
+      "metric_id": "exposure_seconds",
+      "label": "Supplier Exposure Score",
+      "value": 111.251,
+      "unit": "seconds",
+      "source_artifact": "reports/supplier_exposure/oece_ocds_seace_v3_2026_07_supplier_exposure.json",
+      "source_sha256": "d44a90f4bafa51bac5f7d3708e8674939fe2aae0b2ec7c676a455fab2fa10983"
+    },
+    {
+      "metric_id": "powerbi_refresh_seconds",
+      "label": "Actualización final de Power BI",
+      "value": 200.0,
+      "unit": "seconds",
+      "source_artifact": "reports/powerbi/phase14_powerbi_validation.json",
+      "source_sha256": "c95009e04570c0bd33296d92507a056bca02ad6f3ee8834a94d4b78210db81bf"
+    }
+  ],
+  "runtime_component_sum_seconds": 963.1773,
+  "sql_environment": {
+    "database": "ProcurementIntelligence",
+    "database_size_bytes": 1291845632,
+    "connection_seconds": 0.4183
+  },
+  "sql_benchmarks": [
+    {
+      "metric_id": "sql_overview_latency",
+      "label": "Resumen ejecutivo DW",
+      "sql": "sql/analytics/phase9_overview.sql",
+      "sql_sha256": "2621d337187593c9f78761eed37db41766ab49a1f77067a39acd5f494dd95bc8",
+      "warmups": 1,
+      "repeats": 3,
+      "result_rows": 1,
+      "min_ms": 115.8148,
+      "median_ms": 116.7365,
+      "mean_ms": 116.7361,
+      "p95_ms": 117.565,
+      "max_ms": 117.657,
+      "samples_ms": [
+        115.8148,
+        116.7365,
+        117.657
+      ]
+    },
+    {
+      "metric_id": "sql_supplier_kpi_latency",
+      "label": "Ranking de proveedores",
+      "sql": "sql/analytics/phase10_supplier_kpis.sql",
+      "sql_sha256": "3b01368994efff2a095286db1ed56c9e36d0b3c0baecf0e737a374df842523c7",
+      "warmups": 1,
+      "repeats": 3,
+      "result_rows": 20,
+      "min_ms": 28.3721,
+      "median_ms": 29.3226,
+      "mean_ms": 30.6187,
+      "p95_ms": 33.6775,
+      "max_ms": 34.1614,
+      "samples_ms": [
+        28.3721,
+        34.1614,
+        29.3226
+      ]
+    },
+    {
+      "metric_id": "sql_concentration_latency",
+      "label": "Concentración por categoría",
+      "sql": "sql/analytics/phase11_category_concentration.sql",
+      "sql_sha256": "8cd0115a7d20109c20b930a23c22b0c0f2d3234dbd5ce6038986357d493fc4a3",
+      "warmups": 1,
+      "repeats": 3,
+      "result_rows": 772,
+      "min_ms": 214.372,
+      "median_ms": 215.1486,
+      "mean_ms": 219.8289,
+      "p95_ms": 228.4843,
+      "max_ms": 229.966,
+      "samples_ms": [
+        229.966,
+        214.372,
+        215.1486
+      ]
+    }
+  ],
+  "outcome_metrics": [
+    {
+      "metric_id": "raw_tables",
+      "label": "Tablas RAW perfiladas",
+      "value": 22,
+      "unit": "tables",
+      "source_artifact": "reports/profiling/oece_ocds_seace_v3_2026_07_summary.json",
+      "source_sha256": "75a5326f8b124eb99f34b49f448bcab64dbcb71edb0fdd13f20e24f81629eef9"
+    },
+    {
+      "metric_id": "raw_rows",
+      "label": "Filas RAW",
+      "value": 231123,
+      "unit": "rows",
+      "source_artifact": "reports/etl/oece_ocds_seace_v3_2026_07_etl_summary.json",
+      "source_sha256": "9adc2bb32019d3cc6ca5c4994e88c17f2bc97fad0accfbb8054411762432b5b6"
+    },
+    {
+      "metric_id": "silver_rows",
+      "label": "Filas Silver",
+      "value": 231113,
+      "unit": "rows",
+      "source_artifact": "reports/etl/oece_ocds_seace_v3_2026_07_etl_summary.json",
+      "source_sha256": "9adc2bb32019d3cc6ca5c4994e88c17f2bc97fad0accfbb8054411762432b5b6"
+    },
+    {
+      "metric_id": "quarantine_rows",
+      "label": "Filas en cuarentena",
+      "value": 10,
+      "unit": "rows",
+      "source_artifact": "reports/etl/oece_ocds_seace_v3_2026_07_etl_summary.json",
+      "source_sha256": "9adc2bb32019d3cc6ca5c4994e88c17f2bc97fad0accfbb8054411762432b5b6"
+    },
+    {
+      "metric_id": "normalized_categories",
+      "label": "Categorías normalizadas",
+      "value": 2135,
+      "unit": "rows",
+      "source_artifact": "reports/etl/oece_ocds_seace_v3_2026_07_etl_summary.json",
+      "source_sha256": "9adc2bb32019d3cc6ca5c4994e88c17f2bc97fad0accfbb8054411762432b5b6"
+    },
+    {
+      "metric_id": "parquet_bytes",
+      "label": "Tamaño Parquet",
+      "value": 9084200,
+      "unit": "bytes",
+      "source_artifact": "reports/etl/oece_ocds_seace_v3_2026_07_etl_summary.json",
+      "source_sha256": "9adc2bb32019d3cc6ca5c4994e88c17f2bc97fad0accfbb8054411762432b5b6"
+    },
+    {
+      "metric_id": "parquet_reduction_pct",
+      "label": "Reducción Parquet vs. CSV descomprimido",
+      "value": 86.2025,
+      "unit": "percent",
+      "source_artifact": "reports/etl/oece_ocds_seace_v3_2026_07_etl_summary.json",
+      "source_sha256": "9adc2bb32019d3cc6ca5c4994e88c17f2bc97fad0accfbb8054411762432b5b6"
+    },
+    {
+      "metric_id": "staging_rows",
+      "label": "Filas staging SQL",
+      "value": 231113,
+      "unit": "rows",
+      "source_artifact": "reports/sql/oece_ocds_seace_v3_2026_07_sql_server_load.json",
+      "source_sha256": "41b18afa646ae123c37cb0ac8ec1ae1c22cdf16792f3a1740e0241b08100ef3b"
+    },
+    {
+      "metric_id": "modeled_objects",
+      "label": "Objetos dimensionales",
+      "value": 16,
+      "unit": "objects",
+      "source_artifact": "reports/modeling/oece_ocds_seace_v3_2026_07_dimensional_model_analysis.json",
+      "source_sha256": "eadce2d5c939b303f52f7eaec003efed0d329eb64d36dca47c67b59cf82b8f02"
+    },
+    {
+      "metric_id": "published_kpis",
+      "label": "KPIs publicados",
+      "value": 21,
+      "unit": "metrics",
+      "source_artifact": "reports/kpis/oece_ocds_seace_v3_2026_07_kpi_summary.json",
+      "source_sha256": "9c23623b6794509f300b1978576d853cf300f6183261d36979d9a7fc7b38e56d"
+    },
+    {
+      "metric_id": "procurement_processes",
+      "label": "Procesos analizados",
+      "value": 6452,
+      "unit": "processes",
+      "source_artifact": "reports/kpis/oece_ocds_seace_v3_2026_07_kpi_summary.json",
+      "source_sha256": "9c23623b6794509f300b1978576d853cf300f6183261d36979d9a7fc7b38e56d"
+    },
+    {
+      "metric_id": "tender_amount_pen",
+      "label": "Monto licitado analizado",
+      "value": 6924924015.38,
+      "unit": "PEN",
+      "source_artifact": "reports/kpis/oece_ocds_seace_v3_2026_07_kpi_summary.json",
+      "source_sha256": "9c23623b6794509f300b1978576d853cf300f6183261d36979d9a7fc7b38e56d"
+    },
+    {
+      "metric_id": "active_buyers",
+      "label": "Compradores observados",
+      "value": 1450,
+      "unit": "buyers",
+      "source_artifact": "reports/kpis/oece_ocds_seace_v3_2026_07_kpi_summary.json",
+      "source_sha256": "9c23623b6794509f300b1978576d853cf300f6183261d36979d9a7fc7b38e56d"
+    },
+    {
+      "metric_id": "awarded_suppliers",
+      "label": "Proveedores adjudicados atribuibles",
+      "value": 2960,
+      "unit": "suppliers",
+      "source_artifact": "reports/kpis/oece_ocds_seace_v3_2026_07_kpi_summary.json",
+      "source_sha256": "9c23623b6794509f300b1978576d853cf300f6183261d36979d9a7fc7b38e56d"
+    },
+    {
+      "metric_id": "markets_analyzed",
+      "label": "Mercados analizados",
+      "value": 772,
+      "unit": "markets",
+      "source_artifact": "reports/concentration/oece_ocds_seace_v3_2026_07_market_concentration.json",
+      "source_sha256": "3a890158174dc72d0619549323eb32700bab6c03b875fe275245cc17219addb0"
+    },
+    {
+      "metric_id": "eligible_markets",
+      "label": "Mercados puntuados",
+      "value": 87,
+      "unit": "markets",
+      "source_artifact": "reports/opportunity/oece_ocds_seace_v3_2026_07_opportunity_score.json",
+      "source_sha256": "e26dfc9baedc6161e8a58cd5c64527680c4d73ff466f14820817d85c175ab9bd"
+    },
+    {
+      "metric_id": "suppliers_scored",
+      "label": "Proveedores puntuados",
+      "value": 179,
+      "unit": "suppliers",
+      "source_artifact": "reports/supplier_exposure/oece_ocds_seace_v3_2026_07_supplier_exposure.json",
+      "source_sha256": "d44a90f4bafa51bac5f7d3708e8674939fe2aae0b2ec7c676a455fab2fa10983"
+    },
+    {
+      "metric_id": "powerbi_pages",
+      "label": "Páginas Power BI validadas",
+      "value": 5,
+      "unit": "pages",
+      "source_artifact": "reports/powerbi/phase14_powerbi_validation.json",
+      "source_sha256": "c95009e04570c0bd33296d92507a056bca02ad6f3ee8834a94d4b78210db81bf"
+    },
+    {
+      "metric_id": "powerbi_visuals",
+      "label": "Visuales Power BI validados",
+      "value": 30,
+      "unit": "visuals",
+      "source_artifact": "reports/powerbi/phase14_powerbi_validation.json",
+      "source_sha256": "c95009e04570c0bd33296d92507a056bca02ad6f3ee8834a94d4b78210db81bf"
+    },
+    {
+      "metric_id": "powerbi_screenshots",
+      "label": "Capturas finales Power BI",
+      "value": 5,
+      "unit": "screenshots",
+      "source_artifact": "reports/powerbi/phase14_powerbi_validation.json",
+      "source_sha256": "c95009e04570c0bd33296d92507a056bca02ad6f3ee8834a94d4b78210db81bf"
+    }
+  ],
+  "limitations": [
+    "Component timings were captured in different governed runs and are not one end-to-end elapsed time.",
+    "SQL latency is specific to the local workstation, SQL Server Express instance, cache state and concurrent workload.",
+    "No measured manual baseline exists, so time saved and percentage reduction are intentionally not calculated.",
+    "Power BI refresh timing is one manually timed local observation on the frozen dashboard, not an SLA."
+  ]
+}

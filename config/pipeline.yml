@@ -1,0 +1,133 @@
+pipeline:
+  schema_version: "1.0"
+  pipeline_id: procurement-intelligence-current-snapshot-v1
+  report: reports/automation/phase15_pipeline_run.json
+  log_directory: logs/pipeline
+  step_timeout_seconds: 900
+  source:
+    source_id: oece_ocds_seace_v3
+    source_period: "2026-07"
+    snapshot_date: "2026-08-19"
+    year: 2026
+    month: 7
+    paths:
+      archive: raw/oece/ocds/seace_v3/{year}/{month}/snapshot_date={snapshot_date}/{source_period}_seace_v3_csv.zip
+      download_manifest: metadata/oece/ocds/seace_v3/{year}/{month}/snapshot_date={snapshot_date}/download_manifest_csv.json
+      profile_full: metadata/oece/ocds/seace_v3/{year}/{month}/snapshot_date={snapshot_date}/profile_csv_full.json
+      quality_full: metadata/oece/ocds/seace_v3/{year}/{month}/snapshot_date={snapshot_date}/quality_phase4_full.json
+
+steps:
+  - id: source_registry
+    stage: governance
+    module: procurement_intelligence.documentation.source_registry
+    arguments: [--registry, config/source_registry.yml, --document, docs/data_sources/source_registry.md, --check]
+
+  - id: download_snapshot
+    stage: extraction
+    optional_group: download
+    reuse_if_valid: true
+    module: procurement_intelligence.extraction.download_ocds
+    arguments: [--source, seace_v3, --format, csv, --year, "{year}", --month, "{month}", --snapshot-date, "{snapshot_date}", --env-file, .env]
+    artifact: "{download_manifest}"
+
+  - id: profile_raw
+    stage: profiling
+    reuse_if_valid: true
+    module: procurement_intelligence.profiling.profile_ocds_csv
+    arguments: ["{archive}", --output, "{profile_full}", --summary-output, reports/profiling/oece_ocds_seace_v3_2026_07_summary.json]
+    artifact: reports/profiling/oece_ocds_seace_v3_2026_07_summary.json
+
+  - id: validate_raw_quality
+    stage: quality
+    reuse_if_valid: true
+    module: procurement_intelligence.validation.validate_ocds_csv
+    arguments: ["{archive}", --rules, config/data_quality_rules.yml, --source-period, "{source_period}", --snapshot-date, "{snapshot_date}", --output, "{quality_full}", --summary-output, reports/data_quality/oece_ocds_seace_v3_2026_07_quality_summary.json]
+    artifact: reports/data_quality/oece_ocds_seace_v3_2026_07_quality_summary.json
+    status_path: summary.overall_status
+    accepted_statuses: [PASS, PASS_WITH_WARNINGS, BLOCKED]
+    allowed_failed_rule_ids: [DQ-UNIQ-001]
+
+  - id: transform_silver
+    stage: transformation
+    reuse_if_valid: true
+    module: procurement_intelligence.transformation.transform_ocds_silver
+    arguments: ["{archive}", --config, config/etl_silver.yml, --source-period, "{source_period}", --snapshot-date, "{snapshot_date}", --env-file, .env, --summary-output, reports/etl/oece_ocds_seace_v3_2026_07_etl_summary.json, --overwrite]
+    artifact: reports/etl/oece_ocds_seace_v3_2026_07_etl_summary.json
+    status_path: summary.status
+    accepted_statuses: [PASS, PASS_WITH_WARNINGS]
+
+  - id: validate_dimensional_model
+    stage: modeling
+    reuse_if_valid: true
+    module: procurement_intelligence.modeling.validate_dimensional_model
+    arguments: [--model, config/dimensional_model.yml, --etl-summary, reports/etl/oece_ocds_seace_v3_2026_07_etl_summary.json, --env-file, .env, --output, reports/modeling/oece_ocds_seace_v3_2026_07_dimensional_model_analysis.json]
+    artifact: reports/modeling/oece_ocds_seace_v3_2026_07_dimensional_model_analysis.json
+    status_path: summary.status
+    accepted_statuses: [PASS, PASS_WITH_WARNINGS]
+
+  - id: load_sql_server
+    stage: loading
+    reuse_if_valid: true
+    module: procurement_intelligence.loading.load_sql_server
+    arguments: [--env-file, .env, --etl-summary, reports/etl/oece_ocds_seace_v3_2026_07_etl_summary.json, --dimensional-analysis, reports/modeling/oece_ocds_seace_v3_2026_07_dimensional_model_analysis.json, --model, config/dimensional_model.yml, --physical-config, config/sql_server.yml, --replace-snapshot, --output, reports/sql/oece_ocds_seace_v3_2026_07_sql_server_load.json]
+    artifact: reports/sql/oece_ocds_seace_v3_2026_07_sql_server_load.json
+    status_path: summary.status
+    accepted_statuses: [PASS, SKIPPED_IDEMPOTENT]
+
+  - id: validate_sql_server
+    stage: validation
+    module: procurement_intelligence.validation.validate_sql_server
+    arguments: [--env-file, .env, --config, config/sql_validation.yml, --output, reports/sql/oece_ocds_seace_v3_2026_07_phase8_validation.json]
+    artifact: reports/sql/oece_ocds_seace_v3_2026_07_phase8_validation.json
+    status_path: summary.overall_status
+    accepted_statuses: [PASS, PASS_WITH_WARNINGS]
+
+  - id: exploratory_analysis
+    stage: analytics
+    module: procurement_intelligence.analytics.run_eda
+    arguments: [--env-file, .env, --config, config/eda.yml]
+    artifact: reports/eda/oece_ocds_seace_v3_2026_07_eda_summary.json
+    status_path: summary.status
+    accepted_statuses: [PASS]
+
+  - id: governed_kpis
+    stage: analytics
+    module: procurement_intelligence.analytics.run_kpis
+    arguments: [--env-file, .env, --config, config/kpis.yml]
+    artifact: reports/kpis/oece_ocds_seace_v3_2026_07_kpi_summary.json
+    status_path: summary.status
+    accepted_statuses: [PASS]
+
+  - id: market_concentration
+    stage: analytics
+    module: procurement_intelligence.analytics.run_market_concentration
+    arguments: [--env-file, .env, --config, config/market_concentration.yml]
+    artifact: reports/concentration/oece_ocds_seace_v3_2026_07_market_concentration.json
+    status_path: summary.status
+    accepted_statuses: [PASS]
+
+  - id: opportunity_score
+    stage: scoring
+    module: procurement_intelligence.analytics.run_opportunity_score
+    arguments: [--config, config/opportunity_score.yml]
+    artifact: reports/opportunity/oece_ocds_seace_v3_2026_07_opportunity_score.json
+    status_path: summary.status
+    accepted_statuses: [PASS_PILOT]
+
+  - id: supplier_exposure
+    stage: scoring
+    module: procurement_intelligence.analytics.run_supplier_exposure
+    arguments: [--env-file, .env, --config, config/supplier_exposure_score.yml]
+    artifact: reports/supplier_exposure/oece_ocds_seace_v3_2026_07_supplier_exposure.json
+    status_path: summary.status
+    accepted_statuses: [PASS_LIMITED]
+
+  - id: powerbi_semantic_layer
+    stage: presentation
+    optional_group: powerbi
+    module: procurement_intelligence.powerbi.deploy_semantic_layer
+    arguments: [--config, config/powerbi_dashboard.yml, --env-file, .env]
+    artifact: reports/powerbi/phase14_semantic_layer_load.json
+    status_path: summary.status
+    accepted_statuses: [PASS]
+

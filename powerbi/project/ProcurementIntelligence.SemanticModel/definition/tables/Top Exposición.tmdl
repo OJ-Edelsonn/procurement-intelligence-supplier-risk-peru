@@ -1,0 +1,70 @@
+table 'Top Exposición'
+	lineageTag: 6c6dff12-a49e-432c-801a-5942a6514cd3
+
+	measure 'Exposure Score Top' = MAX ( 'Top Exposición'[score_baseline] )
+		formatString: 0.0
+		lineageTag: 7bc651ad-361d-440b-b539-f74394f614c8
+
+	column supplier_key
+		dataType: int64
+		lineageTag: e56e4c6c-ffcb-40b3-a793-0866667a9d09
+		summarizeBy: none
+		sourceColumn: supplier_key
+
+	column supplier_name
+		dataType: string
+		lineageTag: 8d24281b-97cc-4f1b-a094-fd0dfbde8a96
+		summarizeBy: none
+		sourceColumn: supplier_name
+
+	column award_count
+		dataType: int64
+		lineageTag: 307c43a2-bd16-447a-843f-efc383bd7ebe
+		summarizeBy: none
+		sourceColumn: award_count
+
+	column buyer_count
+		dataType: int64
+		lineageTag: f6a6b830-6cab-4da5-9922-bd4ebe846bd1
+		summarizeBy: none
+		sourceColumn: buyer_count
+
+	column award_amount_pen
+		dataType: double
+		lineageTag: a13037bf-9a88-40f1-b050-6fddec5adeda
+		summarizeBy: none
+		sourceColumn: award_amount_pen
+
+	column top_buyer_share_pct
+		dataType: double
+		lineageTag: 31779a5d-abae-42be-834f-a518ee778695
+		summarizeBy: none
+		sourceColumn: top_buyer_share_pct
+
+	column top_category_share_pct
+		dataType: double
+		lineageTag: c92aed4a-67d2-4b77-bcfe-95a7bbd724d8
+		summarizeBy: none
+		sourceColumn: top_category_share_pct
+
+	column score_baseline
+		dataType: double
+		lineageTag: 561fcdc5-0598-4be4-8cb0-f4b1c7345600
+		summarizeBy: none
+		sourceColumn: score_baseline
+
+	column rank_baseline
+		dataType: int64
+		lineageTag: b97236fe-3bb8-4863-9dc3-d03d65c17cd6
+		summarizeBy: none
+		sourceColumn: rank_baseline
+
+	partition 'Top Exposición' = m
+		mode: import
+		source =
+				let
+					Source = Sql.Database("localhost\SQLEXPRESS", "ProcurementIntelligence"),
+					Data = Source{[Schema="bi", Item="vw_top_supplier_exposure"]}[Data]
+				in
+					Data
+

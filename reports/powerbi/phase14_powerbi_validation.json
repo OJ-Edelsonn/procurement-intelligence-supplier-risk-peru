@@ -1,0 +1,291 @@
+{
+  "schema_version": "1.0",
+  "generated_at_utc": "2026-09-01T01:39:09.075450+00:00",
+  "scope": "powerbi_final_project_validation",
+  "source": {
+    "config": "config/powerbi_dashboard.yml",
+    "config_sha256": "6984520cfa0e5d91d9b53d4af0629883af7c8376817ba757556bdb70a9bbc1c0",
+    "project": "powerbi/project",
+    "project_manifest_sha256": "3e81501ad59cbda0859a838c82f0d3a236cfc0f2aac24e94b0877124303a0f30",
+    "source_period": "2026-07",
+    "server_alias": "localhost\\SQLEXPRESS",
+    "database": "ProcurementIntelligence",
+    "storage_mode": "import",
+    "desktop_minimum_version": "2.157.879.0"
+  },
+  "summary": {
+    "status": "PASS",
+    "pages": 5,
+    "visuals": 30,
+    "semantic_tables": 12,
+    "screenshots": 5,
+    "refresh_duration_seconds": 200.0,
+    "validations_passed": 8,
+    "validations_failed": 0
+  },
+  "analysis": {
+    "page_names": {
+      "09d44d6b9c674ccf2dfc": "Inteligencia de Compradores",
+      "4064f3b7506d5fe5c18e": "Exposición de Proveedores",
+      "7005ff111442b7bde8d9": "Resumen Ejecutivo",
+      "742d758fca9d73414f90": "Oportunidad de Mercado",
+      "ef444cf215d2d34501c4": "Inteligencia de Proveedores"
+    },
+    "visual_inventory": {
+      "Inteligencia de Compradores": {
+        "cardVisual": 1,
+        "clusteredBarChart": 1,
+        "tableEx": 1,
+        "textbox": 3
+      },
+      "Exposición de Proveedores": {
+        "cardVisual": 1,
+        "clusteredBarChart": 1,
+        "tableEx": 1,
+        "textbox": 3
+      },
+      "Resumen Ejecutivo": {
+        "cardVisual": 1,
+        "lineChart": 1,
+        "tableEx": 1,
+        "textbox": 3
+      },
+      "Oportunidad de Mercado": {
+        "cardVisual": 1,
+        "clusteredBarChart": 1,
+        "tableEx": 1,
+        "textbox": 3
+      },
+      "Inteligencia de Proveedores": {
+        "cardVisual": 1,
+        "clusteredBarChart": 1,
+        "tableEx": 1,
+        "textbox": 3
+      }
+    },
+    "ranking_sorts": [
+      {
+        "visual": "7005ff111442b7bde8d9/visuals/ea9c57b654ab05908e49/visual.json",
+        "status": "PASS",
+        "field_kind": "Measure",
+        "property": "Monto Ítems Adjudicados Top PEN",
+        "direction": "Descending"
+      },
+      {
+        "visual": "09d44d6b9c674ccf2dfc/visuals/c0fa875a714581d681b0/visual.json",
+        "status": "PASS",
+        "field_kind": "Measure",
+        "property": "Monto Licitado Top PEN",
+        "direction": "Descending"
+      },
+      {
+        "visual": "4064f3b7506d5fe5c18e/visuals/9e81ebeb9447961be549/visual.json",
+        "status": "PASS",
+        "field_kind": "Column",
+        "property": "rank_baseline",
+        "direction": "Ascending"
+      }
+    ],
+    "screenshots": [
+      {
+        "page": "Resumen Ejecutivo",
+        "path": "reports/powerbi/screenshots/Resumen Ejecutivo.png",
+        "width_px": 1368,
+        "height_px": 789,
+        "bytes": 116855,
+        "sha256": "1e21157c7af8f02a446cb309156ef19ccd8262b746606d2e4ee290ee5a1b7159",
+        "status": "PASS"
+      },
+      {
+        "page": "Oportunidad de Mercado",
+        "path": "reports/powerbi/screenshots/Oportunidad de Mercado.png",
+        "width_px": 1366,
+        "height_px": 790,
+        "bytes": 100844,
+        "sha256": "12b1cb3f5daa8eee46aa0fee959fe41083028a3b4bc81b27ed3ccf0da387ae3d",
+        "status": "PASS"
+      },
+      {
+        "page": "Inteligencia de Proveedores",
+        "path": "reports/powerbi/screenshots/Supplier Intelligence.png",
+        "width_px": 1364,
+        "height_px": 791,
+        "bytes": 95147,
+        "sha256": "dcdd530a0aa67e7c83536688cb0b060091b7847b4ae5a46bc4e5bd0e4feb4d1d",
+        "status": "PASS"
+      },
+      {
+        "page": "Exposición de Proveedores",
+        "path": "reports/powerbi/screenshots/Supplier Exposure.png",
+        "width_px": 1367,
+        "height_px": 790,
+        "bytes": 96271,
+        "sha256": "6ba1d7becd4d2412a89a9a99b5fed78b95370e1a02b76f6bdf43b1d5039273a4",
+        "status": "PASS"
+      },
+      {
+        "page": "Inteligencia de Compradores",
+        "path": "reports/powerbi/screenshots/Buyer Intelligence.png",
+        "width_px": 1366,
+        "height_px": 790,
+        "bytes": 104642,
+        "sha256": "0fb5a2c87323ae7649bde7666d664ad76ecd3aa57d2cf1b45a3fc8190a784528",
+        "status": "PASS"
+      }
+    ],
+    "validations": [
+      {
+        "rule": "pbip_json_valid",
+        "status": "PASS",
+        "detail": "43 JSON files parsed"
+      },
+      {
+        "rule": "semantic_and_report_shape",
+        "status": "PASS",
+        "detail": {
+          "semantic_tables": 12,
+          "pages": 5,
+          "visuals": 30
+        }
+      },
+      {
+        "rule": "user_facing_page_names",
+        "status": "PASS",
+        "detail": {
+          "09d44d6b9c674ccf2dfc": "Inteligencia de Compradores",
+          "4064f3b7506d5fe5c18e": "Exposición de Proveedores",
+          "7005ff111442b7bde8d9": "Resumen Ejecutivo",
+          "742d758fca9d73414f90": "Oportunidad de Mercado",
+          "ef444cf215d2d34501c4": "Inteligencia de Proveedores"
+        }
+      },
+      {
+        "rule": "visual_inventory",
+        "status": "PASS",
+        "detail": {
+          "Inteligencia de Compradores": {
+            "cardVisual": 1,
+            "clusteredBarChart": 1,
+            "tableEx": 1,
+            "textbox": 3
+          },
+          "Exposición de Proveedores": {
+            "cardVisual": 1,
+            "clusteredBarChart": 1,
+            "tableEx": 1,
+            "textbox": 3
+          },
+          "Resumen Ejecutivo": {
+            "cardVisual": 1,
+            "lineChart": 1,
+            "tableEx": 1,
+            "textbox": 3
+          },
+          "Oportunidad de Mercado": {
+            "cardVisual": 1,
+            "clusteredBarChart": 1,
+            "tableEx": 1,
+            "textbox": 3
+          },
+          "Inteligencia de Proveedores": {
+            "cardVisual": 1,
+            "clusteredBarChart": 1,
+            "tableEx": 1,
+            "textbox": 3
+          }
+        }
+      },
+      {
+        "rule": "ranking_sort_rules",
+        "status": "PASS",
+        "detail": [
+          {
+            "visual": "7005ff111442b7bde8d9/visuals/ea9c57b654ab05908e49/visual.json",
+            "status": "PASS",
+            "field_kind": "Measure",
+            "property": "Monto Ítems Adjudicados Top PEN",
+            "direction": "Descending"
+          },
+          {
+            "visual": "09d44d6b9c674ccf2dfc/visuals/c0fa875a714581d681b0/visual.json",
+            "status": "PASS",
+            "field_kind": "Measure",
+            "property": "Monto Licitado Top PEN",
+            "direction": "Descending"
+          },
+          {
+            "visual": "4064f3b7506d5fe5c18e/visuals/9e81ebeb9447961be549/visual.json",
+            "status": "PASS",
+            "field_kind": "Column",
+            "property": "rank_baseline",
+            "direction": "Ascending"
+          }
+        ]
+      },
+      {
+        "rule": "final_screenshots_complete_and_legible",
+        "status": "PASS",
+        "detail": [
+          {
+            "page": "Resumen Ejecutivo",
+            "path": "reports/powerbi/screenshots/Resumen Ejecutivo.png",
+            "width_px": 1368,
+            "height_px": 789,
+            "bytes": 116855,
+            "sha256": "1e21157c7af8f02a446cb309156ef19ccd8262b746606d2e4ee290ee5a1b7159",
+            "status": "PASS"
+          },
+          {
+            "page": "Oportunidad de Mercado",
+            "path": "reports/powerbi/screenshots/Oportunidad de Mercado.png",
+            "width_px": 1366,
+            "height_px": 790,
+            "bytes": 100844,
+            "sha256": "12b1cb3f5daa8eee46aa0fee959fe41083028a3b4bc81b27ed3ccf0da387ae3d",
+            "status": "PASS"
+          },
+          {
+            "page": "Inteligencia de Proveedores",
+            "path": "reports/powerbi/screenshots/Supplier Intelligence.png",
+            "width_px": 1364,
+            "height_px": 791,
+            "bytes": 95147,
+            "sha256": "dcdd530a0aa67e7c83536688cb0b060091b7847b4ae5a46bc4e5bd0e4feb4d1d",
+            "status": "PASS"
+          },
+          {
+            "page": "Exposición de Proveedores",
+            "path": "reports/powerbi/screenshots/Supplier Exposure.png",
+            "width_px": 1367,
+            "height_px": 790,
+            "bytes": 96271,
+            "sha256": "6ba1d7becd4d2412a89a9a99b5fed78b95370e1a02b76f6bdf43b1d5039273a4",
+            "status": "PASS"
+          },
+          {
+            "page": "Inteligencia de Compradores",
+            "path": "reports/powerbi/screenshots/Buyer Intelligence.png",
+            "width_px": 1366,
+            "height_px": 790,
+            "bytes": 104642,
+            "sha256": "0fb5a2c87323ae7649bde7666d664ad76ecd3aa57d2cf1b45a3fc8190a784528",
+            "status": "PASS"
+          }
+        ]
+      },
+      {
+        "rule": "final_refresh_completed",
+        "status": "PASS",
+        "detail": {
+          "duration_seconds": 200.0,
+          "observation_method": "manual_stopwatch"
+        }
+      },
+      {
+        "rule": "manual_visual_review",
+        "status": "PASS",
+        "detail": "Five refreshed, populated, chrome-free pages reviewed collaboratively; KPI units, labels, tables and disclaimers are legible."
+      }
+    ]
+  }
+}

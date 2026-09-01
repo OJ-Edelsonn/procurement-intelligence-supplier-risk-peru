@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "evaluated_at_utc": "2026-08-21T04:26:39.525150+00:00",
+  "evaluated_at_utc": "2026-08-28T05:44:29.065586+00:00",
   "scope": "sql_server_quality_and_advanced_reconciliation",
   "source": {
     "source_id": "oece_ocds_seace_v3_bulk",
@@ -56,7 +56,7 @@
     "artifact_reconciliations_failed": 0,
     "python_sql_warning_reconciliations": 9,
     "python_sql_warning_reconciliations_failed": 0,
-    "duration_seconds": 8.2023
+    "duration_seconds": 170.7731
   },
   "rules": [
     {

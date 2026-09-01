@@ -1,0 +1,364 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "f1b5df1cd333369739af",
+  "position": {
+    "x": 630,
+    "y": 232,
+    "z": 40,
+    "height": 380,
+    "width": 626,
+    "tabOrder": 40
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Top Oportunidades"
+                    }
+                  },
+                  "Property": "rank_baseline"
+                }
+              },
+              "queryRef": "Top Oportunidades.rank_baseline",
+              "nativeQueryRef": "Posición",
+              "displayName": "Posición"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Top Oportunidades"
+                    }
+                  },
+                  "Property": "classification_description"
+                }
+              },
+              "queryRef": "Top Oportunidades.classification_description",
+              "nativeQueryRef": "Mercado",
+              "displayName": "Mercado"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Top Oportunidades"
+                    }
+                  },
+                  "Property": "score_baseline"
+                }
+              },
+              "queryRef": "Top Oportunidades.score_baseline",
+              "nativeQueryRef": "Score",
+              "displayName": "Score"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Top Oportunidades"
+                    }
+                  },
+                  "Property": "buyer_count"
+                }
+              },
+              "queryRef": "Top Oportunidades.buyer_count",
+              "nativeQueryRef": "Compradores",
+              "displayName": "Compradores"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Top Oportunidades"
+                    }
+                  },
+                  "Property": "supplier_count"
+                }
+              },
+              "queryRef": "Top Oportunidades.supplier_count",
+              "nativeQueryRef": "Proveedores",
+              "displayName": "Proveedores"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Top Oportunidades"
+                    }
+                  },
+                  "Property": "hhi"
+                }
+              },
+              "queryRef": "Top Oportunidades.hhi",
+              "nativeQueryRef": "HHI",
+              "displayName": "HHI"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Top Oportunidades"
+                  }
+                },
+                "Property": "score_baseline"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnHeaders": [
+        {
+          "properties": {
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'growToFit'"
+                }
+              }
+            },
+            "autoSizeColumnWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#17324D'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Detalle de oportunidad y concentración'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#17324D'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#D5DFE8'"
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "6D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "4158d09eceb8d4907a6f",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Top Oportunidades"
+              }
+            },
+            "Property": "rank_baseline"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "00949b75b58093ab708f",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Top Oportunidades"
+              }
+            },
+            "Property": "classification_description"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "01a9488e55b60035e940",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Top Oportunidades"
+              }
+            },
+            "Property": "buyer_count"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "fb32b4c684327e14f0be",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Top Oportunidades"
+              }
+            },
+            "Property": "supplier_count"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "0aee46fb924ec2a99d07",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Top Oportunidades"
+              }
+            },
+            "Property": "hhi"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "ed28a3f718a93459ef85",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Top Oportunidades"
+              }
+            },
+            "Property": "score_baseline"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

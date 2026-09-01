@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Procurement Intelligence & Supplier Exposure – Perú",
+    "description": "Dashboard ejecutivo reproducible para el universo oficial OECE/SEACE del piloto."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ad32c07c-665e-29c4-9a6a-4d8a54f4e70a"
+  }
+}

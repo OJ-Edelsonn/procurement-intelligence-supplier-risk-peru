@@ -1,0 +1,58 @@
+table 'Top Proveedores'
+	lineageTag: 76654da8-3e3f-4edb-b38c-125e8cccfcd6
+
+	measure 'Monto Adjudicado Top PEN' = DIVIDE ( SUM ( 'Top Proveedores'[award_amount_pen] ), 1000000 )
+		formatString: """S/ "" #,0.0 "" M"""
+		lineageTag: 0c7f2911-2e76-488d-8813-b41d36c1abbd
+
+	column supplier_key
+		dataType: int64
+		lineageTag: 401c2ecc-ce2c-48cf-b35c-586c57e13e42
+		summarizeBy: none
+		sourceColumn: supplier_key
+
+	column supplier_name
+		dataType: string
+		lineageTag: 436c05a3-4257-44d5-b374-bcd4dce3cfcb
+		summarizeBy: none
+		sourceColumn: supplier_name
+
+	column award_count
+		dataType: int64
+		lineageTag: 1b638010-144e-4716-b28c-2105ddf9c522
+		summarizeBy: none
+		sourceColumn: award_count
+
+	column buyer_count
+		dataType: int64
+		lineageTag: de76cd61-4400-420c-ad2b-5e648a5a13bc
+		summarizeBy: none
+		sourceColumn: buyer_count
+
+	column award_amount_pen
+		dataType: double
+		lineageTag: 25300d6a-52a1-4be8-9461-87359b51ef2e
+		summarizeBy: none
+		sourceColumn: award_amount_pen
+
+	column contract_count
+		dataType: int64
+		lineageTag: f17c131c-3902-4ffc-a092-27ffb8799e38
+		summarizeBy: none
+		sourceColumn: contract_count
+
+	column contract_amount_pen
+		dataType: double
+		lineageTag: e382f547-38df-4517-bf2d-9d71d93db00b
+		summarizeBy: none
+		sourceColumn: contract_amount_pen
+
+	partition 'Top Proveedores' = m
+		mode: import
+		source =
+				let
+					Source = Sql.Database("localhost\SQLEXPRESS", "ProcurementIntelligence"),
+					Data = Source{[Schema="bi", Item="vw_top_suppliers"]}[Data]
+				in
+					Data
+

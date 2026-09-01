@@ -13,8 +13,8 @@
 | Proveedores elegibles puntuados | 179 |
 | Validaciones aritméticas | 179/179 |
 | Banda relativa superior | 35 |
-| Banda relativa media | 72 |
-| Banda relativa inferior | 72 |
+| Banda relativa media | 73 |
+| Banda relativa inferior | 71 |
 | Escenarios de sensibilidad | 3 |
 | Figuras | 3 |
 

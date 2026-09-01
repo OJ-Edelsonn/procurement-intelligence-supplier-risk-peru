@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at_utc": "2026-08-25T01:24:32.316009+00:00",
+  "generated_at_utc": "2026-08-28T05:49:20.712201+00:00",
   "scope": "supplier_operational_commercial_exposure",
   "source": {
     "source_id": "oece_ocds_seace_v3_bulk",
@@ -15,7 +15,7 @@
     "database_name": null,
     "sql_server_version": null,
     "phase12_gate": "reports/opportunity/oece_ocds_seace_v3_2026_07_opportunity_score.json",
-    "phase12_gate_sha256": "331d5d22de1f9488b66c1e438cf4501e54c47fc3fc4e737fd0969c3239040b51",
+    "phase12_gate_sha256": "1bee1b743c406a254e91c3c032dd67756e303bbf3cae25961b5e14c22caa62f5",
     "config": "config/supplier_exposure_score.yml",
     "config_sha256": "a67c0b5b65504e59499b52a8799c3db388bc9b1de011115e55ec8448c8527f22",
     "runner_sha256": "21e22f20845bd3dfef421e6de7d7e40ac54f2a72dd50d3b899c75a427958f9e2",
@@ -48,7 +48,7 @@
     "lower_relative_suppliers": 71,
     "sensitivity_scenarios": 3,
     "figures_generated": 3,
-    "duration_seconds": 63.2922
+    "duration_seconds": 111.251
   },
   "methodology": {
     "disclaimer": "El indicador no constituye una calificación crediticia, evaluación legal, acusación de irregularidad ni predicción de fraude.",

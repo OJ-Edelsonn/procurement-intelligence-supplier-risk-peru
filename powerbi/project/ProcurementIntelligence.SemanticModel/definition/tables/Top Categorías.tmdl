@@ -1,0 +1,58 @@
+table 'Top Categorías'
+	lineageTag: 4d037a9e-a95f-4eb2-89a3-e0227c50b96c
+
+	measure 'Monto Ítems Adjudicados Top PEN' = DIVIDE ( SUM ( 'Top Categorías'[award_item_amount_pen] ), 1000000 )
+		formatString: """S/ "" #,0.0 "" M"""
+		lineageTag: 69953b4d-75b5-43bf-b4d1-6b458e8b1771
+
+	column category_key
+		dataType: int64
+		lineageTag: 3fb0075d-a69a-4e31-9fbc-26f7531d1570
+		summarizeBy: none
+		sourceColumn: category_key
+
+	column classification_code
+		dataType: string
+		lineageTag: 860bd6b5-ff1f-479c-80a2-8d9aedf471cb
+		summarizeBy: none
+		sourceColumn: classification_code
+
+	column classification_description
+		dataType: string
+		lineageTag: aad78933-c51b-434e-a88a-63d22e20c012
+		summarizeBy: none
+		sourceColumn: classification_description
+
+	column award_item_count
+		dataType: int64
+		lineageTag: 110713f4-f3b2-487a-af69-79e44e428256
+		summarizeBy: none
+		sourceColumn: award_item_count
+
+	column buyer_count
+		dataType: int64
+		lineageTag: 95f680f0-181c-41a4-881f-7aac16e44655
+		summarizeBy: none
+		sourceColumn: buyer_count
+
+	column supplier_count
+		dataType: int64
+		lineageTag: bbfd095b-7a58-4041-babc-17356839abdd
+		summarizeBy: none
+		sourceColumn: supplier_count
+
+	column award_item_amount_pen
+		dataType: double
+		lineageTag: 97fb73ba-eb80-4ce2-93b2-017b0f696e77
+		summarizeBy: none
+		sourceColumn: award_item_amount_pen
+
+	partition 'Top Categorías' = m
+		mode: import
+		source =
+				let
+					Source = Sql.Database("localhost\SQLEXPRESS", "ProcurementIntelligence"),
+					Data = Source{[Schema="bi", Item="vw_top_categories"]}[Data]
+				in
+					Data
+

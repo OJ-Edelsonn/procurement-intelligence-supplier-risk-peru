@@ -1,0 +1,118 @@
+table 'Resumen Ejecutivo'
+	lineageTag: 9174bb1d-32ea-46e0-9be3-45b4726c8166
+
+	measure Procesos = MAX ( 'Resumen Ejecutivo'[process_count] )
+		formatString: #,0
+		lineageTag: 740cb415-9554-4ecb-b215-851fa22e4cb0
+
+	measure 'Monto Licitado PEN' = DIVIDE ( MAX ( 'Resumen Ejecutivo'[tender_amount_pen] ), 1000000 )
+		formatString: """S/ "" #,0.0 "" M"""
+		lineageTag: 6329996f-e3b6-49e2-9bdb-e5ddd37a1476
+
+	measure 'Compradores Activos' = MAX ( 'Resumen Ejecutivo'[active_buyers] )
+		formatString: #,0
+		lineageTag: a20eddc9-871f-435d-b73f-9479e680a7e6
+
+	measure Adjudicaciones = MAX ( 'Resumen Ejecutivo'[award_count] )
+		formatString: #,0
+		lineageTag: e2fa67d9-1092-42b9-bfa9-7dcf64330237
+
+	measure 'Monto Adjudicado PEN' = DIVIDE ( MAX ( 'Resumen Ejecutivo'[award_amount_pen] ), 1000000 )
+		formatString: """S/ "" #,0.0 "" M"""
+		lineageTag: 71a0440c-d47d-4833-ac36-636f02626639
+
+	measure 'Proveedores Adjudicados' = MAX ( 'Resumen Ejecutivo'[awarded_suppliers] )
+		formatString: #,0
+		lineageTag: 445d381a-b944-432c-803f-9766d7aa9558
+
+	measure Contratos = MAX ( 'Resumen Ejecutivo'[contract_count] )
+		formatString: #,0
+		lineageTag: 59d7e132-b8c5-4453-81e7-662e27611311
+
+	measure 'Monto Contractual PEN' = DIVIDE ( MAX ( 'Resumen Ejecutivo'[contract_amount_pen] ), 1000000 )
+		formatString: """S/ "" #,0.0 "" M"""
+		lineageTag: d6bfa8ba-4992-43fa-9549-5e6d2ee8e288
+
+	measure 'Mercados Elegibles' = MAX ( 'Resumen Ejecutivo'[eligible_markets] )
+		formatString: #,0
+		lineageTag: f1ae8063-5be9-454b-88f1-aec673f8359a
+
+	measure 'Proveedores Puntuados' = MAX ( 'Resumen Ejecutivo'[scored_suppliers] )
+		formatString: #,0
+		lineageTag: b6d75c0f-7b57-4e64-aafe-1ca3fcd0e448
+
+	column source_period
+		dataType: string
+		lineageTag: eb929cc9-639c-4af8-ab9e-1d1b61769b9f
+		summarizeBy: none
+		sourceColumn: source_period
+
+	column process_count
+		dataType: int64
+		lineageTag: 8e383b6e-f67c-49ba-80cf-3c698c2472f6
+		summarizeBy: none
+		sourceColumn: process_count
+
+	column tender_amount_pen
+		dataType: double
+		lineageTag: 028c5d74-3433-4fff-bb38-c740dbc30405
+		summarizeBy: none
+		sourceColumn: tender_amount_pen
+
+	column active_buyers
+		dataType: int64
+		lineageTag: f55af0f1-86a3-4b7a-b895-7a0668c0c609
+		summarizeBy: none
+		sourceColumn: active_buyers
+
+	column award_count
+		dataType: int64
+		lineageTag: 3819c0ee-0449-42b9-88cc-ad5d56e78663
+		summarizeBy: none
+		sourceColumn: award_count
+
+	column award_amount_pen
+		dataType: double
+		lineageTag: 88101305-b327-4c19-bd44-e9a928ed625e
+		summarizeBy: none
+		sourceColumn: award_amount_pen
+
+	column awarded_suppliers
+		dataType: int64
+		lineageTag: c2205e05-a860-48da-8dca-688c51d9e48c
+		summarizeBy: none
+		sourceColumn: awarded_suppliers
+
+	column contract_count
+		dataType: int64
+		lineageTag: 511aad25-4d04-4c45-b148-70f90a9dcb5a
+		summarizeBy: none
+		sourceColumn: contract_count
+
+	column contract_amount_pen
+		dataType: double
+		lineageTag: 1d30513a-d940-4890-beec-33772d86f7c6
+		summarizeBy: none
+		sourceColumn: contract_amount_pen
+
+	column eligible_markets
+		dataType: int64
+		lineageTag: 43813806-5161-435a-9506-0606e05f8387
+		summarizeBy: none
+		sourceColumn: eligible_markets
+
+	column scored_suppliers
+		dataType: int64
+		lineageTag: cc91d61d-b96b-4533-8418-292ba6c853d8
+		summarizeBy: none
+		sourceColumn: scored_suppliers
+
+	partition 'Resumen Ejecutivo' = m
+		mode: import
+		source =
+				let
+					Source = Sql.Database("localhost\SQLEXPRESS", "ProcurementIntelligence"),
+					Data = Source{[Schema="bi", Item="vw_executive_overview"]}[Data]
+				in
+					Data
+

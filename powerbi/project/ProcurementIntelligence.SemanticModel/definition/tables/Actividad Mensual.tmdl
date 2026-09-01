@@ -1,0 +1,70 @@
+table 'Actividad Mensual'
+	lineageTag: 41dedafd-3cac-4851-a33f-7ca7fe948577
+
+	measure 'Procesos Mensuales' = SUM ( 'Actividad Mensual'[process_count] )
+		formatString: #,0
+		lineageTag: 14cd3fa1-9a99-4776-ab6f-d8967cc2134f
+
+	measure 'Monto Licitado Mensual PEN' = DIVIDE ( SUM ( 'Actividad Mensual'[tender_amount_pen] ), 1000000 )
+		formatString: """S/ "" #,0.0 "" M"""
+		lineageTag: 083ea064-1777-4752-8416-b54c89a7d34e
+
+	measure 'Monto Adjudicado Mensual PEN' = DIVIDE ( SUM ( 'Actividad Mensual'[award_amount_pen] ), 1000000 )
+		formatString: """S/ "" #,0.0 "" M"""
+		lineageTag: 65a46d03-f858-4667-baf1-f268882a7024
+
+	measure 'Monto Contractual Mensual PEN' = DIVIDE ( SUM ( 'Actividad Mensual'[contract_amount_pen] ), 1000000 )
+		formatString: """S/ "" #,0.0 "" M"""
+		lineageTag: ab839bf1-cf4d-4538-908f-3e331451e96d
+
+	column year_month
+		dataType: string
+		lineageTag: 00e5a348-ebff-4457-8418-5f6788cb3f33
+		summarizeBy: none
+		sourceColumn: year_month
+
+	column process_count
+		dataType: int64
+		lineageTag: 098f98d8-eb8b-4d77-892b-d287a6b15ef5
+		summarizeBy: none
+		sourceColumn: process_count
+
+	column tender_amount_pen
+		dataType: double
+		lineageTag: 8988fb19-6854-4f0b-b807-4ef2703c40b9
+		summarizeBy: none
+		sourceColumn: tender_amount_pen
+
+	column award_count
+		dataType: int64
+		lineageTag: 625eab9c-f96a-4940-8543-1d070962d0a1
+		summarizeBy: none
+		sourceColumn: award_count
+
+	column award_amount_pen
+		dataType: double
+		lineageTag: 599e4464-74bd-445b-a2e7-fd44b4efd01c
+		summarizeBy: none
+		sourceColumn: award_amount_pen
+
+	column contract_count
+		dataType: int64
+		lineageTag: 7617feea-2d1b-4623-99f0-2401e94eeb44
+		summarizeBy: none
+		sourceColumn: contract_count
+
+	column contract_amount_pen
+		dataType: double
+		lineageTag: ad3e0ec5-ea1a-4ffe-ade2-d60ffe80dcac
+		summarizeBy: none
+		sourceColumn: contract_amount_pen
+
+	partition 'Actividad Mensual' = m
+		mode: import
+		source =
+				let
+					Source = Sql.Database("localhost\SQLEXPRESS", "ProcurementIntelligence"),
+					Data = Source{[Schema="bi", Item="vw_monthly_activity"]}[Data]
+				in
+					Data
+

@@ -1,0 +1,787 @@
+cultureInfo es-PE
+
+	linguisticMetadata =
+			{
+			  "Version": "2.0.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "actividad_mensual.monto_licitado_mensual_pen": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Actividad Mensual",
+			          "ConceptualProperty": "Monto Licitado Mensual PEN"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Monto licitado": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "actividad_mensual.monto_adjudicado_mensual_pen": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Actividad Mensual",
+			          "ConceptualProperty": "Monto Adjudicado Mensual PEN"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Monto adjudicado": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "top_categorías.classification_description": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Top Categorías",
+			          "ConceptualProperty": "classification_description"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Categoría": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "top_categorías.monto_ítems_adjudicados_top_pen": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Top Categorías",
+			          "ConceptualProperty": "Monto Ítems Adjudicados Top PEN"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Monto (S/ M)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "top_categorías.buyer_count": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Top Categorías",
+			          "ConceptualProperty": "buyer_count"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Compradores": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "top_categorías.supplier_count": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Top Categorías",
+			          "ConceptualProperty": "supplier_count"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Proveedores": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "oportunidad_de_mercado.mercados_puntuados": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Oportunidad de Mercado",
+			          "ConceptualProperty": "Mercados Puntuados"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Mercados puntuados": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "oportunidad_de_mercado.opportunity_score_máximo": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Oportunidad de Mercado",
+			          "ConceptualProperty": "Opportunity Score Máximo"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Score máximo": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "oportunidad_de_mercado.monto_mercados_pen": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Oportunidad de Mercado",
+			          "ConceptualProperty": "Monto Mercados PEN"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Monto de mercados": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "top_oportunidades.rank_baseline": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Top Oportunidades",
+			          "ConceptualProperty": "rank_baseline"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Posición": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "top_oportunidades.classification_description": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Top Oportunidades",
+			          "ConceptualProperty": "classification_description"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Mercado": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "top_oportunidades.score_baseline": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Top Oportunidades",
+			          "ConceptualProperty": "score_baseline"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Score": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "top_oportunidades.buyer_count": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Top Oportunidades",
+			          "ConceptualProperty": "buyer_count"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Compradores": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "top_oportunidades.supplier_count": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Top Oportunidades",
+			          "ConceptualProperty": "supplier_count"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Proveedores": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "top_oportunidades.hhi": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Top Oportunidades",
+			          "ConceptualProperty": "hhi"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "HHI": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "top_proveedores.supplier_name": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Top Proveedores",
+			          "ConceptualProperty": "supplier_name"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Proveedor": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "top_proveedores.award_count": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Top Proveedores",
+			          "ConceptualProperty": "award_count"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Adjudicaciones": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "top_proveedores.buyer_count": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Top Proveedores",
+			          "ConceptualProperty": "buyer_count"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Compradores": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "top_proveedores.monto_adjudicado_top_pen": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Top Proveedores",
+			          "ConceptualProperty": "Monto Adjudicado Top PEN"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Monto (S/ M)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "top_proveedores.contract_count": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Top Proveedores",
+			          "ConceptualProperty": "contract_count"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Contratos": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "proveedores.total_proveedores": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Proveedores",
+			          "ConceptualProperty": "Total Proveedores"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Proveedores adjudicados": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "proveedores.monto_adjudicado_proveedores_pen": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Proveedores",
+			          "ConceptualProperty": "Monto Adjudicado Proveedores PEN"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Monto adjudicado": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "exposición_de_proveedor.proveedores_evaluados": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Exposición de Proveedor",
+			          "ConceptualProperty": "Proveedores Evaluados"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Proveedores evaluados": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "exposición_de_proveedor.exposure_score_máximo": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Exposición de Proveedor",
+			          "ConceptualProperty": "Exposure Score Máximo"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Score máximo de exposición": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "exposición_de_proveedor.monto_exposición_pen": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Exposición de Proveedor",
+			          "ConceptualProperty": "Monto Exposición PEN"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Monto de exposición": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "top_exposición.rank_baseline": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Top Exposición",
+			          "ConceptualProperty": "rank_baseline"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Posición": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "top_exposición.supplier_name": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Top Exposición",
+			          "ConceptualProperty": "supplier_name"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Proveedor": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "top_exposición.score_baseline": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Top Exposición",
+			          "ConceptualProperty": "score_baseline"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Score": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "top_exposición.buyer_count": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Top Exposición",
+			          "ConceptualProperty": "buyer_count"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Compradores": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "top_exposición.top_buyer_share_pct": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Top Exposición",
+			          "ConceptualProperty": "top_buyer_share_pct"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Top comprador (%)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "top_exposición.top_category_share_pct": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Top Exposición",
+			          "ConceptualProperty": "top_category_share_pct"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Top categoría (%)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "compradores.total_compradores": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Compradores",
+			          "ConceptualProperty": "Total Compradores"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Compradores activos": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "compradores.monto_licitado_compradores_pen": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Compradores",
+			          "ConceptualProperty": "Monto Licitado Compradores PEN"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Monto licitado": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "top_compradores.buyer_name": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Top Compradores",
+			          "ConceptualProperty": "buyer_name"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Entidad compradora": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "top_compradores.department_name": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Top Compradores",
+			          "ConceptualProperty": "department_name"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Departamento": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "top_compradores.process_count": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Top Compradores",
+			          "ConceptualProperty": "process_count"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Procesos": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "top_compradores.monto_licitado_top_pen": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Top Compradores",
+			          "ConceptualProperty": "Monto Licitado Top PEN"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Monto (S/ M)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    }
+			  }
+			}
+		contentType: json

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "ProcurementIntelligence Semantic Model",
+    "description": "Modelo semántico gobernado del piloto peruano de Procurement Intelligence."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "7330a353-92e2-9446-f3ba-33d6b5390a5b"
+  }
+}

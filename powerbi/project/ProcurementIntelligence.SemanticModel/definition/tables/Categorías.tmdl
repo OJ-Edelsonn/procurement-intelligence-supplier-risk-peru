@@ -1,0 +1,54 @@
+table Categorías
+	lineageTag: 9b26aec6-3e3b-40db-bdc9-a547f60fb23f
+
+	column category_key
+		dataType: int64
+		lineageTag: 12b09f9c-296d-409f-a2a5-c367409f8f68
+		summarizeBy: none
+		sourceColumn: category_key
+
+	column classification_code
+		dataType: string
+		lineageTag: 80b7641f-3265-4f1f-88e9-d298756c255b
+		summarizeBy: none
+		sourceColumn: classification_code
+
+	column classification_description
+		dataType: string
+		lineageTag: db535c01-0b80-488f-9a26-e934d5d6e3d0
+		summarizeBy: none
+		sourceColumn: classification_description
+
+	column award_item_count
+		dataType: int64
+		lineageTag: 5487acde-ec6a-4fef-8aa6-c84dcd9ca8ec
+		summarizeBy: none
+		sourceColumn: award_item_count
+
+	column buyer_count
+		dataType: int64
+		lineageTag: 73b32a46-31e6-4d1f-b418-0cd9dab4be25
+		summarizeBy: none
+		sourceColumn: buyer_count
+
+	column supplier_count
+		dataType: int64
+		lineageTag: 4243a018-3dda-40fe-bbe5-e82e9ad68e4e
+		summarizeBy: none
+		sourceColumn: supplier_count
+
+	column award_item_amount_pen
+		dataType: double
+		lineageTag: d4c44a44-354a-4755-93c7-7f69202a7ada
+		summarizeBy: none
+		sourceColumn: award_item_amount_pen
+
+	partition Categorías = m
+		mode: import
+		source =
+				let
+					Source = Sql.Database("localhost\SQLEXPRESS", "ProcurementIntelligence"),
+					Data = Source{[Schema="bi", Item="vw_category_summary"]}[Data]
+				in
+					Data
+

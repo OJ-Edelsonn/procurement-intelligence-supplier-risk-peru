@@ -11,7 +11,7 @@ import time
 import uuid
 from datetime import date, datetime, timezone
 from decimal import Decimal, InvalidOperation
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 from typing import Any
 from zipfile import ZipFile
 
@@ -838,12 +838,15 @@ def repository_summary(report: dict[str, Any]) -> dict[str, Any]:
     """Remove absolute paths while preserving reproducible ETL evidence."""
 
     source = dict(report["source"])
-    config_reference = Path(source["etl_config"])
-    source["etl_config"] = (
-        config_reference.name
-        if config_reference.is_absolute()
-        else config_reference.as_posix()
-    )
+    config_value = str(source["etl_config"])
+    config_reference = Path(config_value)
+    windows_reference = PureWindowsPath(config_value)
+    if config_reference.is_absolute():
+        source["etl_config"] = config_reference.name
+    elif windows_reference.is_absolute():
+        source["etl_config"] = windows_reference.name
+    else:
+        source["etl_config"] = config_reference.as_posix()
     tables = []
     for table_report in report["tables"]:
         sanitized = dict(table_report)

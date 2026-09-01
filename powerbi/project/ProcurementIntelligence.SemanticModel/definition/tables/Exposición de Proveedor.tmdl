@@ -1,0 +1,240 @@
+table 'Exposición de Proveedor'
+	lineageTag: ced92810-7696-49fd-ae06-d6d75f15b20c
+
+	measure 'Proveedores Evaluados' = COUNTROWS ( 'Exposición de Proveedor' )
+		formatString: #,0
+		lineageTag: 5b641074-7f43-4c16-ad31-6ba09b1d6deb
+
+	measure 'Exposure Score Máximo' = MAX ( 'Exposición de Proveedor'[score_baseline] )
+		formatString: 0.0
+		lineageTag: f302a09e-2f4f-43c8-ab0e-ab67e7f08c42
+
+	measure 'Monto Exposición PEN' = DIVIDE ( SUM ( 'Exposición de Proveedor'[award_amount_pen] ), 1000000 )
+		formatString: """S/ "" #,0.0 "" M"""
+		lineageTag: 315fd6f0-a7ef-4e2b-a40e-f848da237db2
+
+	column supplier_key
+		dataType: int64
+		lineageTag: 05d23c3a-21ac-43d0-8161-bcc922a381f2
+		summarizeBy: none
+		sourceColumn: supplier_key
+
+	column supplier_name
+		dataType: string
+		lineageTag: 6eab9f07-fc57-483c-9658-fee674df525c
+		summarizeBy: none
+		sourceColumn: supplier_name
+
+	column award_count
+		dataType: int64
+		lineageTag: 993febcb-dfc5-41e3-8089-5c8a07211752
+		summarizeBy: none
+		sourceColumn: award_count
+
+	column buyer_count
+		dataType: int64
+		lineageTag: 6caf948d-94f4-45d1-963e-dbccb54fa7b3
+		summarizeBy: none
+		sourceColumn: buyer_count
+
+	column award_amount_pen
+		dataType: double
+		lineageTag: 726874af-4b6e-4271-a316-ca5782358cf9
+		summarizeBy: none
+		sourceColumn: award_amount_pen
+
+	column average_award_ticket_pen
+		dataType: double
+		lineageTag: ee475b93-5b4f-404d-9e93-9bd8989138c1
+		summarizeBy: none
+		sourceColumn: average_award_ticket_pen
+
+	column known_buyer_amount_pen
+		dataType: double
+		lineageTag: 6662ad9d-3128-4bd9-bc7d-0fccd3122fe0
+		summarizeBy: none
+		sourceColumn: known_buyer_amount_pen
+
+	column top_buyer_share_pct
+		dataType: double
+		lineageTag: 189a9dfe-8a35-44f3-95d5-967934dbc9b1
+		summarizeBy: none
+		sourceColumn: top_buyer_share_pct
+
+	column award_hhi
+		dataType: double
+		lineageTag: 671e76ce-5907-48e3-ac26-b09a8419accd
+		summarizeBy: none
+		sourceColumn: award_hhi
+
+	column award_item_count
+		dataType: int64
+		lineageTag: 95c6d586-5b73-4bc5-a376-f39db02e78ae
+		summarizeBy: none
+		sourceColumn: award_item_count
+
+	column award_item_amount_pen
+		dataType: double
+		lineageTag: ca3c1ccb-1c11-4eae-8955-edd9a0a57e92
+		summarizeBy: none
+		sourceColumn: award_item_amount_pen
+
+	column known_category_item_amount_pen
+		dataType: double
+		lineageTag: f75244ba-7747-43b9-b179-9ead1c5d73a4
+		summarizeBy: none
+		sourceColumn: known_category_item_amount_pen
+
+	column category_count
+		dataType: int64
+		lineageTag: 11d42b99-ea7e-44f8-873a-7449ae6c6e13
+		summarizeBy: none
+		sourceColumn: category_count
+
+	column top_category_share_pct
+		dataType: double
+		lineageTag: d641efd2-227d-4b72-8549-df8b7d640ad2
+		summarizeBy: none
+		sourceColumn: top_category_share_pct
+
+	column contract_count
+		dataType: int64
+		lineageTag: 3e9d0b86-15e7-4797-8fce-d0247285c75c
+		summarizeBy: none
+		sourceColumn: contract_count
+
+	column contract_amount_pen
+		dataType: double
+		lineageTag: 05f07313-05fe-4dc8-87e4-85fe1b3e22aa
+		summarizeBy: none
+		sourceColumn: contract_amount_pen
+
+	column known_buyer_amount_coverage_pct
+		dataType: double
+		lineageTag: 0b08511a-d29b-48ac-a18e-fbb435811c1e
+		summarizeBy: none
+		sourceColumn: known_buyer_amount_coverage_pct
+
+	column known_category_item_amount_coverage_pct
+		dataType: double
+		lineageTag: 6810d73c-1cb2-4c82-8118-aed2d3dd2b98
+		summarizeBy: none
+		sourceColumn: known_category_item_amount_coverage_pct
+
+	column effective_award_count
+		dataType: double
+		lineageTag: 1bd573c4-19da-4b0d-b316-9d3456ff4794
+		summarizeBy: none
+		sourceColumn: effective_award_count
+
+	column is_score_eligible
+		dataType: boolean
+		lineageTag: 6e54a07f-91c1-4ef5-a454-281e1c133412
+		summarizeBy: none
+		sourceColumn: is_score_eligible
+
+	column component_award_amount_materiality
+		dataType: double
+		lineageTag: d86c7052-b3f1-4db6-a21e-370cbd6629f1
+		summarizeBy: none
+		sourceColumn: component_award_amount_materiality
+
+	column component_buyer_dependency
+		dataType: double
+		lineageTag: 4301d7d6-4c84-4684-8dbf-2ce396e75e69
+		summarizeBy: none
+		sourceColumn: component_buyer_dependency
+
+	column component_category_dependency
+		dataType: double
+		lineageTag: 82a4475a-03aa-445d-a1e4-6a5b6f275d6a
+		summarizeBy: none
+		sourceColumn: component_category_dependency
+
+	column component_award_concentration
+		dataType: double
+		lineageTag: 4a1397a6-3fdc-40e1-bf60-ea5598ba7d38
+		summarizeBy: none
+		sourceColumn: component_award_concentration
+
+	column component_limited_buyer_breadth
+		dataType: double
+		lineageTag: e82aa183-8267-4202-9e04-07cd9c052d72
+		summarizeBy: none
+		sourceColumn: component_limited_buyer_breadth
+
+	column score_baseline
+		dataType: double
+		lineageTag: e9cc02bb-2653-4c4c-bc11-93ceded6e07e
+		summarizeBy: none
+		sourceColumn: score_baseline
+
+	column rank_baseline
+		dataType: int64
+		lineageTag: c4f51033-b770-4a19-8be6-d7417f0cb922
+		summarizeBy: none
+		sourceColumn: rank_baseline
+
+	column score_dependency_heavy
+		dataType: double
+		lineageTag: 4b887ea4-340b-4a7a-ba8a-4fe5c6f7ab8d
+		summarizeBy: none
+		sourceColumn: score_dependency_heavy
+
+	column rank_dependency_heavy
+		dataType: int64
+		lineageTag: 337dc696-56ec-4d76-9833-1cd292d0aec7
+		summarizeBy: none
+		sourceColumn: rank_dependency_heavy
+
+	column score_materiality_heavy
+		dataType: double
+		lineageTag: 24e91690-ba70-45c2-a41e-943d43a9e09b
+		summarizeBy: none
+		sourceColumn: score_materiality_heavy
+
+	column rank_materiality_heavy
+		dataType: int64
+		lineageTag: f4d7511c-c379-4833-80df-db19e7de4414
+		summarizeBy: none
+		sourceColumn: rank_materiality_heavy
+
+	column score_balanced_equal
+		dataType: double
+		lineageTag: e8a23b00-2f36-427b-a39e-766b31194ae6
+		summarizeBy: none
+		sourceColumn: score_balanced_equal
+
+	column rank_balanced_equal
+		dataType: int64
+		lineageTag: 8ab88ccd-053b-4916-8f68-27f0cc31af5b
+		summarizeBy: none
+		sourceColumn: rank_balanced_equal
+
+	column exposure_band
+		dataType: string
+		lineageTag: c2c9570d-0935-4464-b07a-d9f02cae95f3
+		summarizeBy: none
+		sourceColumn: exposure_band
+
+	column maximum_absolute_rank_shift
+		dataType: int64
+		lineageTag: bef774e5-0347-413e-b86c-9f54c71acf0a
+		summarizeBy: none
+		sourceColumn: maximum_absolute_rank_shift
+
+	column scenario_score_range
+		dataType: double
+		lineageTag: e3b97b5c-bb26-4d5b-8c7c-dd224efcdf8e
+		summarizeBy: none
+		sourceColumn: scenario_score_range
+
+	partition 'Exposición de Proveedor' = m
+		mode: import
+		source =
+				let
+					Source = Sql.Database("localhost\SQLEXPRESS", "ProcurementIntelligence"),
+					Data = Source{[Schema="bi", Item="supplier_exposure_score"]}[Data]
+				in
+					Data
+

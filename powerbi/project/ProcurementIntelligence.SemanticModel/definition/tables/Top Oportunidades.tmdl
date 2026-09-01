@@ -1,0 +1,64 @@
+table 'Top Oportunidades'
+	lineageTag: b248079a-4533-4f6e-8b45-c676ef27e118
+
+	measure 'Opportunity Score Top' = MAX ( 'Top Oportunidades'[score_baseline] )
+		formatString: 0.0
+		lineageTag: e00e237a-7a33-4edf-ba69-72a98a09b4f8
+
+	column classification_code
+		dataType: string
+		lineageTag: 6dffd45c-c94d-44e5-a109-dd459c0623be
+		summarizeBy: none
+		sourceColumn: classification_code
+
+	column classification_description
+		dataType: string
+		lineageTag: 13068fea-fd5e-460b-b03d-f39710983088
+		summarizeBy: none
+		sourceColumn: classification_description
+
+	column total_category_amount_pen
+		dataType: double
+		lineageTag: e83a5528-8e1c-4b2f-b5c7-7ab0d5a048cb
+		summarizeBy: none
+		sourceColumn: total_category_amount_pen
+
+	column buyer_count
+		dataType: int64
+		lineageTag: e7986d6f-f3e5-4d34-815d-698807999f71
+		summarizeBy: none
+		sourceColumn: buyer_count
+
+	column supplier_count
+		dataType: int64
+		lineageTag: d0f938ce-6722-4374-82fb-38202a9e4f33
+		summarizeBy: none
+		sourceColumn: supplier_count
+
+	column hhi
+		dataType: double
+		lineageTag: 943839ee-2060-4261-8f17-7a56b7c0d60c
+		summarizeBy: none
+		sourceColumn: hhi
+
+	column score_baseline
+		dataType: double
+		lineageTag: c26c7e51-b793-4ac6-a2f9-43ef0e8905b2
+		summarizeBy: none
+		sourceColumn: score_baseline
+
+	column rank_baseline
+		dataType: int64
+		lineageTag: c4d847fa-71a3-44c3-ae06-cc2e30d679b6
+		summarizeBy: none
+		sourceColumn: rank_baseline
+
+	partition 'Top Oportunidades' = m
+		mode: import
+		source =
+				let
+					Source = Sql.Database("localhost\SQLEXPRESS", "ProcurementIntelligence"),
+					Data = Source{[Schema="bi", Item="vw_top_market_opportunity"]}[Data]
+				in
+					Data
+

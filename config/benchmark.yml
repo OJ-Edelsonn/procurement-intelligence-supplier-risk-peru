@@ -1,0 +1,52 @@
+benchmark:
+  schema_version: "1.0"
+  benchmark_id: procurement-pilot-local-v1
+  source_id: oece_ocds_seace_v3
+  source_period: "2026-07"
+  snapshot_date: "2026-08-19"
+  pipeline_report: reports/automation/phase15_pipeline_run.json
+  output_json: reports/benchmark/phase16_benchmark.json
+  output_markdown: reports/benchmark/phase16_benchmark.md
+  sql_warmups: 1
+  sql_repeats: 3
+  sql_timeout_seconds: 300
+
+runtime_evidence:
+  - {metric_id: profiling_seconds, label: Perfilado RAW, artifact: reports/profiling/oece_ocds_seace_v3_2026_07_summary.json, value_path: summary.profiling_duration_seconds, unit: seconds}
+  - {metric_id: raw_quality_seconds, label: Calidad inicial RAW, artifact: "${DATA_ROOT}/metadata/oece/ocds/seace_v3/2026/07/snapshot_date=2026-08-19/quality_phase4_full.json", value_path: summary.duration_seconds, unit: seconds}
+  - {metric_id: silver_etl_seconds, label: ETL Silver, artifact: reports/etl/oece_ocds_seace_v3_2026_07_etl_summary.json, value_path: summary.duration_seconds, unit: seconds}
+  - {metric_id: sql_load_seconds, label: Construcción y carga SQL, artifact: reports/sql/oece_ocds_seace_v3_2026_07_sql_server_load.json, value_path: summary.total_seconds, unit: seconds}
+  - {metric_id: sql_validation_seconds, label: Validación SQL avanzada, artifact: reports/sql/oece_ocds_seace_v3_2026_07_phase8_validation.json, value_path: summary.duration_seconds, unit: seconds}
+  - {metric_id: eda_seconds, label: EDA, artifact: reports/eda/oece_ocds_seace_v3_2026_07_eda_summary.json, value_path: summary.duration_seconds, unit: seconds}
+  - {metric_id: kpi_seconds, label: KPIs gobernados, artifact: reports/kpis/oece_ocds_seace_v3_2026_07_kpi_summary.json, value_path: summary.duration_seconds, unit: seconds}
+  - {metric_id: concentration_seconds, label: Concentración de mercado, artifact: reports/concentration/oece_ocds_seace_v3_2026_07_market_concentration.json, value_path: summary.duration_seconds, unit: seconds}
+  - {metric_id: opportunity_seconds, label: Opportunity Score, artifact: reports/opportunity/oece_ocds_seace_v3_2026_07_opportunity_score.json, value_path: summary.duration_seconds, unit: seconds}
+  - {metric_id: exposure_seconds, label: Supplier Exposure Score, artifact: reports/supplier_exposure/oece_ocds_seace_v3_2026_07_supplier_exposure.json, value_path: summary.duration_seconds, unit: seconds}
+  - {metric_id: powerbi_refresh_seconds, label: Actualización final de Power BI, artifact: reports/powerbi/phase14_powerbi_validation.json, value_path: summary.refresh_duration_seconds, unit: seconds}
+
+outcome_metrics:
+  - {metric_id: raw_tables, label: Tablas RAW perfiladas, artifact: reports/profiling/oece_ocds_seace_v3_2026_07_summary.json, value_path: summary.table_count, unit: tables}
+  - {metric_id: raw_rows, label: Filas RAW, artifact: reports/etl/oece_ocds_seace_v3_2026_07_etl_summary.json, value_path: summary.raw_rows, unit: rows}
+  - {metric_id: silver_rows, label: Filas Silver, artifact: reports/etl/oece_ocds_seace_v3_2026_07_etl_summary.json, value_path: summary.silver_rows, unit: rows}
+  - {metric_id: quarantine_rows, label: Filas en cuarentena, artifact: reports/etl/oece_ocds_seace_v3_2026_07_etl_summary.json, value_path: summary.quarantine_rows, unit: rows}
+  - {metric_id: normalized_categories, label: Categorías normalizadas, artifact: reports/etl/oece_ocds_seace_v3_2026_07_etl_summary.json, value_path: summary.classification_rows_normalized, unit: rows}
+  - {metric_id: parquet_bytes, label: Tamaño Parquet, artifact: reports/etl/oece_ocds_seace_v3_2026_07_etl_summary.json, value_path: summary.parquet_size_bytes, unit: bytes}
+  - {metric_id: parquet_reduction_pct, label: Reducción Parquet vs. CSV descomprimido, artifact: reports/etl/oece_ocds_seace_v3_2026_07_etl_summary.json, value_path: summary.parquet_reduction_vs_uncompressed_csv_pct, unit: percent}
+  - {metric_id: staging_rows, label: Filas staging SQL, artifact: reports/sql/oece_ocds_seace_v3_2026_07_sql_server_load.json, value_path: summary.staging_rows, unit: rows}
+  - {metric_id: modeled_objects, label: Objetos dimensionales, artifact: reports/modeling/oece_ocds_seace_v3_2026_07_dimensional_model_analysis.json, value_path: summary.modeled_objects, unit: objects}
+  - {metric_id: published_kpis, label: KPIs publicados, artifact: reports/kpis/oece_ocds_seace_v3_2026_07_kpi_summary.json, value_path: summary.published_kpis, unit: metrics}
+  - {metric_id: procurement_processes, label: Procesos analizados, artifact: reports/kpis/oece_ocds_seace_v3_2026_07_kpi_summary.json, collection_path: analysis.portfolio_kpis, match_field: metric_id, match_value: procurement_processes, value_field: metric_value, unit: processes}
+  - {metric_id: tender_amount_pen, label: Monto licitado analizado, artifact: reports/kpis/oece_ocds_seace_v3_2026_07_kpi_summary.json, collection_path: analysis.portfolio_kpis, match_field: metric_id, match_value: tender_amount_pen, value_field: metric_value, unit: PEN}
+  - {metric_id: active_buyers, label: Compradores observados, artifact: reports/kpis/oece_ocds_seace_v3_2026_07_kpi_summary.json, collection_path: analysis.portfolio_kpis, match_field: metric_id, match_value: active_buyers, value_field: metric_value, unit: buyers}
+  - {metric_id: awarded_suppliers, label: Proveedores adjudicados atribuibles, artifact: reports/kpis/oece_ocds_seace_v3_2026_07_kpi_summary.json, collection_path: analysis.portfolio_kpis, match_field: metric_id, match_value: awarded_suppliers, value_field: metric_value, unit: suppliers}
+  - {metric_id: markets_analyzed, label: Mercados analizados, artifact: reports/concentration/oece_ocds_seace_v3_2026_07_market_concentration.json, value_path: summary.markets_analyzed, unit: markets}
+  - {metric_id: eligible_markets, label: Mercados puntuados, artifact: reports/opportunity/oece_ocds_seace_v3_2026_07_opportunity_score.json, value_path: summary.eligible_markets_scored, unit: markets}
+  - {metric_id: suppliers_scored, label: Proveedores puntuados, artifact: reports/supplier_exposure/oece_ocds_seace_v3_2026_07_supplier_exposure.json, value_path: summary.eligible_suppliers_scored, unit: suppliers}
+  - {metric_id: powerbi_pages, label: Páginas Power BI validadas, artifact: reports/powerbi/phase14_powerbi_validation.json, value_path: summary.pages, unit: pages}
+  - {metric_id: powerbi_visuals, label: Visuales Power BI validados, artifact: reports/powerbi/phase14_powerbi_validation.json, value_path: summary.visuals, unit: visuals}
+  - {metric_id: powerbi_screenshots, label: Capturas finales Power BI, artifact: reports/powerbi/phase14_powerbi_validation.json, value_path: summary.screenshots, unit: screenshots}
+
+sql_queries:
+  - {metric_id: sql_overview_latency, label: Resumen ejecutivo DW, sql: sql/analytics/phase9_overview.sql}
+  - {metric_id: sql_supplier_kpi_latency, label: Ranking de proveedores, sql: sql/analytics/phase10_supplier_kpis.sql}
+  - {metric_id: sql_concentration_latency, label: Concentración por categoría, sql: sql/analytics/phase11_category_concentration.sql}

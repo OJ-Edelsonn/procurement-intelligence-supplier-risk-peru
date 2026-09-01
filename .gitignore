@@ -24,6 +24,7 @@ data/processed/
 reports/generated/
 logs/
 *.pbix
+powerbi/project/**/.pbi/
 *.bak
 *.mdf
 *.ldf

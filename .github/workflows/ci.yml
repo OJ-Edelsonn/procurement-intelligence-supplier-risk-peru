@@ -1,0 +1,33 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install ODBC runtime
+        run: sudo apt-get update && sudo apt-get install -y unixodbc-dev
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip && python -m pip install -r requirements-dev.txt
+      - name: Validate source registry
+        run: python -m procurement_intelligence.documentation.source_registry --check
+      - name: Run test suite
+        run: python -m pytest -q
+      - name: Validate pipeline plan
+        env:
+          DATA_ROOT: ${{ runner.temp }}/procurement-data
+        run: python -m procurement_intelligence.automation.run_pipeline --dry-run --report reports/generated/ci_pipeline_dry_run.json

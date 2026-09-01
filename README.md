@@ -1,8 +1,12 @@
 # Procurement Intelligence & Supplier Risk — Perú
 
+[![CI](https://github.com/OJ-Edelsonn/procurement-intelligence-supplier-risk-peru/actions/workflows/ci.yml/badge.svg)](https://github.com/OJ-Edelsonn/procurement-intelligence-supplier-risk-peru/actions/workflows/ci.yml)
+[![Python 3.11](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Solución end-to-end de Data/BI para analizar contratación pública peruana, inteligencia comercial y exposición a proveedores usando datos abiertos oficiales de OECE/SEACE.
 
-> Estado: Fase 13 completada. El Supplier Operational and Commercial Exposure Score piloto puntúa 179 proveedores elegibles y valida 179/179 cálculos. No constituye una calificación crediticia, evaluación legal, acusación de irregularidad ni predicción de fraude.
+> Estado: solución técnica completa y validada. El pipeline automatizado ejecutó 7 etapas, reutilizó 5 evidencias aprobadas y terminó con 0 fallos en 477.81 segundos. Power BI cerró con 5 páginas, 30 visuales, actualización final exitosa en 200 segundos y validación `PASS`.
 
 ## Problema de negocio
 
@@ -13,12 +17,12 @@ Los datos de contratación pública están distribuidos en archivos y estructura
 - ¿Cómo cambian los montos y la competencia entre periodos comparables?
 - ¿Qué oportunidades comerciales pueden priorizarse sin confundir procedimientos, contratos y órdenes?
 
-## Alcance aprobado del MVP
+## Alcance aprobado y piloto implementado
 
 - Universo principal: procedimientos publicados bajo OCDS.
-- Periodo histórico completo: 2023–2025.
-- Periodo YTD: enero–julio de 2026.
-- Comparación interanual válida: enero–julio de 2025 frente a enero–julio de 2026.
+- Horizonte objetivo posterior: historia comparable 2023–2025 y YTD 2026.
+- Piloto implementado y validado: snapshot oficial mensual `2026-07`, capturado el `2026-08-19`.
+- Crecimiento e interanualidad permanecen bloqueados hasta incorporar periodos comparables; no se usan proxies.
 - Fuente principal: portal de Contrataciones Abiertas de OECE.
 - Fuentes XLSX complementarias: validación y análisis separados cuando la granularidad no sea compatible.
 - Órdenes de compra/servicio y sanciones: módulos posteriores, sin mezclarlos prematuramente con el universo OCDS.
@@ -34,6 +38,37 @@ OECE/SEACE -> RAW inmutable -> Python (calidad) -> Parquet tipado
 ```
 
 La especificación de capas, granos, linaje, modelo dimensional y puertas de calidad está en [docs/architecture/phase3_target_architecture.md](docs/architecture/phase3_target_architecture.md).
+
+El estado exacto por fase y los pendientes de publicación están en [docs/project_status.md](docs/project_status.md).
+
+## Dashboard Power BI
+
+La Fase 14 publica cinco páginas en un proyecto PBIP versionable. Los KPI muestran unidades explícitas, los rankings conservan el orden de negocio y cada página comunica las limitaciones del único periodo observado.
+
+![Resumen Ejecutivo](reports/powerbi/screenshots/Resumen%20Ejecutivo.png)
+
+<details>
+<summary>Ver las otras cuatro páginas</summary>
+
+### Oportunidad de Mercado
+
+![Oportunidad de Mercado](reports/powerbi/screenshots/Oportunidad%20de%20Mercado.png)
+
+### Inteligencia de Proveedores
+
+![Inteligencia de Proveedores](reports/powerbi/screenshots/Supplier%20Intelligence.png)
+
+### Exposición de Proveedores
+
+![Exposición de Proveedores](reports/powerbi/screenshots/Supplier%20Exposure.png)
+
+### Inteligencia de Compradores
+
+![Inteligencia de Compradores](reports/powerbi/screenshots/Buyer%20Intelligence.png)
+
+</details>
+
+La evidencia reproducible está en [la validación final de Power BI](reports/powerbi/phase14_powerbi_validation.json) y en [el resultado documentado de la Fase 14](docs/results/phase14_powerbi_status.md).
 
 ## Preparación local
 
@@ -62,7 +97,7 @@ requirements.txt            Dependencias de ejecución
 requirements-dev.txt        Herramientas de desarrollo y análisis
 ```
 
-La carpeta Power BI se incorporará cuando contenga artefactos reales. Los datos crudos, archivos locales de SQL Server y `.pbix` no se versionan en Git.
+La carpeta `powerbi/` contiene un proyecto PBIP versionable y la definición de su capa semántica; el `.pbix`, la caché local, los datos crudos y los archivos locales de SQL Server no se versionan en Git.
 
 ## Reproducir la ingesta piloto
 
@@ -205,6 +240,34 @@ La Fase 12 normaliza tamaño, frecuencia, compradores, ticket y apertura mediant
 
 La Fase 13 reconstruye los hechos auditados desde Silver, exige coberturas mínimas y combina cinco percentiles con pesos explícitos. Puntúa 179 proveedores, valida todos los cálculos y compara tres escenarios. Sanciones, penalidades, historia, solvencia y fraude se excluyen por falta de evidencia o por interpretación improcedente. Véanse la [metodología](docs/methodology/supplier_exposure_score.md), el [diccionario](docs/data_dictionary/supplier_exposure_score.md) y los [resultados](docs/results/phase13_supplier_exposure.md).
 
+## Ejecutar el pipeline automatizado
+
+La Fase 15 orquesta gobernanza, profiling, calidad, Silver, modelo dimensional, SQL, validación y analítica. Descarga y Power BI son grupos opcionales; una corrida normal no sobrescribe el proyecto PBIP.
+
+```powershell
+.\.venv\Scripts\python.exe -m procurement_intelligence.automation.run_pipeline `
+  --config config\pipeline.yml `
+  --env-file .env
+```
+
+Ensayo sin ejecutar comandos:
+
+```powershell
+.\.venv\Scripts\python.exe -m procurement_intelligence.automation.run_pipeline --dry-run
+```
+
+El procedimiento, la reutilización segura y las precauciones de `--force` están en [docs/operations/pipeline_runbook.md](docs/operations/pipeline_runbook.md).
+
+## Reproducir el benchmark
+
+```powershell
+.\.venv\Scripts\python.exe -m procurement_intelligence.benchmark.run_benchmark `
+  --config config\benchmark.yml `
+  --env-file .env
+```
+
+La evidencia queda en `reports/benchmark/`. Los tiempos son observaciones del equipo local; no se afirma ahorro porque no existe una línea base manual medida.
+
 ## Fuentes oficiales y trazabilidad
 
 - [Portal de Contrataciones Abiertas de OECE](https://contratacionesabiertas.oece.gob.pe/)
@@ -212,6 +275,8 @@ La Fase 13 reconstruye los hechos auditados desde Silver, exige coberturas míni
 - [API OCDS](https://contratacionesabiertas.oece.gob.pe/api)
 
 El [registro maestro de fuentes](docs/data_sources/source_registry.md) separa fuentes usadas, documentación de referencia y candidatas no ingeridas. Incluye publicador, enlaces, cobertura, limitaciones, método de acceso, revisión y evidencia del snapshot piloto. La fuente canónica estructurada es `config/source_registry.yml`.
+
+El índice completo de documentación se encuentra en [docs/README.md](docs/README.md).
 
 Validar que el documento y el registro siguen sincronizados:
 
