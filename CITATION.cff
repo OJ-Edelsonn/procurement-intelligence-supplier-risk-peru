@@ -5,6 +5,7 @@ type: software
 authors:
   - family-names: "Orihuela Jara"
     given-names: "Edelson Anghuelo"
-version: 0.1.0
+version: 1.0.0
+date-released: 2026-09-01
 license: MIT
 abstract: "Pipeline reproducible de Data/BI para contratación pública peruana con Python, SQL Server y Power BI."

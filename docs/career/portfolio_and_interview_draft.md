@@ -1,6 +1,6 @@
 # Borrador de portafolio, CV e entrevista
 
-El cierre visual y las capturas de Power BI están disponibles en el repositorio. Después de publicar solo falta incorporar el enlace público definitivo.
+El cierre visual, las capturas de Power BI y el proyecto PBIP están disponibles en el [repositorio público](https://github.com/OJ-Edelsonn/procurement-intelligence-supplier-risk-peru). La versión estable está documentada en el release [v1.0.0](https://github.com/OJ-Edelsonn/procurement-intelligence-supplier-risk-peru/releases/tag/v1.0.0); su difusión en LinkedIn queda como actividad opcional.
 
 ## Bullets de CV en español
 
