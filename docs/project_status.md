@@ -1,6 +1,6 @@
 # Estado del proyecto
 
-Fecha de corte documental: 2026-08-31.
+Fecha de corte documental: 2026-09-01.
 
 | Fase | Entregable | Estado | Evidencia principal |
 |---:|---|---|---|
@@ -22,18 +22,18 @@ Fecha de corte documental: 2026-08-31.
 | 15 | Automatización | Completa para el pipeline core | `reports/automation/phase15_pipeline_run.json` |
 | 16 | Benchmark y resultados | Completa | Incluye actualización final de Power BI en 200 s |
 | 17 | Documentación | Completa | README, capturas, resultados y evidencia de validación sincronizados |
-| 18 | GitHub final | Preparación técnica completa, publicación pendiente | CI, plantilla de PR, licencia, cita y checklist listos |
-| 19 | CV, LinkedIn y entrevistas | Borrador verificable completo | Capturas disponibles; falta añadir el enlace público después de publicar |
+| 18 | GitHub final | Completa | Release [v1.0.0](https://github.com/OJ-Edelsonn/procurement-intelligence-supplier-risk-peru/releases/tag/v1.0.0), CI, licencia, cita y checklist |
+| 19 | CV, LinkedIn y entrevistas | Borrador verificable completo | Enlaces públicos incorporados; difusión en LinkedIn queda opcional |
 
 ## Validación del cierre técnico independiente
 
 - Suite local: 116 pruebas aprobadas.
-- CI en GitHub: aprobado sobre el PR borrador de integración.
+- CI en GitHub: aprobado después de integrar el cierre técnico en `main`.
 - Registro documental: sincronizado con su configuración canónica.
 - Enlaces de fuentes: 20/20 accesibles el 2026-08-28.
 - Pipeline core observado: 7 etapas ejecutadas, 5 evidencias reutilizadas, 0 fallos.
 - Power BI: actualización completa en 200 segundos; 8/8 validaciones y 5/5 capturas aprobadas.
-- Publicación final: todavía no realizada; no forma parte de la validación técnica local.
+- Publicación final: repositorio, fuente PBIP y release `v1.0.0` disponibles públicamente en GitHub.
 
 ## Cierre de Power BI
 
@@ -43,4 +43,4 @@ Fecha de corte documental: 2026-08-31.
 4. `reports/powerbi/phase14_powerbi_validation.json` terminó `PASS` con 8/8 controles.
 5. El benchmark y el README incorporan la evidencia final.
 
-Quedan fuera del cierre técnico la publicación en Power BI Service, el enlace público, el merge/release de GitHub y la incorporación de ese enlace a los materiales profesionales.
+El cierre formal incluye el repositorio público, el [proyecto PBIP](https://github.com/OJ-Edelsonn/procurement-intelligence-supplier-risk-peru/tree/main/powerbi/project), la evidencia visual y el release [v1.0.0](https://github.com/OJ-Edelsonn/procurement-intelligence-supplier-risk-peru/releases/tag/v1.0.0). La publicación en Power BI Service y la difusión en LinkedIn quedan como actividades opcionales posteriores.

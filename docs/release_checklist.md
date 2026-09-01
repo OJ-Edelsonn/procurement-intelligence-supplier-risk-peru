@@ -20,7 +20,7 @@
 - [x] Actualización final completada y cronometrada: 200 segundos.
 - [x] Cinco capturas definitivas incorporadas.
 - [x] Validación `phase14_powerbi_validation.json` en `PASS`.
-- [ ] Archivo publicado o enlace documentado sin exponer credenciales.
+- [x] Proyecto PBIP público [documentado en GitHub](https://github.com/OJ-Edelsonn/procurement-intelligence-supplier-risk-peru/tree/main/powerbi/project), sin datos locales ni credenciales; Power BI Service queda opcional.
 
 ## Portafolio
 
@@ -28,4 +28,4 @@
 - [x] Licencias de código y datos se distinguen claramente.
 - [x] Bullets de CV coinciden con artefactos versionados.
 - [x] No se afirma ahorro manual, ventas, adopción ni impacto no observado.
-- [ ] Release/tag creado solo después de aprobar los puntos anteriores.
+- [x] Release/tag final [v1.0.0](https://github.com/OJ-Edelsonn/procurement-intelligence-supplier-risk-peru/releases/tag/v1.0.0) documentado después de aprobar los controles anteriores.

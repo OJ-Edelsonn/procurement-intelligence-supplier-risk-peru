@@ -1,12 +1,15 @@
 # Procurement Intelligence & Supplier Risk — Perú
 
 [![CI](https://github.com/OJ-Edelsonn/procurement-intelligence-supplier-risk-peru/actions/workflows/ci.yml/badge.svg)](https://github.com/OJ-Edelsonn/procurement-intelligence-supplier-risk-peru/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/OJ-Edelsonn/procurement-intelligence-supplier-risk-peru?label=release)](https://github.com/OJ-Edelsonn/procurement-intelligence-supplier-risk-peru/releases/tag/v1.0.0)
 [![Python 3.11](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Solución end-to-end de Data/BI para analizar contratación pública peruana, inteligencia comercial y exposición a proveedores usando datos abiertos oficiales de OECE/SEACE.
 
 > Estado: solución técnica completa y validada. El pipeline automatizado ejecutó 7 etapas, reutilizó 5 evidencias aprobadas y terminó con 0 fallos en 477.81 segundos. Power BI cerró con 5 páginas, 30 visuales, actualización final exitosa en 200 segundos y validación `PASS`.
+
+Versión estable: [v1.0.0](https://github.com/OJ-Edelsonn/procurement-intelligence-supplier-risk-peru/releases/tag/v1.0.0). El [proyecto PBIP versionable](https://github.com/OJ-Edelsonn/procurement-intelligence-supplier-risk-peru/tree/main/powerbi/project) y sus cinco capturas finales forman parte de la publicación; el despliegue en Power BI Service queda como distribución opcional.
 
 ## Problema de negocio
 

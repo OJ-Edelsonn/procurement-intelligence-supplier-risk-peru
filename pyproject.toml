@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "procurement-intelligence-supplier-risk-peru"
-version = "0.1.0"
+version = "1.0.0"
 description = "Reproducible procurement intelligence pipeline for official Peruvian open contracting data."
 readme = "README.md"
 requires-python = ">=3.11"
